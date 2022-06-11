@@ -35,7 +35,7 @@
 
 ** @Qualifier > @Primary > Bean Name
 
-** If there is only one bean type, it does not really matter the bean name.
+** If there is only one instance of the bean type, it does not really matter the bean name.
 
 
 * There should be only ONE @Autowired constructor in a class
