@@ -44,7 +44,7 @@
 * @Autowired attribute "required" can only be used with setters. NOT constructor.
 
 
-* @Autowired support generic types
+* @Autowired support generic types.
 
 
 * Alias
