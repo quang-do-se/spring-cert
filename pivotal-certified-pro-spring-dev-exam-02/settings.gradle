@@ -1,0 +1,99 @@
+rootProject.name = 'pivotal-certified-pro-spring-dev-exam-02'
+
+println(' This project is a Criminal Evidence Management System proof of concept application. It is meant to be used together with the ' +
+        '"Pivotal Certified Professional Spring Developer Exam, 2nd Edition" ' +
+        ' published by Apress in order to learn and practice Spring 5.x. ')
+
+include 'chapter00:dao'
+include 'chapter00:repos'
+
+include 'chapter02:beans'
+include 'chapter02:beans-practice'
+include 'chapter02:pojos'
+include 'chapter02:pojos-practice'
+include 'chapter02:config'
+include 'chapter02:config-practice'
+include 'chapter02:xml'
+include 'chapter02:boot'
+
+include 'chapter03:test-base'
+include 'chapter03:junit-tests'
+include 'chapter03:jupiter-tests'
+include 'chapter03:spring-tests-junit'
+include 'chapter03:spring-tests-jupiter'
+include 'chapter03:spring-profiles'
+include 'chapter03:boot-test'
+include 'chapter03:spring-tests-practice'
+
+include 'chapter04:aop'
+include 'chapter04:aop-xml'
+include 'chapter04:aop-practice'
+include 'chapter04:aop-base'
+include 'chapter04:boot-aop'
+include 'chapter04:aop-extras'
+
+include 'chapter05:jdbc'
+include 'chapter05:jdbc-practice'
+include 'chapter05:transactions'
+include 'chapter05:transactions-practice'
+include 'chapter05:hibernate'
+include 'chapter05:hibernate-practice'
+include 'chapter05:emf'
+include 'chapter05:emf-practice'
+include 'chapter05:data-jpa'
+include 'chapter05:sec-data-jpa'
+include 'chapter05:data-jpa-practice'
+include 'chapter05:boot-jpa'
+include 'chapter05:mongo-simple'
+include 'chapter05:mongo-transactions'
+include 'chapter05:boot-mongo'
+include 'chapter05:sandbox'
+
+include 'chapter06:mvc-basic'
+include 'chapter06:mvc-basic-practice'
+include 'chapter06:mvc-basic-xml'
+include 'chapter06:mvc-thymeleaf'
+include 'chapter06:mvc-views'
+include 'chapter06:boot-web'
+include 'chapter06:boot-web-practice'
+
+include 'chapter07:boot-sec'
+include 'chapter07:mvc-sec'
+include 'chapter07:mvc-sec-xml'
+include 'chapter07:mvc-sec-practice'
+include 'chapter07:mvc-sec-thymeleaf'
+
+include 'chapter08:rest-classic'
+include 'chapter08:rest-classic-secured'
+include 'chapter08:boot-rest-jetty'
+include 'chapter08:boot-rest'
+include 'chapter08:boot-rest-practice'
+include 'chapter08:boot-rest-secured'
+
+include 'chapter09:classic-app'
+include 'chapter09:boot-app'
+include 'chapter09:secured-boot-app'
+include 'chapter09:prometheus-boot-app'
+
+//cannot be included kotlin works with JDK 8
+//include 'chapter10'
+
+include 'chapter11:entities'
+include 'chapter11:discovery-server'
+include 'chapter11:persons-server'
+include 'chapter11:detectives-server'
+include 'chapter11:web-client'
+
+include 'chapter12:reactive-sandbox'
+include 'chapter12:reactive-boot-kinda'
+include 'chapter12:reactive-boot-hybrid'
+include 'chapter12:reactive-boot-mongo'
+include 'chapter12:reactive-boot-r2dbc'
+
+rootProject.children.each { project ->
+    project.buildFileName = "${project.name}.gradle"
+    assert project.projectDir.isDirectory()
+    assert project.buildFile.exists()
+    assert project.buildFile.isFile()
+}
+

@@ -1,0 +1,51 @@
+buildscript {
+    def springRepo = 'https://repo.spring.io'
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "$springRepo/release" }
+        maven { url "$springRepo/snapshot" }
+        maven { url "$springRepo/milestone" }
+    }
+
+    dependencies {
+        classpath boot.springBootPlugin
+    }
+}
+
+apply plugin: 'java-library'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+dependencies {
+    compile project(':chapter11:entities')
+    implementation boot.starterWeb, boot.starterThymeleaf, boot.actuator
+    implementation cloud.cloudStarter, cloud.eurekaClient, spring.jdbc, misc.jaxbApi
+}
+
+dependencyManagement {
+    imports {
+        mavenBom cloud.bom
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'PASSED', 'FAILED', 'SKIPPED'
+    }
+}
+
+jar {
+    archiveBaseName = "web-client"
+    manifest {
+        attributes(
+                "Created-By": System.getProperty('java.version'),
+                "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 09 - Spring Boot REST",
+                "Implementation-Version": archiveVersion,
+                "Main-Class"         : "com.apress.cems.web.WebClient",
+                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+}

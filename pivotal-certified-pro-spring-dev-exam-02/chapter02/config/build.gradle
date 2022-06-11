@@ -1,0 +1,22 @@
+plugins {
+    id 'java-library'
+}
+
+ext.moduleName = 'com.apress.cems.config'
+
+dependencies {
+    api project(':chapter02:pojos')
+    api project(':chapter02:beans')
+    api misc.h2, spring.jdbc, spring.webmvc, misc.jsr250, misc.inject, misc.ojdbc
+}
+
+jar {
+    manifest {
+        attributes(
+                "Created-By": System.getProperty('java.version'),
+                "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 02 - Configurations",
+                "Implementation-Version": archiveVersion,
+                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+}

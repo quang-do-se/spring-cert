@@ -1,0 +1,25 @@
+spring:
+  h2:
+    console:
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'beans,health'
+
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.data.r2dbc.connectionfactory: DEBUG
+    com.apress.cems.boot: DEBUG
+    io.r2dbc.h2: INFO
+    h2database: WARN

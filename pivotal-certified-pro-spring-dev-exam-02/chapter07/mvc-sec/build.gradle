@@ -1,0 +1,31 @@
+plugins {
+    id 'java-library'
+}
+apply plugin: 'war'
+
+ext.moduleName = 'com.apress.cems.sec'
+
+dependencies {
+    compile project(':chapter05:sec-data-jpa')
+    compile("org.postgresql:postgresql:42.3.5")
+    compile spring.webmvc, hibernate.validator, misc.h2, misc.hikari, misc.jstl
+    compile  spring.securityWeb, spring.securityTaglibs,spring.securityConfig
+    compileOnly misc.servletApi
+
+    testCompile testing.api, testing.platformRunner, testing.mockito, spring.test, testing.mockito, testing.hamcrest, spring.securityTest
+    testImplementation testing.api
+    testRuntime testing.engine, testing.platformRunner
+}
+
+war {
+    archiveBaseName = 'mvc-sec'
+
+    manifest {
+        attributes(
+                "Created-By": System.getProperty('java.version'),
+                "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 07 - Spring Web Security using Java Configuration",
+                "Implementation-Version": archiveVersion,
+                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+}

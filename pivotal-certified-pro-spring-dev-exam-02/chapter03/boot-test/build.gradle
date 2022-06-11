@@ -1,0 +1,74 @@
+buildscript {
+    def springRepo = 'https://repo.spring.io'
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "$springRepo/release" }
+        maven { url "$springRepo/snapshot" }
+        maven { url "$springRepo/milestone" }
+    }
+
+    dependencies {
+        classpath boot.springBootPlugin
+    }
+}
+
+apply plugin: 'java-library'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+ext.moduleName = 'com.apress.cems.boot.test'
+
+//override any Spring Boot configurations, so this version of JUnit Jupiter can be used
+ext['junit-jupiter.version'] = "5.6.0"
+
+dependencies {
+    api boot.starterWeb, boot.starterJpa, misc.ojdbc
+    compile("org.postgresql:postgresql:42.3.5")
+    testImplementation testing.api, boot.starterTest, misc.h2
+    testRuntime testing.engine, testing.platformRunner
+}
+
+test {
+
+    useJUnitPlatform()
+
+    systemProperties['junit.jupiter.execution.parallel.enabled'] = true
+    systemProperties['junit.jupiter.execution.parallel.config.strategy'] = 'dynamic'
+    systemProperties['junit.jupiter.execution.parallel.mode.default'] = 'concurrent'
+    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    forkEvery = 1
+
+    reports {
+        junitXml.enabled = true
+        html.enabled = true
+    }
+
+    testLogging {
+        events 'PASSED', 'FAILED', 'SKIPPED'
+    }
+    afterSuite { desc, result ->
+        if (!desc.parent) {
+            println "\nTest result: ${result.resultType}"
+            println "Test summary: ${result.testCount} tests, " +
+                    "${result.successfulTestCount} succeeded, " +
+                    "${result.failedTestCount} failed, " +
+                    "${result.skippedTestCount} skipped"
+        }
+    }
+}
+
+// de-comment this after leaving a single main class to build jar
+jar {
+    archiveBaseName = "sample-boot"
+    manifest {
+        attributes(
+                "Created-By": System.getProperty('java.version'),
+                "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 03 - Spring Boot Testing",
+                "Implementation-Version": archiveVersion,
+                "Main-Class"         : "com.apress.cems.boot.Application",
+                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+}
+

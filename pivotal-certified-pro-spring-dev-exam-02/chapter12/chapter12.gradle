@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+}
+
+subprojects {
+    group 'com.apress.cems.micro'
+    if (!project.name.contains("boot")) {
+        apply plugin: 'java'
+        apply plugin: 'idea'
+
+        dependencies {
+            compile misc.lang3, misc.ojdbc, misc.slf4j
+            compile (misc.logback) {
+                exclude group: "javax.activation", module: "activation"
+                exclude group: "edu.washington.cs.types.checker", module: "checker-framework"
+            }
+        }
+
+        afterEvaluate {
+            repositories {
+                jcenter()
+            }
+
+            compileJava {
+                inputs.property("moduleName", moduleName)
+                doFirst {
+                    options.compilerArgs = [
+                            '-proc:none',
+                            '--module-path', classpath.asPath,
+                    ]
+                    classpath = files()
+                }
+            }
+        }
+    }
+}

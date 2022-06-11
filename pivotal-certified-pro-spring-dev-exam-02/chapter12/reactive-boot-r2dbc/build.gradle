@@ -1,0 +1,59 @@
+buildscript {
+    def springRepo = 'https://repo.spring.io'
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "$springRepo/release" }
+        maven { url "$springRepo/snapshot" }
+        maven { url "$springRepo/milestone" }
+        maven { url "$springRepo/libs-milestone" }
+    }
+
+    dependencies {
+        classpath boot.springBootPlugin
+    }
+}
+
+apply plugin: 'java-library'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+dependencies {
+    implementation boot.starterR2dbc, misc.r2dbcH2, boot.starterWebflux, boot.actuator
+    //compileOnly misc.lombok
+    //annotationProcessor misc.lombok
+
+    testImplementation testing.reactorTest
+    testImplementation boot.r2dbcTest
+    testImplementation (boot.starterTest) {
+        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
+        exclude group: "junit", module: "junit"
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom boot.r2dbcBom
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'PASSED', 'FAILED', 'SKIPPED'
+    }
+}
+
+jar {
+    archiveBaseName = "reactive-boot-r2dbc"
+    manifest {
+        attributes(
+                "Created-By": System.getProperty('java.version'),
+                "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 12 - Spring Boot R2DBC app",
+                "Implementation-Version": archiveVersion,
+                "Main-Class"         : "com.apress.cems.reactive.R2dbcApplication",
+                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+}

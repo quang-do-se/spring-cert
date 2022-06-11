@@ -1,0 +1,15 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+#      path-mapping:
+  #        health: salud
+  endpoint:
+    httptrace:
+      enabled: true
+      cache:
+        time-to-live: 6000
+  trace:
+    http:
+      include: remote_address, parameters

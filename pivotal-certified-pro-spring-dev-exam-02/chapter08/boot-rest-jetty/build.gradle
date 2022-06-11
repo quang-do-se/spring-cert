@@ -1,0 +1,57 @@
+buildscript {
+    def springRepo = 'https://repo.spring.io'
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "$springRepo/release" }
+        maven { url "$springRepo/snapshot" }
+        maven { url "$springRepo/milestone" }
+    }
+
+    dependencies {
+        classpath boot.springBootPlugin
+    }
+}
+
+apply plugin: 'java-library'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+ext.moduleName = 'com.apress.cems.rest'
+
+dependencies {
+    compile boot.starterJpa, boot.starterJetty
+    compile (boot.starterWeb){
+        exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+    }
+    runtimeOnly misc.h2
+    implementation boot.actuator
+
+    testImplementation testing.restAssured, testing.restAssuredAll
+    testImplementation (boot.starterTest) {
+        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
+        exclude group: "junit", module: "junit"
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'PASSED', 'FAILED', 'SKIPPED'
+    }
+}
+
+jar {
+    archiveBaseName = "boot-rest-jetty"
+    manifest {
+        attributes(
+                "Created-By": System.getProperty('java.version'),
+                "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 08 - Spring Boot REST on Jetty",
+                "Implementation-Version": archiveVersion,
+                "Main-Class"         : "com.apress.cems.RestApplication",
+                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+}
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/tmp/mvc-basic.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/tmp/mvc-basic.log.%d.gz</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="com.apress.cems" level="debug"/>
+
+    <logger name="org.springframework" level="debug"/>
+
+    <logger name="org.hibernate.SQL" additivity="false" level="off"/>
+
+    <logger name="org.hibernate.type" additivity="false" level="off"/>
+
+    <logger name="org.hibernate.tool.hbm2ddl" level="off"/>
+
+    <root level="info">
+        <appender-ref ref="console" />
+        <appender-ref ref="FILE"/>
+    </root>
+
+    <root level="debug">
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

@@ -1,0 +1,20 @@
+plugins {
+    id 'java-library'
+}
+
+ext.moduleName = 'com.apress.cems.dao'
+
+dependencies {
+    compile hibernate.core, misc.javaxValidation, misc.jacksonDatabind, misc.jacksonJsr310, spring.contextSupport
+}
+
+jar {
+    manifest {
+        attributes(
+                "Created-By": System.getProperty('java.version'),
+                "Specification-Title": "Pivotal Certified Professional Spring Developer Exam - Chapter 0",
+                "Implementation-Version": archiveVersion,
+                "Class-Path": configurations.compile.collect { it.getName() }.join(' ')
+        )
+    }
+}

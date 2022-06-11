@@ -1,0 +1,53 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    group 'com.apress.cems'
+    if (!project.name.contains("boot")) {
+        apply plugin: 'java'
+        apply plugin: 'idea'
+
+        dependencies {
+            compile project(':chapter00:dao')
+            compile misc.lang3, misc.slf4j
+
+            compile (misc.logback) {
+                exclude group: "javax.activation", module: "activation"
+                exclude group: "edu.washington.cs.types.checker", module: "checker-framework"
+            }
+
+            testCompile spring.test, testing.api
+            testRuntimeOnly testing.platformRunner, testing.engine
+        }
+
+        //because Gradle is an idiot
+        test {
+            exclude 'module-info.class'
+            useJUnitPlatform()
+
+            testLogging {
+                events 'PASSED', 'FAILED', 'SKIPPED'
+            }
+        }
+
+        afterEvaluate {
+            repositories {
+                jcenter()
+            }
+
+            compileJava {
+                inputs.property("moduleName", moduleName)
+                doFirst {
+                    options.compilerArgs = [
+                            '-proc:none',
+                            '--module-path', classpath.asPath,
+                    ]
+                    classpath = files()
+                }
+            }
+        }
+    }
+}

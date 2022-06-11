@@ -1,0 +1,987 @@
+#+STARTUP: showall
+
+* An application programming interface (API) describes what a class/method does; a Service Provider Interface (SPI) describes what you need to extend and implement.
+
+
+* There are 2 types of IoC containers:
+  - org.springframework.beans.factory.BeanFactory (interface)
+  - org.springframework.context.ApplicationContext (interface)
+
+** BeanFactory vs ApplicationContext
+   - ApplicationContext is more advanded than BeanFactory
+   - ApplicationContext is a superset and also implements BeanFactory interface
+   - ApplicationContext provides life cycle management for Spring Beans
+   - BeanFactory is the root inteface for accessing a Spring Bean container
+
+
+* Spring IoC container:
+  - The Core libraries from Spring Framework (Inversion of Control and Dependency Injection)
+  - Context - virtual memory location inside Spring Framework
+    - All the configurations how to create a bin
+    - Dependencies that it has
+    - The intial values for that bin
+  - Bean
+  - Spring Expression Language (SPEL)
+
+  - The configuration metadata is represented in XML, Java annotations, or Java code.
+
+* Autowiring order
+  - Type (class, abstract, interface...)
+  - @Qualifier
+  - @Primary
+  - Bean Name - @Bean("<name>"), @Component("<name>"), @Named("<name")
+
+** If both the @Qualifier and @Primary annotations are present, then the @Qualifier annotation will have precedence. Basically, @Primary defines a default, while @Qualifier is very specific.
+
+** @Qualifier > @Primary > Bean Name
+
+** If there is only one bean type, it does not really matter the bean name.
+
+
+* There should be only ONE @Autowired constructor in a class
+
+
+* @Autowired attribute "required" can only be used with setters. NOT constructor.
+
+
+* @Autowired support generic types
+
+
+* Alias
+  - Currently cannot create Aliases for stereotype annotation
+  - This can be done with @Bean annotation
+    - The first alias will be the unique identifier for the bean
+    - Everything after that will be treated as alias
+
+    #+begin_src java
+      @Bean(name= {"beanOne", "beanTwo"})
+      SimpleBean simpleBean(){
+          return new SimpleBeanImpl();
+      }
+    #+end_src
+
+
+* Try to avoid @Lazy, it can cause some errors not catched early
+
+
+* Constructor should have NO more than 6 arguments
+
+
+* @Autowired Constructor and Setter can be used together
+
+
+* Using @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE) does nothing by itself
+  - The "proxyMode" attribute must be set
+
+  - Be default, "proxyMode = ScopedProxyMode.DEFAULT" is used
+    - DEFAULT typically equals NO proxy
+    - SCOPE_PROTOTYPE will still have NO effect
+
+  - If the class implements an interface, use "proxyMode = ScopedProxyMode.INTERFACES"
+    - The IoC container will create a JDK interface-based dynamic proxy
+    - Can intercept both public and non-public methods (if the interface does not contain private methods. Default methods are proxied like any normal method.)
+
+  - If the class does not implement an interface, use "proxyMode = ScopedProxyMode.TARGET_CLASS"
+    - The IoC container will create a CGLIB-based class proxy
+    - Can only intercept public methods
+
+  - Using wrong "proxyMode" will cause UnsatisfiedDependencyException
+
+  - Proxy beans help add more behavior to the developer-defined beans
+
+
+* Limitations of CGLIB proxies are:
+
+** Requires the class of the proxied object to be non-final. Subclasses cannot be created from final classes.
+** Requires methods in the proxied object to be non-final. Final methods cannot be overridden.
+** Does not support self-invocations. Self-invocation is where one method of the object invokes another method on the same object.
+** Requires a third-party library. Not built into the Java language and thus require a library. The CGLIB library has been included into Spring, so when using the Spring framework, no additional library is required.
+
+
+* Bean lifecycle
+
+** @PostConstruct, afterPropertiesSet() from InitializingBean interface, `initMethod` property of @Bean property are called after the bean is created and dependencies are injected (@Autowired)
+   - Everything in @Bean will happen before these init methods
+   - Only one method should be annotated with @PostConstruct
+
+** @PreDestroy, destroy() from DisposableBean interface, `destroyMethod` property of @Bean property are called before the bean is destroyed
+
+** Order:
+   1. @PostConstruct
+   2. afterPropertiesSet() from InitializingBean interface
+   3. `initMethod` property of @Bean property
+   4. @PreDestroy
+   5. destroy() from DisposableBean interface
+   6. `destroyMethod` property of @Bean property
+
+
+* BeanFactoryPostProcessor vs BeanPostProcessor (diagrams)
+
+** BeanFactoryPostProcessor: Factory hook that allows for custom modification of an application context's _bean definitions_, adapting the bean property values of the context's underlying bean factory.
+   - @Value placeholders are injected before Configuration classes are instantiated.
+   - @Value is injected by PropertySourcesPlaceholderConfigurer bean.
+
+**  BeanPostProcessor: Factory hook that allows for custom modification of new _bean instances_ - for example, checking for marker interfaces or wrapping beans with proxies.
+
+
+* Don't couple application code with Spring infrastructure
+
+
+* @Vaolue can have $ for scalar and # for reference
+  - See SpEL
+
+
+* JSR 330 @Qualifier
+
+  #+begin_src java
+    package jsr330;
+
+    import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+    import org.springframework.context.annotation.ComponentScan;
+    import org.springframework.context.annotation.Configuration;
+
+    import javax.annotation.PostConstruct;
+    import javax.inject.Inject;
+    import javax.inject.Named;
+    import java.lang.annotation.ElementType;
+    import java.lang.annotation.Retention;
+    import java.lang.annotation.RetentionPolicy;
+    import java.lang.annotation.Target;
+
+    import static jsr330.Jsr330.Platform;
+
+    @Configuration
+    @ComponentScan
+    public class Jsr330 {
+
+        public static void main(String[] args) {
+            new AnnotationConfigApplicationContext(Jsr330.class);
+        }
+
+        @Inject
+        @Platform(Platform.OperatingSystems.ANDROID)
+        private MarketPlace android;
+
+        @Inject
+        @Platform(Platform.OperatingSystems.IOS)
+        private MarketPlace ios;
+
+        @PostConstruct
+        public void qualifyTheTweets() {
+            System.out.println("ios:" + this.ios);
+            System.out.println("android:" + this.android);
+        }
+
+        // the type has to be public!
+        @Target({ElementType.FIELD,
+                ElementType.METHOD,
+                ElementType.TYPE,
+                ElementType.PARAMETER})
+        @Retention(RetentionPolicy.RUNTIME)
+        @javax.inject.Qualifier
+        public static @interface Platform {
+
+            OperatingSystems value();
+
+            public static enum OperatingSystems {
+                IOS,
+                ANDROID
+            }
+        }
+    }
+
+    interface MarketPlace {
+    }
+
+    @Named
+    @Platform(Platform.OperatingSystems.IOS)
+    class AppleMarketPlace implements MarketPlace {
+
+        @Override
+        public String toString() {
+            return "apple";
+        }
+    }
+
+    @Named
+    @Platform(Platform.OperatingSystems.ANDROID)
+    class GoogleMarketPlace implements MarketPlace {
+
+        @Override
+        public String toString() {
+            return "android";
+        }
+    }
+  #+end_src
+
+
+* Gradle's 'buildscript' block determines which plugins, task classes, and other classes are available for use in the rest of the build script.
+  - 'dependencies classpath' is for Gradle build script itself
+  - 'dependencies compile' is for the project
+
+
+* @ComponentScan and @SpringBootApplication, by default, scan the base packages and its subpackages.
+
+** @SpringBootApplication
+   - @SpringBootApplication(scanBasePackages={...})
+   - @SpringBootApplication(scanBasePackageClasses={...})
+
+   - @SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
+
+** @ComponentScan can be used together with @Import
+
+   #+begin_src java
+     @Configuration
+     @ComponentScan(basePackages =  {"com.apress.cems.repos"})
+     @Import(ProdDataSourceConfig.class)
+     public class RepositoryConfig {
+
+         @Autowired
+         DataSource dataSource;
+
+         @Bean
+         DetectiveRepo detectiveRepo(){
+             return new JdbcDetectiveRepo(dataSource);
+         }
+     }
+   #+end_src
+
+
+* @RestController: @Controller + @ResponseBody
+
+
+* ApplicationContext
+  - is any instance of a class implementing interface ApplicationContext
+  - is a central interface to provide configuration for an application
+
+
+* @ContextConfiguration defines class-level metadata that is used to determine how to load and configure an ApplicationContext for *Integration Tests*. (Spring framework)
+
+
+* @SpringBootTest
+
+  - The @SpringBootTest is basically a @ContextConfiguration on steroids. Under the hood, when no loader is specified (like in the @ContextConfiguration(loader = AnnotationConfigContextLoader.class) examples from previous sections, a SpringBootContextLoader loads a Spring Boot configuration from a class annotated with @SpringBootConfiguration or any specialization of it, like @SpringBootApplication.
+
+  - Is meta annotated with `@ExtendWith(SpringExtension.class)`
+
+  - @Sql and @SqlGroup to execute SQL scripts before or after running test methods
+
+
+* @SpringBootConfiguration is a specialization of @Configuration
+
+
+* @SpringBootApplication has the following meta annotations: @ComponentScan, @EnableAutoConfiguration, @SpringBootConfiguration
+
+
+* @Resource(name="beanName") = @Autowired + @Qualifier
+
+
+* JUnit 4
+  - @RunWith(SpringJUnit4ClassRunner.class) or @RunWith(SpringRunner.class)
+  - Must have @ContextConfiguration to tell the runner class where the bean definitions come from
+  - @RunWith(MockitoJUnitRunner.class)
+
+
+* JUnit 5
+  - @ExtendWith(SpringExtension.class)
+  - @SpringJUnitConfig = @ExtendWith(SpringExtension.class) + @ContextConfiguration
+  - @ExtendWith(MockitoExtension.class)
+
+
+* Setup Mockito
+  - MockitoAnnotations.initMocks(this) in setUp() or @Before methods
+  - Use runner @ExtendWith(MockitoExtension.class)
+
+
+* @Transactional + @Rollback
+  - By default, unit test always rollback with @Transactional
+  - To disable rollback in unit tests, use @Rollback(false)
+  - @Commit = @Rollback(false)
+
+
+* By default, a transaction will be rolled back on *RuntimeException* and *Error* but not on checked exceptions (business exceptions).
+  - https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/interceptor/DefaultTransactionAttribute.html#rollbackOn-java.lang.Throwable-
+
+
+* Using PropertiesLoaderUtils to load property files
+
+  #+begin_src java
+    @Bean("connectionProperties")
+    Properties connectionProperties(){
+        try {
+            return PropertiesLoaderUtils.loadProperties(
+                                                        new ClassPathResource("db/prod-datasource.properties"));
+        } catch (IOException e) {
+            throw new ConfigurationException("Could not retrieve connection properties!", e);
+        }
+    }
+  #+end_src
+
+
+* Abstract classes and Spring
+  - Abstract classes does NOT support constructor injection
+    - Spring doesn't evaluate the @Autowired annotation on a constructor of an abstract class
+
+  - Setter injections work for abstract class
+    - However, we should use final keywork for the setter method so that the subclass can't override the setter method
+
+  - Using constructor injection for required dependencies and setter injection for optional dependencies is a good rule of thumb
+
+
+* There are three different ways in which you can define a Spring bean:
+  - Annotating your class with the stereotype @Component annotation (or its derivatives)
+    - The list of @Component derivatives includes:
+      - @Service
+      - @Repository
+      - @Controller
+
+  - Writing a bean factory method annotated with the @Bean annotation in a custom Java configuration class
+
+  - Declaring a bean definition in an XML configuration file
+
+
+* AOP
+** @EnableAspectJAutoProxy
+** @EnableAspectJAutoProxy(proxyTargetClass = true)
+** Local calls within the same class cannot be intercepted
+
+
+* Aspect
+
+** @After
+   - Is executed after the advised method regardless of the outcome
+** @Around
+   - Is most powerful type of advice because it encapsulates the target method and has control over its execution
+   - Decides whether the target method is called, and if so, when and if the result is to be returned
+   - It is the only advice with the power to do this
+
+
+* Entities = domain objects
+
+
+* JDBC Template
+
+** .query(...) for SELECT
+
+** .update(...) for INSERT, UPDATE, DELETE
+
+** .execute(...) for Data Definition Language
+
+
+* Transaction Management
+
+** Add a bean of type *org.springframework.transaction.PlatformTransactionManager* in a configuration class
+
+   #+begin_src java
+     @Bean
+     public PlatformTransactionManager transactionManager(){
+         return new DataSourceTransactionManager(dataSource());
+     }
+   #+end_src
+
+** Add @EnableTransactionManagement on top of @Configuration class
+
+** Annotate service methods with @Transactional
+   - Methods must be public due to AOP proxies
+
+** It is recommended and practical to annotate only concrete classes (and methods of concrete classes) with the @Transactional annotation
+   - It can be used with Interface and Abstract classes as well but whether the transactional behavior is applied depends on the type of proxy created
+
+** Use @Transactional in the service layer or the DAO/repository layer, but not both. There service layer is the usual choice, because service methods call multiple repository methods that needs to be executed in the same transaction.
+
+
+* Mutitple Transaction Managers (2 ways to handle NoUniqueBeanDefinitionException)
+
+** 1. Making configuration class annotated with @EnableTransactionManagement implement the org.springframework.transaction.annotation.TransactionManagementConfigurer interface
+
+** 2. Add @Primary for one of the beans
+
+** To use a specific manager, use *@Transactional(transactionManager = "specificManager")*
+
+
+* Hibernate
+
+** @MappedSuperClass: if an entity class extends a superclass, we need to mark superclass with this annotation so Hibernate knows
+
+** @Transient: Be default, all class members are treated as persistent unless annotated with @Transient
+
+** @Entity and @Id are mandatory for a domain class
+
+** @Version: The version field ensures integrity when performing the merge operation and for optimistic concurrency control. To make sure that a record is handled correctly in a transactional and distributed environment, this field is mandatory.
+
+** By default, the @Access type is AccessType.FIELD (JPA will read/write directly on the field, bypassing getters and setters)
+   - You can change this by placing annotations on getters. The @Access type will become AccessType.PROPERTY
+
+
+* Hibernate without JPA
+  - Need to declare a SessionFactory bean
+
+    #+begin_src java
+      // Configuration
+
+      @Bean
+      public SessionFactory sessionFactory() {
+          return new LocalSessionFactoryBuilder(dataSource())
+              .scanPackages("com.apress.cems.dao")
+              .addProperties(hibernateProperties())
+              .buildSessionFactory();
+      }
+
+      @Bean
+      public PlatformTransactionManager transactionManager() {
+          return new HibernateTransactionManager(sessionFactory());
+      }
+
+
+      // Use in repository
+
+      public HibernateRepo(SessionFactory sessionFactory) {
+          this.sessionFactory = sessionFactory;
+      }
+
+      protected Session session() {
+          return sessionFactory.getCurrentSession();
+      }
+    #+end_src
+
+
+* JPA - Java Persistence API
+
+** Components
+   - Persistence Context
+   - Entity Manager
+   - Entity Manager Factory
+   - Persistence Unit
+
+** Setup
+
+   #+begin_src java
+     // Configuration
+
+     @Bean
+     public PlatformTransactionManager transactionManager() {
+         return new JpaTransactionManager(entityManagerFactory());
+     }
+
+     @Bean
+     public EntityManagerFactory entityManagerFactory() {
+         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+         factoryBean.setPackagesToScan("com.apress.cems.dao");
+         factoryBean.setDataSource(dataSource());
+         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+         factoryBean.setJpaProperties(hibernateProperties());
+         factoryBean.afterPropertiesSet();
+         return factoryBean.getNativeEntityManagerFactory();
+     }
+
+
+     // Use in repository
+
+     private EntityManager entityManager;
+
+     @PersistenceContext
+     void setEntityManager(EntityManager entityManager) {
+         this.entityManager = entityManager;
+     }
+   #+end_src
+
+
+* Spring Data JPA
+
+** Reduce boiler-plate code by introducing abstract repositories
+
+   - Simply extends JpaRepository interface and Spring will implement the interface and add data functionalities (CRUD, pagination...) at runtime
+
+   #+begin_src java
+     public interface PersonRepo extends JpaRepository<Person, Long> {}
+   #+end_src
+
+
+** Add "@EnableJpaRepositories(basePackages = {"com.apress.cems.dj.repos"})" with @Configuration
+
+   - In case with multiple "entityManagerFactory" and multiple persistence contexts, specify "entityManagerFactoryRef" and "transactionManagerRef":
+
+     #+begin_src java
+       @EnableJpaRepositories(basePackages = {"com.apress.cems.dj.repos2"},
+                              entityManagerFactoryRef = "secondEntityManagerFactory",
+                              transactionManagerRef = "secondTransactionManager")
+     #+end_src
+
+** Setup
+
+   #+begin_src java
+     @Bean
+     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
+         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+         factoryBean.setDataSource(dataSource);
+         factoryBean.setPackagesToScan("com.apress.cems.dao");
+
+         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+         factoryBean.setJpaVendorAdapter(vendorAdapter);
+         factoryBean.setJpaProperties(hibernateProperties);
+         return factoryBean;
+     }
+
+     @Bean
+     public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
+         return new JpaTransactionManager(emf);
+     }
+
+     @Bean
+     public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+         return new PersistenceExceptionTranslationPostProcessor();
+     }
+   #+end_src
+
+*** With PersistenceUnitManager
+
+    #+begin_src java
+     @Bean
+     public EntityManagerFactory entityManagerFactory(){
+         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+         factoryBean.setPersistenceUnitManager(persistenceUnitManager());
+         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+         factoryBean.setJpaProperties(hibernateProperties());
+         factoryBean.afterPropertiesSet();
+         factoryBean.setLoadTimeWeaver(new InstrumentationLoadTimeWeaver());
+         return factoryBean.getNativeEntityManagerFactory();
+     }
+
+     @Bean
+     public PlatformTransactionManager transactionManager(){
+         return new JpaTransactionManager(entityManagerFactory());
+     }
+
+     @Bean
+     public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+         return new PersistenceExceptionTranslationPostProcessor();
+     }
+
+     @Bean
+     public PersistenceUnitManager persistenceUnitManager(){
+         MergingPersistenceUnitManager persistenceUnitManager = new MergingPersistenceUnitManager();
+         persistenceUnitManager.setPackagesToScan("com.apress.cems.dao");
+         persistenceUnitManager.setDefaultDataSource(dataSource());
+         return persistenceUnitManager;
+     }
+    #+end_src
+
+
+* Spring Boot JPA
+
+** No need for configuration.
+** Have "spring-boot-starter-data-jpa" on classpath and add approriate properties in application.yml
+
+
+* JDBCTemplate
+
+  - RowMapper<T>
+    - When each row of the ResultSet maps to a domain object
+    - Stateless and reusable
+    - Per-row basis
+
+  - RowCallbackHandler
+    - When no value should be returned
+    - Typically stateful
+    - Per-row basis
+
+  - ResultSetExtractor<T>
+    - When multiple rows, or multiple records from different tables returned in a ResultSet map to a single object
+    - Typically stateless and reusable
+    - Can access the whole ResultSet
+
+
+* Servlet (Interface)
+  - A servlet is a small Java program that runs within a Web server. Servlets receive and respond to requests from Web clients, usually across HTTP, the HyperText Transfer Protocol.
+
+** javax.servlet.ServletRequest (javax.servlet.http.HttpServletRequest) to access request details: headers, request, and session attributes
+
+** javax.servlet.ServletResponse (javax.servlet.http.HttpServletResponse) to enrich the response with new headers and attributes before being sent to the user
+
+
+* DispatchServlet configuration
+
+** Add @EnableWebMvc in @Configuration class
+
+** Has @Configuration class implement WebMvcConfigurer interface (this interface replaces WebMvcConfigurerAdapter class)
+
+** DefaultServletHttpRequestHandler is typically configured with a URL mapping of "/*" and the lowest priority relative to all others URL mappings and its sole responsiblity it to serve static resources
+
+
+* Default Exception Handler
+
+  #+begin_src java
+    // Declare implementation for SimpleMappingExceptionResolver
+    public class MissingExceptionResolver extends SimpleMappingExceptionResolver {
+        @Override
+        protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+            if (ex instanceof NoHandlerFoundException) {
+                ModelAndView model = new ModelAndView("error");
+                model.addObject("problem","URL not supported : " + request.getRequestURI());
+                response.setStatus(HttpStatus.NOT_FOUND.value());
+                return model;
+            }
+            return null;
+        }
+    }
+
+    // Set this exception resolver with the lowest priority, so that every time something goes wrong with the application, this exception resolver will be used first
+    @Bean
+    SimpleMappingExceptionResolver simpleMappingExceptionResolver(){
+        var resolver = new MissingExceptionResolver();
+        resolver.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return resolver;
+    }
+  #+end_src
+
+
+* Security
+
+** AuthenticatedVoter class will vote if an attribute of IS_AUTHENTICATED_FULLY or IS_AUTHENTICATED_REMEMBERED or IS_AUTHENTICATED_ANONYMOUSLY is present.
+
+** The default name of the spring security filter that is applied to all requests in a secured Spring web application: springSecurityFilterChain.
+
+** Using ant or mvc matchers to secure URLs is more secure than using tablibs.
+   - tablibs can hide a URL but if the user enters the link manually in the browser, the view will shown to the user, regardless of its role.
+   - We need to set the restriction in the configuration class as well using ant or mvc matchers.
+
+** To enable Method Security, add @EnableGlobalMethodSecurity(secureEnabled = true) on a Configuration class and add @Secured("<ROLE>") on the target method.
+   - It causes the class containing the method to be wrapped in a secure proxy (AOP) to restrict access only to users with certain <ROLE>
+
+
+* Gradle
+
+  - The `compile` and `runtime` configurations have been removed with Gradle 7.0. Please refer to the upgrade guide how to migrate to `implementation` and `api` configurations.
+  - If you want to expose dependencies use api or compile.
+  - If you don't want to expose dependencies (hiding your internal module) then use implementation.
+
+
+* RestTemplate
+
+** RestTemplate is thread-safe so it can access any number of services in different parts of an application.
+
+** Use `restTemplate.exchange(...)` to test the response status code. It returns ResponseEntity object.
+
+** `restTemplate.put(...)` and `restTemplate.delete(...)` return void.
+
+** *ForEntity methods return ResponseEntity objects. These contain the response status code as well as the object in the payload.
+
+** *ForObject methods do not return the HTTP status code.
+
+** ObjectFactory is not used as an argument in any method of RestTemplate.
+
+
+* @MockBean
+
+** We can use the @MockBean to add mock objects to the Spring application context. The mock will replace any existing bean of the same type in the application context.
+
+* Spring Web Test
+
+** @WebMvcTest
+   - Mock specific controller:
+
+     #+begin_src java
+       @WebMvcTest(controllers = {MultiplePersonController.class})
+       class SpringBootWebApplicationTest {
+
+           private MockMvc mockMvc;
+
+           @MockBean
+           private PersonService mockService;
+
+           @Autowired
+           private WebApplicationContext webApplicationContext;
+
+           @BeforeEach
+           void setUp() throws Exception {
+               mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+               // OR
+               mockMvc = MockMvcBuilders.standaloneSetup(new MultiplePersonController(...)).build();
+           }
+
+           // ...
+       }
+     #+end_src
+
+   @WebMvcTest(controllers = {MultiplePersonController.class})
+   - This annotation is the one to use when a test focuses only on Spring MVC components because it has the effect of *DISABLING* full autoconfiguration and registers configurations only relevant to MVC components; classes annotated with @Controller or @ControllerAdvice and classes implementing WebMvcConfigurer, but not @Service, @Repository, and so forth.
+   - MockMvc object can be injected with mock services.
+   - It can be used together with *@MockBean* to mock dependencies required by controllers being tested.
+   - It can be used together with *@WithMockUser* to test controllers that are part of an application secured with basic authentication.
+
+** @AutoConfigureMockMvc + @SpringBootTest
+   - Can be used with @SpringBootTest to bootstrp the full application context
+   - MockMvc object will be automatically configured with full context
+
+** @SpringBootTest alone
+   - Bootstrap the full Spring Boot context to tests to be run in. This annotation is specific to integration tests.
+   - Web application context is not mocked. It runs like a real server.
+
+*** Options of webEnvironment
+    - @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT): a server is started at random port, good for parallel testing
+    - @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+    - @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+    - @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+
+** Custom ports
+   - @LocalServerPort
+   - @Value("${local.management.port}")
+
+
+* Spring Data JPA
+
+** Declare an instant repository
+   - Have an repo interface extends the Repository interface
+   - Have an repo interface extends the CrudRepository interface (for CRUD operations out of the box)
+   - Have an repo interface extends the PagingAndSortingRepository interface (for CRUD operations + entity pagination out of the box)
+   - Have an repo interface extends the JpaRepository interface (for multiple methods out of the box + CRUD + PagingAndSorting)
+   - Have @RepositoryDefinition on top of repo interface (for decoupling from Spring components)
+
+
+* AOP annotation
+
+** Advice: @Before, @AfterReturning, @AfterThrowing, @After, @Around
+
+** Pointcut epxression:
+*** For Type matching: execution, within, this, target, args
+*** For Annotation matching: @annotation, @target, @args, @within
+
+
+* Web Application scopes: SCOPE_REQUEST, SCOPE_SESSION, SCOPE_APPLICATION
+
+
+* Spring provides the following mock objects to use in tests:
+** Environment
+** JNDI
+** Servlet API
+
+
+* Sterotype annotations:
+** Component
+** Service
+** Repository
+** Controller
+** Indexed
+
+
+* Cross-cutting concerns for an Enterprise Application:
+** Security
+** Caching
+** Logging
+** Monitoring
+** Data validation
+** Internationalization
+** Error detection and correction. Exception handling.
+** Memory management
+** Synchronization
+** Connecting to the database (connection pooling, reusing connections, open and close connections)
+** Transaction
+
+
+* Transaction
+
+** Declarative usage
+   - @Transactional
+
+** Programmatic usage
+   - TransactionTemplate class
+
+** Local Transaction
+   - Local transactions are resource-specific, such as a transaction associated with a JDBC connection. Local transactions may be easier to use, but have significant disadvantages: they cannot work across multiple transactional resources.
+
+** Global Transaction
+   - Global transactions enable you to work with multiple transactional resources, typically relational databases and message queues. For an Example, sending money from one bank to an another bank is a Global Transaction. Two banks work with two different resources like databases and the transaction takes place between them. Such a transaction is called as a Global Transaction.
+
+** Spring offers a consistent programming model across different transaction APIs, such as Java Transaction API (JTA), JDO (Java Data Objects), JDBC, Hibernate, and the Java Persistence API (JPA).
+
+
+* Spring Web jars
+
+** spring-web.jar
+   - @RestController, @ResponseBody, @RequestBody, @PathVariable, @RequestParam are present in the spring-web module.
+   - From `org.springframework:spring-web` dependency
+
+** spring-webmvc.jar
+   - This is where DispatchServlet class lives.
+   - From `org.springframework:spring-webmvc` dependency
+
+*** Spring MVC supports a variety of templating technologies, including Thymeleaf, FreeMarker, Mustache, and JSPs.
+
+** They both are in `org.springframework.boot:spring-boot-starter-web`
+
+
+* Spring Boot default logging support
+** Spring Boot uses Commons Logging for all internal logging but leaves the underlying log implementation open. Default configurations are provided for Java Util Logging, Log4J2, and Logback.
+
+
+* Allow bean definition overriding in Spring Boot (due to  name conflicts...)
+
+** spring.main.allow-bean-definition-overriding=true
+
+
+* Actuator
+
+** Allow all end points:
+   - `management.endpoints.web.exposure.include=*`
+   - `management.endpoints.enabled-by-default=true/false` # Whether to enable or disable all endpoints by default.
+
+** Exclude specific end points: `management.endpoints.web.exposure.exclude=env,beans`
+
+** Default HEATLH INDICATOR statuses: UP, DOWN, OUT_OF_SERVICE, UNKNOWN
+
+** Endpoints
+
+   - auditevents
+   - beans
+   - caches
+   - conditions
+   - configprops
+   - env
+   - flyway
+   - health
+   - httptrace
+   - info
+   - integrationgraph
+   - loggers
+   - liquibase
+   - metrics
+   - mappings
+   - quartz
+   - scheduledtasks
+   - sessions
+   - shutdown
+   - startup
+   - threaddump
+
+*** Additional endpoints for web applications
+
+    - heapdump
+    - jolokia
+    - logfile
+    - prometheus
+
+** Health Indicators
+   - cassandra: CassandraDriverHealthIndicator
+   - couchbase: CouchbaseHealthIndicator
+   - db: DataSourceHealthIndicator
+   - diskspace: DiskSpaceHealthIndicator
+   - elasticsearch: ElasticsearchRestHealthIndicator
+   - hazelcast: HazelcastHealthIndicator
+   - influxdb: InfluxDbHealthIndicator
+   - jms: JmsHealthIndicator
+   - ldap: LdapHealthIndicator
+   - mail: MailHealthIndicator
+   - mongo: MongoHealthIndicator
+   - neo4j: Neo4jHealthIndicator
+   - ping: PingHealthIndicator
+   - rabbit: RabbitHealthIndicator
+   - redis: RedisHealthIndicator
+   - solr: SolrHealthIndicator
+
+*** Status severity order can be changed with the property: management.health.status.order
+
+** Metrics
+*** JVM Metrics
+*** System Metrics
+*** Application Startup Metrics
+*** Logger Metrics
+
+
+* Custom Actuator endpoint
+
+** @EndPoint for both JMX and HTTP
+** @JmxEndpoint for JMX
+** @WebEndpoint for HTTP
+
+** /info and /health are default endpoints (/actuator is not an endpoint)
+
+
+* Spring Security
+
+** Enable method security: `@EnableGlobalMethodSecurity(securedEnabled = true)`
+   - @Secured is usually used in Service class
+   - Spring Security will wrap the service class in a secure proxy
+
+** Secured Method annotations:
+*** Supports SpEL expression (recommended in new applications): @PreAuthorize, @Prefilter, @PostAuthorize, @PostFilter
+*** Not Support SpEL espression: @Secured (securedEnabled = true), @RolesAllowed (jsr250Enabled = true)
+
+** Concepts
+
+   - _GrantedAuthority_ Object contains the information related to authority or roles, scopes, etc. assigned to the authenticated user (principal).
+   - _UserDetailsService_ retrieves the information from a database into _UserDetails_ object. Based on the implementation used, the information may be stored in a database, in memory or elsewhere if the custom implementation is used.
+   - _UserDetails_ object holds the information of user like username, password, authorities. This information is used to create an Authenticated Object.
+   - _Authentication_ object represents the token for authentication request after the request has been granted.
+
+   - *All* the requests are handled by _DelegatingFilterProxy_ and it sends the request to _FilterChainProxy_ for handling further Authentication flow.
+
+   - _DelegatingFitlerProxy_ is a bridge between Servlet container's life cycle and Spring's ApplicationContext
+     - DelegatingFilterProxy is a Servlet Filter. _Servlet Filters_ are executed just before the servlets are executed. So any security mechanism like authentication are implemented using filters, so that a valid user is accessing the secured resource.
+
+   - _DelegatingFilterProxy_ can be registered via standard Servlet container mechanisms, but delegate all the work to a Spring Bean that implements Filter (_FilterChainProxy_).
+
+   - _FilterChainProxy_ is a special Filter provided by Spring Security that allows delegating to many Filter instances through _SecurityFilterChain_.
+
+   - _SecurityFilterChain_ associates a request URL pattern with a list of filters.
+     - Filters under SecurityFilterChain are GenericFilterBeans, which are Spring Filters. These are also Servlet Filters, but have Spring implementation.
+
+
+* Spring Boot default embedded containers:
+
+  - For servlet stack applications, the spring-boot-starter-web includes Tomcat by including spring-boot-starter-tomcat, but you can use spring-boot-starter-jetty or spring-boot-starter-undertow instead.
+
+  - For reactive stack applications, the spring-boot-starter-webflux includes Reactor Netty by including spring-boot-starter-reactor-netty, but you can use spring-boot-starter-tomcat, spring-boot-starter-jetty, or spring-boot-starter-undertow instead.
+
+
+* spring.factories file
+
+  - Locate auto-configuration candidates in, for instance, your own starter module.
+  - Activate application listeners that creates a file containing the application process id and/or creates file(s) containing the port number(s) used by the running web server (if any). These listeners, ApplicationPidFileWriter and WebServerPortFileWriter, both implement the ApplicationListener interface.
+  - Register application event listeners regardless of how the Spring Boot application is created (configured). Implement a class that inherits from SpringApplicationEvent and register it in the spring.factories file.
+  - Register a filter to limit the auto-configuration classes considered. See AutoConfigurationImportFilter.
+  - Register failure analyzers. Failure analyzers implement the FailureAnalyzer interface and can be registered in the spring.factories file.
+  - Register the availability of view template providers. See the TemplateAvailabilityProvider interface.
+  - Customize the environment or application context prior to the Spring Boot application has started up. Classes that implementing the ApplicationListener, ApplicationContextListener or the EnvironmentPostProcessor interfaces may be registered in the spring.factories file.
+
+  - https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-autoconfigure/src/main/resources/META-INF/spring.factories
+
+
+* @TestConfiguration
+
+  - The @TestConfiguration annotation inherits from the @Configuration annotation, the main difference is that @TestConfiguration is excluded during Spring Boot’s component scanning.
+  - Configuration classes annotated with @TestConfiguration are excluded from component scanning, so we need to IMPORT them explicitly in every test where we want to autowire them.
+
+
+* HttpMessageConverter implementations
+
+** AtomFeedHttpMessageConverter - Converts to/from Atom feeds.
+** ByteArrayHttpMessageConverter - Converts to/from byte arrays.
+** FormHttpMessageConverter - Converts to/from HTML forms.
+** Jaxb2RootElementHttpMessageConverter - Reads classes annotated with the JAXB2 annotations @XmlRootElement and @XmlType and writes classes annotated with @XmlRootElement.
+** MappingJackson2HttpMessageConverter - Converts to/from JSON using Jackson 2.x.
+
+
+* Transaction Isolation
+
+  |------------------+-------------+----------------------+---------------|
+  |                  | dirty reads | non-repeatable reads | phantom reads |
+  |------------------+-------------+----------------------+---------------|
+  | READ_UNCOMMITTED | yes         | yes                  | yes           |
+  | READ_COMMITTED   | no          | yes                  | yes           |
+  | REPEATABLE_READ  | no          | no                   | yes           |
+  | SERIALIZABLE     | no          | no                   | no            |
+  |------------------+-------------+----------------------+---------------|
+
+
+* Transaction Propagation
+
+
+* Profile
+
+** @Profile({"p1", "!p2"}), registration will occur if profile 'p1' is active OR if profile 'p2' is not active.
+
+** @Profile({"p1", "p2"}), that class will not be registered or processed unless at least profile 'p1' OR 'p2' has been activated.
+
+
+* API vs. SPI
+** An application programming interface (API) describes what a class/method does; a Service Provider Interface (SPI) describes what you need to extend and implement.
