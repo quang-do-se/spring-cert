@@ -975,6 +975,18 @@
 
 * Transaction Propagation
 
+  |---------------+---------------------+------------------------------------------+--------------------------|
+  |               | require transaction | reuse the existing transaction           | create a new transaction |
+  |---------------+---------------------+------------------------------------------+--------------------------|
+  | REQUIRED      | yes                 | yes                                      | yes                      |
+  | NESTED        | yes                 | yes - create a nested one                | yes                      |
+  | MANDATORY     | yes                 | yes - throw and exception if none exists | no                       |
+  | REQUIRES_NEW  | yes                 | no  - suspend the current one            | yes                      |
+  | SUPPORTS      | no                  | yes                                      | no                       |
+  | NOT_SUPPORTED | no                  | no  - suspend the current one            | no                       |
+  | NEVER         | no                  | no  - throw an exception if one exists   | no                       |
+  |---------------+---------------------+------------------------------------------+--------------------------|
+
 
 * Profile
 
