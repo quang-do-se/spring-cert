@@ -854,7 +854,10 @@
 
 
 * Spring Boot default logging support
-** Spring Boot uses Commons Logging for all internal logging but leaves the underlying log implementation open. Default configurations are provided for Java Util Logging, Log4J2, and Logback.
+
+  - Spring Boot uses Commons Logging for all internal logging but leaves the underlying log implementation open.
+  - Default configurations are provided for _Java Util Logging_, _Log4J2_, and _Logback_.
+  - The default logging level is INFO.
 
 
 * Allow bean definition overriding in Spring Boot (due to  name conflicts...)
@@ -1148,7 +1151,7 @@
 
    - Inclusion of _ContentNegotiatingViewResolver_ and _BeanNameViewResolver_ beans.
 
-   - Support for serving static resources, including support for WebJars.
+   - Support for serving static resources, including support for _WebJars_.
 
    - Automatic registration of _Converter_, _GenericConverter_, and _Formatter_ beans.
 
