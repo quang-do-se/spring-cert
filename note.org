@@ -1139,3 +1139,25 @@
 
 ** Method Return Values
    - https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-return-types
+
+** Spring MVC Auto-configuration
+
+   Spring Boot provides auto-configuration for Spring MVC that works well with most applications.
+
+   The auto-configuration adds the following features on top of Spring’s defaults:
+
+   - Inclusion of _ContentNegotiatingViewResolver_ and _BeanNameViewResolver_ beans.
+
+   - Support for serving static resources, including support for WebJars.
+
+   - Automatic registration of _Converter_, _GenericConverter_, and _Formatter_ beans.
+
+   - Support for _HttpMessageConverters_.
+
+   - Automatic registration of _MessageCodesResolver_.
+
+   - Static _index.html_ support.
+
+   - Automatic use of a _ConfigurableWebBindingInitializer_ bean.
+
+   - Custom _Favicon_ support.
