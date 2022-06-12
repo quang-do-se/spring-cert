@@ -1057,3 +1057,17 @@
 ** @ConditionalOnManagementPort - Spring Boot Actuator management port is either: Different from server port, same as server port or disabled.
 ** @ConditionalOnRepositoryType - Specified type of Spring Data repository has been enabled.
 ** @ConditionalOnSingleCandidate - Spring bean of specified type (class) contained in bean factory and single candidate can be determined.
+
+
+* mvcMatcher() vs antMatcher()
+  - Generally mvcMatcher() is more secure than an antMatcher().
+  - mcvMatcher() matches a file extension (such as .html or .css).
+
+  - Example 1:
+    - antMatchers("/secured") matches only the exact /secured URL
+    - mvcMatchers("/secured") matches /secured as well as /secured.html, /secured.xyz, /secured​/
+  - Example 2:
+    - antMatchers("/users/**") matches any path starting with /users
+    - antMatchers("/users") matches only the exact /users URL
+    - mvcMatchers("/users") matches /users, /users​/, /users.html
+    - mvcMatchers("/*/users") matches /hr/users, /hr/users.html, /management/users, /management/users.html
