@@ -1130,3 +1130,12 @@
     | Meta-data support | Yes                      | No                       |
     | SpEL evaluation   | No                       | Yes                      |
     |-------------------+--------------------------+--------------------------|
+
+
+* Spring Web MVC
+
+** Method Arguments
+   - https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-arguments
+
+** Method Return Values
+   - https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-return-types
