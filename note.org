@@ -15,36 +15,40 @@
 
 
 * Spring IoC container:
-  - The Core libraries from Spring Framework (Inversion of Control and Dependency Injection)
-  - Context - virtual memory location inside Spring Framework
-    - All the configurations how to create a bin
-    - Dependencies that it has
-    - The intial values for that bin
-  - Bean
-  - Spring Expression Language (SPEL)
+** Components
+   - The Core libraries from Spring Framework (Inversion of Control and Dependency Injection)
+   - Context - virtual memory location inside Spring Framework
+     - All the configurations how to create a bin
+     - Dependencies that it has
+     - The intial values for that bin
+   - Beans
+   - Spring Expression Language (SPEL)
 
-  - The configuration metadata is represented in XML, Java annotations, or Java code.
+** The configuration metadata is represented in XML, Java annotations, or Java code.
 
-* Autowiring order
-  - Type (class, abstract, interface...)
-  - @Qualifier
-  - @Primary
-  - Bean Name - @Bean("<name>"), @Component("<name>"), @Named("<name")
+* Autowiring
+** Precedence
+   - Type (class, abstract, interface...)
+   - @Qualifier
+   - @Primary
+   - Bean Name - @Bean("<name>"), @Component("<name>"), @Named("<name")
 
-** If both the @Qualifier and @Primary annotations are present, then the @Qualifier annotation will have precedence. Basically, @Primary defines a default, while @Qualifier is very specific.
+*** If both the @Qualifier and @Primary annotations are present, then the @Qualifier annotation will have precedence. Basically, @Primary defines a default, while @Qualifier is very specific.
 
-** @Qualifier > @Primary > Bean Name
+*** @Qualifier > @Primary > Bean Name
 
-** If there is only one instance of the bean type, it does not really matter the bean name.
+*** If there is only one instance of the bean type, it does not really matter the bean name.
 
+** @Autowired support generic types.
 
-* There should be only ONE @Autowired constructor in a class
+** There should be only ONE @Autowired constructor in a class
 
+** @Autowired attribute "required" can only be used with setters. NOT constructor.
 
-* @Autowired attribute "required" can only be used with setters. NOT constructor.
+** @Autowired Constructor and Setter can be used together
 
+** Constructor should have NO more than 6 arguments
 
-* @Autowired support generic types.
 
 
 * Bean order annotation (annotation that affect the order in which the IoC Container instantiates beans)
@@ -53,6 +57,9 @@
 ** @Order
 ** @Lazy
 ** @DependsOn
+
+
+* Try to avoid @Lazy, it can cause some errors not catched early
 
 
 * Alias
@@ -67,15 +74,6 @@
           return new SimpleBeanImpl();
       }
     #+end_src
-
-
-* Try to avoid @Lazy, it can cause some errors not catched early
-
-
-* Constructor should have NO more than 6 arguments
-
-
-* @Autowired Constructor and Setter can be used together
 
 
 * Using @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE) does nothing by itself
