@@ -47,6 +47,11 @@
 * @Autowired support generic types.
 
 
+* Bean order annotation
+
+** @DependsOn
+** @Order
+
 * Alias
   - Currently cannot create Aliases for stereotype annotation
   - This can be done with @Bean annotation
@@ -260,12 +265,15 @@
 
 * @SpringBootTest
 
-  - The @SpringBootTest is basically a @ContextConfiguration on steroids. Under the hood, when no loader is specified (like in the @ContextConfiguration(loader = AnnotationConfigContextLoader.class) examples from previous sections, a SpringBootContextLoader loads a Spring Boot configuration from a class annotated with @SpringBootConfiguration or any specialization of it, like @SpringBootApplication.
-
   - Is meta annotated with `@ExtendWith(SpringExtension.class)`
 
   - @Sql and @SqlGroup to execute SQL scripts before or after running test methods
 
+  - The @SpringBootTest is basically a @ContextConfiguration on steroids. Under the hood, when no loader is specified (like in the @ContextConfiguration(loader = AnnotationConfigContextLoader.class) examples from previous sections, a SpringBootContextLoader loads a Spring Boot configuration from a class annotated with _@SpringBootConfiguration_ or any specialization of it, like _@SpringBootApplication_. It looks for properties on the test classpath to be injected in the Environment and registers a _TestRestTemplate_ and _WebTestClient_ beans, can be used to test web applications.
+
+  - _TestRestTemplate_ is used for client-side testing (wherever _RestTemplate_ is normally used in the code) and supports authentication.
+  - _RestTemplate_ is not recommended for normal use in test classes. MvcTester does not
+  - _MockMvc_ can be used to mock usage of HTTP endpoints and also has methods for checking the result (server-side testing). It also features a fluent API.
 
 * @SpringBootConfiguration is a specialization of @Configuration
 
@@ -997,3 +1005,28 @@
 
 * API vs. SPI
 ** An application programming interface (API) describes what a class/method does; a Service Provider Interface (SPI) describes what you need to extend and implement.
+
+
+* AOP Terminology
+** _Aspect_ : A class containing code specific to a cross-cutting concern. A class declaration is recognized in Spring as an aspect if it is annotated with the @Aspect annotation.
+
+** _Weaving_ : A synonym for this word is interlacing, but in software the synonym is linking and it refers to aspects being combined with other types of objects to create an advised object.
+
+** _Join Point_ : A point during the execution of a program. In Spring AOP, a join point is always a method execution. Basically, the join point marks the execution point where aspect behavior and target behavior join.
+
+** _Target object_ : An object to which the aspect applies.
+
+** _Target method_ : the advised method.
+
+** _Advice_ : The action taken by an aspect at a join point. In Spring AOP, there are multiple advice types.
+*** ​@Before advice: Methods annotated with @Before that will execute before the join point. These methods do not prevent the execution of the target method unless they throw an exception.
+*** ​@AfterReturning advice: Methods annotated with @AfterReturning that will execute after a join point completes normally, meaning that the target method returns normally without throwing an exception.
+*** ​@AfterThrowing advice: Methods annotated with @AfterThrowing that will execute after a join point execution ends by throwing an exception.
+*** ​@After (finally) advice: Methods annotated with @After that will execute after a join point execution, no matter how the execution ended.
+*** ​@Around advice: Methods annotated with @Around intercept the target method and surround the join point. This is the most powerful type of advice since can perform custom behavior before and after the invocation. It has the responsibility of choosing to perform the invocation or return its own value, and it provides the option of stopping the propagation of an exception.
+
+** _Pointcut_ : A predicate used to identify join points. Advice definitions are associated with a pointcut expression and the advice will execute on any join point matching the pointcut expression. Pointcut expressions are defined using AspectJ Pointcut Expression Language3 Pointcut expressions can be defined as arguments for Advice annotations or as arguments for the @Pointcut annotation.
+
+** _Introduction_: Declaring additional methods, fields, interfaces being implemented, and annotations on behalf of another type. Spring AOP allows this using a suite of AspectJ @Declare* annotations that are part of the aspectjrt library.
+
+** _AOP proxy_: The object created by AOP to implement the aspect contracts. In Spring proxy objects can be JDK dynamic proxies or CGLIB proxies. By default, the proxy objects are JDK dynamic proxies, and the object being proxied must implement an interface that is also implemented by the proxy object. But a library like CGLIB can create proxies by subclassing, so an interface is not needed.
