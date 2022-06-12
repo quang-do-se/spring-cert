@@ -907,6 +907,17 @@
 
 * Spring Security
 
+** Spring Security offers the following authentication mechanisms:
+*** Username and Password
+*** OAuth 2.0
+*** SAML 2.0
+*** CAS
+*** Remember Me
+*** JAAS Authentication
+*** OpenID
+*** Pre-Authentication Scenarios
+*** X509 Authentication
+
 ** Enable method security: `@EnableGlobalMethodSecurity(securedEnabled = true)`
    - @Secured is usually used in Service class
    - Spring Security will wrap the service class in a secure proxy
