@@ -756,7 +756,41 @@
 *** For Annotation matching: @annotation, @target, @args, @within
 
 
-* Web Application scopes: SCOPE_REQUEST, SCOPE_SESSION, SCOPE_APPLICATION
+* Spring bean scopes
+
+  |-------------+-------------------------------------------------+--------------------------------------------------------------------------------------------|
+  | Scope       | Annotation                                      | Description                                                                                |
+  |-------------+-------------------------------------------------+--------------------------------------------------------------------------------------------|
+  | singleton   | none                                            | The Spring IoC creates a single instance of this bean, and any request for beans with      |
+  |             | @Scope("singleton")                             | a name (or aliases) matching this bean definition results in this instance being returned. |
+  |             | @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON) |                                                                                            |
+  |-------------+-------------------------------------------------+--------------------------------------------------------------------------------------------|
+  | prototype   | @Scope("prototype")                             | Every time a request is made for this specific                                             |
+  |             | @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE) | bean, the Spring IoC creates a new instance.                                               |
+  |-------------+-------------------------------------------------+--------------------------------------------------------------------------------------------|
+  | thread      | @Scope("thread")                                | Introduced in Spring 3.0, it is available, but                                             |
+  |             |                                                 | not registered by default, so the developer                                                |
+  |             |                                                 | must explicitly register it in the same way as                                             |
+  |             |                                                 | if a custom scope would be defined.                                                        |
+  |-------------+-------------------------------------------------+--------------------------------------------------------------------------------------------|
+  | request     | @Scope("request")                               | The Spring IoC creates a bean instance for                                                 |
+  |             | @RequestScope                                   | each HTTP request. Only valid in the context                                               |
+  |             | @Scope(WebApplicationContext.SCOPE_REQUEST)     | of a web-aware Spring ApplicationContext.                                                  |
+  |-------------+-------------------------------------------------+--------------------------------------------------------------------------------------------|
+  | session     | @Scope("session")                               | The Spring IoC creates a bean instance for                                                 |
+  |             | @SessionScope                                   | each HTTP session. Only valid in the context                                               |
+  |             | @Scope(WebApplicationContext.SCOPE_SESSION)     | of a web-aware Spring ApplicationContext.                                                  |
+  |-------------+-------------------------------------------------+--------------------------------------------------------------------------------------------|
+  | application | @Scope("application")                           | The Spring IoC creates a bean                                                              |
+  |             | @ApplicationScope                               | for the global application context. Only                                                   |
+  |             | @Scope(WebApplicationContext.SCOPE_APPLICATION) | valid in the context of a web-aware Spring                                                 |
+  |             |                                                 | ApplicationContext.                                                                        |
+  |-------------+-------------------------------------------------+--------------------------------------------------------------------------------------------|
+  | websocket   | @Scope("websocket")                             | The Spring IoC creates a bean instance                                                     |
+  |             |                                                 | for the scope of a WebSocket. Only valid                                                   |
+  |             |                                                 | in the context of a web-aware Spring ApplicationContext.                                   |
+  |-------------+-------------------------------------------------+--------------------------------------------------------------------------------------------|
+
 
 
 * Spring provides the following mock objects to use in tests:
@@ -1089,13 +1123,10 @@
   - https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config.typesafe-configuration-properties
 
   - @ConfigurationProperties vs. @Value
-
     |-------------------+--------------------------+--------------------------|
     | Feature           | @ConfigurationProperties | @Value                   |
     |-------------------+--------------------------+--------------------------|
     | Relaxed binding   | Yes                      | Limited (see note below) |
-    |                   |                          |                          |
     | Meta-data support | Yes                      | No                       |
-    |                   |                          |                          |
     | SpEL evaluation   | No                       | Yes                      |
     |-------------------+--------------------------+--------------------------|
