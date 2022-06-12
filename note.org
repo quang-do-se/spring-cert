@@ -47,10 +47,13 @@
 * @Autowired support generic types.
 
 
-* Bean order annotation
+* Bean order annotation (annotation that affect the order in which the IoC Container instantiates beans)
 
 ** @DependsOn
 ** @Order
+** @Lazy
+** @DependsOn
+
 
 * Alias
   - Currently cannot create Aliases for stereotype annotation
