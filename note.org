@@ -1080,3 +1080,22 @@
     - antMatchers("/users") matches only the exact /users URL
     - mvcMatchers("/users") matches /users, /users​/, /users.html
     - mvcMatchers("/*/users") matches /hr/users, /hr/users.html, /management/users, /management/users.html
+
+
+* Type-safe Configuration Properties
+
+  - Using the @Value("${property}") annotation to inject configuration properties can sometimes be cumbersome, especially if you are working with multiple properties or your data is hierarchical in nature. Spring Boot provides an alternative method of working with properties that lets strongly typed beans govern and validate the configuration of your application.
+
+  - https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config.typesafe-configuration-properties
+
+  - @ConfigurationProperties vs. @Value
+
+    |-------------------+--------------------------+--------------------------|
+    | Feature           | @ConfigurationProperties | @Value                   |
+    |-------------------+--------------------------+--------------------------|
+    | Relaxed binding   | Yes                      | Limited (see note below) |
+    |                   |                          |                          |
+    | Meta-data support | Yes                      | No                       |
+    |                   |                          |                          |
+    | SpEL evaluation   | No                       | Yes                      |
+    |-------------------+--------------------------+--------------------------|
