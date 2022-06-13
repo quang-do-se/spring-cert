@@ -281,7 +281,9 @@
   - _TestRestTemplate_ is used for client-side testing (wherever _RestTemplate_ is normally used in the code) and supports authentication.
   - _RestTemplate_ is not recommended for normal use in test classes. MvcTester does not
   - _MockMvc_ can be used to mock usage of HTTP endpoints and also has methods for checking the result (server-side testing). It also features a fluent API.
+
   - _HttpGraphQlTester_
+
 
 * @SpringBootConfiguration is a specialization of @Configuration
 
@@ -582,6 +584,11 @@
      }
     #+end_src
 
+
+* Spring Data Access Exception
+
+  - _org.springframework.dao.DataAccessException_ is the Root of the hierarchy of data access exceptions in Spring Framework.
+  - There are NonTransientDataAccessException, RecoverableDataAccessException and TransientDataAccessException under it.
 
 * Spring Boot JPA
 
