@@ -660,9 +660,9 @@
 
 * Gradle
 
-  - The `compile` and `runtime` configurations have been removed with Gradle 7.0. Please refer to the upgrade guide how to migrate to `implementation` and `api` configurations.
-  - If you want to expose dependencies use api or compile.
-  - If you don't want to expose dependencies (hiding your internal module) then use implementation.
+  - The _compile_ and _runtime_ configurations have been removed with Gradle 7.0. Please refer to the upgrade guide how to migrate to _implementation_ and _api_ configurations.
+  - If you want to expose dependencies use _api_ or _compile_.
+  - If you don't want to expose dependencies (hiding your internal module) then use _implementation_.
 
 
 * RestTemplate
