@@ -28,6 +28,7 @@
 
 ** Spring prefer Unchecked Exceptions as it gives developers freedom of choice as to decide where to implement error handling and removes coupling related to exceptions. It also removes cluttered code as there is no requirement of try-catch blocks.
 
+
 * Autowiring
 ** Precedence
    - Type (class, abstract, interface...)
@@ -135,7 +136,7 @@
 * Don't couple application code with Spring infrastructure
 
 
-* @Vaolue can have $ for scalar and # for reference and @ for bean
+* @Vaolue can have $ for scalar and # for reference and #{@<bean>} for bean
   - See SpEL
 
 
