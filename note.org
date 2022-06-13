@@ -273,11 +273,13 @@
 
   - @Sql and @SqlGroup to execute SQL scripts before or after running test methods
 
-  - The @SpringBootTest is basically a @ContextConfiguration on steroids. Under the hood, when no loader is specified (like in the @ContextConfiguration(loader = AnnotationConfigContextLoader.class) examples from previous sections, a SpringBootContextLoader loads a Spring Boot configuration from a class annotated with _@SpringBootConfiguration_ or any specialization of it, like _@SpringBootApplication_. It looks for properties on the test classpath to be injected in the Environment and registers a _TestRestTemplate_ and _WebTestClient_ beans, can be used to test web applications.
+  - The @SpringBootTest is basically a @ContextConfiguration on steroids. Under the hood, when no loader is specified (like in the @ContextConfiguration(loader = AnnotationConfigContextLoader.class) examples from previous sections, a SpringBootContextLoader loads a Spring Boot configuration from a class annotated with _@SpringBootConfiguration_ or any specialization of it, like _@SpringBootApplication_. It looks for properties on the test classpath to be injected in the _Environment_ and registers a _TestRestTemplate_ and _WebTestClient_ beans, can be used to test web applications.
+  - It also provides support for different _webEnvironment_ modes, including the ability to start a fully running web server listening on a _defined or random port_.
 
   - _TestRestTemplate_ is used for client-side testing (wherever _RestTemplate_ is normally used in the code) and supports authentication.
   - _RestTemplate_ is not recommended for normal use in test classes. MvcTester does not
   - _MockMvc_ can be used to mock usage of HTTP endpoints and also has methods for checking the result (server-side testing). It also features a fluent API.
+  - _HttpGraphQlTester_
 
 * @SpringBootConfiguration is a specialization of @Configuration
 
@@ -936,6 +938,11 @@
 *** System Metrics
 *** Application Startup Metrics
 *** Logger Metrics
+
+
+** Auditing can be enabled by providing a bean of type _AuditEventRepository_ in your application’s configuration.
+
+** Configuration Properties relating to actuator are all under the key "management". For example: _management.auditevents.enabled = true_
 
 
 * Custom Actuator endpoint
