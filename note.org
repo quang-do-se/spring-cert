@@ -237,7 +237,17 @@
    - @SpringBootApplication(scanBasePackages={...})
    - @SpringBootApplication(scanBasePackageClasses={...})
 
+** Exclude auto-configuration
    - @SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
+     - Alias in @EnableAutoConfiguration
+
+   - @EnableAutoConfiguration(exclude=SecurityAutoConfiguration.class)
+     - Only work for auto-configuration classes
+
+   - property "spring.autoconfigure.exclude=DataSourceAutoConfiguration"
+
+** Exclude beans in component scanning
+   - @ComponentScan(basePackages = { "com.myapp" }, excludeFitlers = { ... })
 
 ** @ComponentScan can be used together with @Import
 
