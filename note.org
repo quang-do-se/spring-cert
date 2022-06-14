@@ -247,7 +247,11 @@
    - property "spring.autoconfigure.exclude=DataSourceAutoConfiguration"
 
 ** Exclude beans in component scanning
-   - @ComponentScan(basePackages = { "com.myapp" }, excludeFitlers = { ... })
+   - @ComponentScan(basePackages = { "com.myapp" }, excludeFitlers = { @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = Bean.class })
+
+** Other ways to exclude beans are
+    - Using @ConditionalOn...
+    - Using @Profile(...)
 
 ** @ComponentScan can be used together with @Import
 
