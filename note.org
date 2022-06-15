@@ -98,11 +98,14 @@
 
   - If the class implements an interface, use "proxyMode = ScopedProxyMode.INTERFACES"
     - The IoC container will create a JDK interface-based dynamic proxy
-    - Can intercept both public and non-public methods (if the interface does not contain private methods. Default methods are proxied like any normal method.)
+    - Can only intercept public and default methods.
+      - Starting with Java 8, interfaces can be declared to contain private and default methods. For obvious reasons, related to their access modifier, private methods are not proxied. Default methods are methods that are declared in the interface, so that classes implementing the interface don’t have to. They are inherited by the classes, so they are proxied just like any normal method, with the specific behavior being executed before the call being forwarded to the target object.
 
   - If the class does not implement an interface, use "proxyMode = ScopedProxyMode.TARGET_CLASS"
-    - The IoC container will create a CGLIB-based class proxy
-    - Can only intercept public methods
+    - The IoC container will create a CGLIB-based class proxy.
+    - Can only intercept public and protected methods (and even package-visible methods, if necessary).
+      - https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop-pointcuts-designators
+
 
   - Using wrong "proxyMode" will cause UnsatisfiedDependencyException
 
@@ -113,6 +116,7 @@
 
 ** Requires the class of the proxied object to be non-final. Subclasses cannot be created from final classes.
 ** Requires methods in the proxied object to be non-final. Final methods cannot be overridden.
+** Public and protected method calls on the proxy are intercepted (and even package-visible methods, if necessary).
 ** Does not support self-invocations. Self-invocation is where one method of the object invokes another method on the same object.
 ** Requires a third-party library. Not built into the Java language and thus require a library. The CGLIB library has been included into Spring, so when using the Spring framework, no additional library is required.
 
@@ -386,7 +390,7 @@
 * AOP
 ** @EnableAspectJAutoProxy
 ** @EnableAspectJAutoProxy(proxyTargetClass = true)
-** Local calls within the same class cannot be intercepted
+** Local calls within the target object cannot be intercepted
 
 ** For those not familiar with AOP, the key point to understand is that Spring Security can help you protect method invocations as well as web requests. Most people are interested in securing method invocations on their services layer. This is because the services layer is where most business logic resides in current-generation Java EE applications. If you just need to secure method invocations in the services layer, Spring’s standard AOP will be adequate. If you need to secure domain objects directly, you will likely find that AspectJ is worth considering.
 
