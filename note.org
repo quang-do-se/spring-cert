@@ -1017,9 +1017,9 @@
    - @Secured is usually used in Service class
    - Spring Security will wrap the service class in a secure proxy
 
-** Secured Method annotations:
-*** Supports SpEL expression (recommended in new applications): @PreAuthorize, @Prefilter, @PostAuthorize, @PostFilter
-*** Not Support SpEL espression: @Secured (securedEnabled = true), @RolesAllowed (jsr250Enabled = true)
+*** Secured Method annotations:
+**** Supports SpEL expression (recommended in new applications): @PreAuthorize, @Prefilter, @PostAuthorize, @PostFilter
+**** Not Support SpEL espression: @Secured (securedEnabled = true), @RolesAllowed (jsr250Enabled = true)
 
 ** Concepts
 
