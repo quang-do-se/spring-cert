@@ -1028,6 +1028,59 @@
    - Override "configure(HttpSecurity http)" to filter URL with "antMatchers(...)" or "mvcMatchers(...)"
    - The antMatcher(...) method is the equivalent of the <intercept-url.../> element from XML.
 
+*** <intercept-url> Attribute (https://docs.spring.io/spring-security/site/docs/3.2.5.RELEASE/reference/htmlsingle/#nsa-intercept-url)
+
+    - _access_: Lists the access attributes which will be stored in the FilterInvocationSecurityMetadataSource for the defined URL pattern/method combination. This should be a comma-separated list of the security configuration attributes (such as role names).
+      - Examples (https://docs.spring.io/spring-security/site/docs/3.2.5.RELEASE/reference/htmlsingle/#jc-httpsecurity):
+
+        #+begin_src java
+          /**
+              Ensures that any request to our application requires the user to be authenticated
+
+              Allows users to authenticate with form based login
+
+              Allows users to authenticate with HTTP Basic authentication
+           ,*/
+          protected void configure(HttpSecurity http) throws Exception {
+              http
+                  .authorizeRequests()
+                  .anyRequest().authenticated()
+                  .and()
+                  .formLogin()
+                  .and()
+                  .httpBasic();
+          }
+        #+end_src
+
+      - Equivalent XML configuration:
+
+        #+begin_src xml
+          <http use-expressions="true">
+            <intercept-url pattern="/**" access="authenticated"/>
+            <form-login />
+            <http-basic />
+          </http>
+        #+end_src
+
+      - Other examples:
+
+        #+begin_src xml
+          <http>
+            <intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+            <intercept-url pattern="/**" access="ROLE_USER" />
+            <form-login login-page='/login.jsp'/>
+          </http>
+        #+end_src
+
+    - _filters_: Can only take the value "none". This will cause any matching request to bypass the Spring Security filter chain entirely. None of the rest of the <http> configuration will have any effect on the request and there will be no security context available for its duration. Access to secured methods during the request will fail.
+
+    - _method_: The HTTP Method which will be used in combination with the pattern to match an incoming request. If omitted, any method will match. If an identical pattern is specified with and without a method, the method-specific match will take precedence.
+
+    - _pattern_: The pattern which defines the URL path. The content will depend on the request-matcher attribute from the containing http element, so will default to ant path syntax.
+
+    - _requires-channel_: Can be "http" or "https" depending on whether a particular URL pattern should be accessed over HTTP or HTTPS respectively. Alternatively the value "any" can be used when there is no preference. If this attribute is present on any <intercept-url> element, then a ChannelProcessingFilter will be added to the filter stack and its additional dependencies added to the application context.
+
+
 ** Enable method security: `@EnableGlobalMethodSecurity(securedEnabled = true)`
    - @Secured is usually used in Service class
    - Spring Security will wrap the service class in a secure proxy
@@ -1058,6 +1111,12 @@
 
    - _SecurityFilterChain_ associates a request URL pattern with a list of filters.
      - Filters under SecurityFilterChain are GenericFilterBeans, which are Spring Filters. These are also Servlet Filters, but have Spring implementation.
+
+** Security Taglibs (https://docs.spring.io/spring-security/site/docs/5.0.7.RELEASE/reference/html/taglibs.html#taglibs-authorize)
+   - Check whether user has certain role: <sec:authorize access="hasRole('supervisor')">
+     - Expression-Based Access Control: https://docs.spring.io/spring-security/reference/servlet/authorization/expression-based.html#el-common-built-in
+   - Retrieve the roles of authenticated user: <sec:authentication property="principal.authorities" />
+   - Access current Authenication object (which includes principal property): <sec:authentication property="principal.username" />
 
 
 * Spring Boot default embedded containers:
