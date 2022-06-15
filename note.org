@@ -325,10 +325,13 @@
   - Use runner @ExtendWith(MockitoExtension.class)
 
 
-* @Transactional + @Rollback
+* @Transactional and @Rollback
   - By default, unit test always rollback with @Transactional
   - To disable rollback in unit tests, use @Rollback(false)
   - @Commit = @Rollback(false)
+
+  - @Transactional has attributes "rollbackFor", "rollbackForClassName", "noRollbackFor", "noRollbackForClassName" to rollback based on thrown Exception.
+    - These accepts Exception class name or object.
 
 
 * By default, a transaction will be rolled back on *RuntimeException* and *Error* but not on checked exceptions (business exceptions).
@@ -692,6 +695,11 @@
   - The _compile_ and _runtime_ configurations have been removed with Gradle 7.0. Please refer to the upgrade guide how to migrate to _implementation_ and _api_ configurations.
   - If you want to expose dependencies use _api_ or _compile_.
   - If you don't want to expose dependencies (hiding your internal module) then use _implementation_.
+
+
+* Spring REST
+
+ - HTTP verbs are used as actions to execute on the resources (GET, PUT, PATCH, POST, DELETE, HEAD, and OPTIONS).
 
 
 * RestTemplate
