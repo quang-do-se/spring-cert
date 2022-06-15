@@ -1035,9 +1035,13 @@
 ** Concepts
 
    - _GrantedAuthority_ Object contains the information related to authority or roles, scopes, etc. assigned to the authenticated user (principal).
+
    - _UserDetailsService_ retrieves the information from a database into _UserDetails_ object. Based on the implementation used, the information may be stored in a database, in memory or elsewhere if the custom implementation is used.
+
    - _UserDetails_ object holds the information of user like username, password, authorities. This information is used to create an Authenticated Object.
+
    - _Authentication_ object represents the token for authentication request after the request has been granted.
+
 
    - *All* the requests are handled by _DelegatingFilterProxy_ and it sends the request to _FilterChainProxy_ for handling further Authentication flow.
 
@@ -1054,7 +1058,7 @@
 
 * Spring Boot default embedded containers:
 
-  - For servlet stack applications, the spring-boot-starter-web includes Tomcat by including spring-boot-starter-tomcat, but you can use spring-boot-starter-jetty or spring-boot-starter-undertow instead.
+  - For servlet stack applications, the _spring-boot-starter-web_ includes Tomcat by including _spring-boot-starter-tomcat_, but you can use _spring-boot-starter-jetty_ or _spring-boot-starter-undertow_ instead.
 
   - For reactive stack applications, the spring-boot-starter-webflux includes Reactor Netty by including spring-boot-starter-reactor-netty, but you can use spring-boot-starter-tomcat, spring-boot-starter-jetty, or spring-boot-starter-undertow instead.
 
