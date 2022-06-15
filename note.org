@@ -603,10 +603,16 @@
     #+end_src
 
 
+* Embedded databases are HSQLDB, H2 and DERBY.
+  - spring.jpa.hibernate.ddl-auto defaults to "none" for non-embedded databases such as Oracle, MySQL, Postgres...
+  - It defaults to "create-drop" for HSQLDB, H2 and DERBY.
+
+
 * Spring Data Access Exception
 
   - _org.springframework.dao.DataAccessException_ is the Root of the hierarchy of data access exceptions in Spring Framework.
   - There are NonTransientDataAccessException, RecoverableDataAccessException and TransientDataAccessException under it.
+
 
 * Spring Boot JPA
 
@@ -699,7 +705,7 @@
 
 * Spring REST
 
- - HTTP verbs are used as actions to execute on the resources (GET, PUT, PATCH, POST, DELETE, HEAD, and OPTIONS).
+  - HTTP verbs are used as actions to execute on the resources (GET, PUT, PATCH, POST, DELETE, HEAD, and OPTIONS).
 
 
 * RestTemplate
