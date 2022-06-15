@@ -54,6 +54,15 @@
 
 ** Constructor should have NO more than 6 arguments
 
+** Typed Map collection can be autowired as long as the expected key type is String.
+
+   #+begin_src java
+     @Autowired
+     public void setMovieCatalogs(Map<String, MovieCatalog> movieCatalogs) {
+         this.movieCatalogs = movieCatalogs;
+     }
+   #+end_src
+
 
 * Bean order annotation (annotation that affect the order in which the IoC Container instantiates beans)
 
