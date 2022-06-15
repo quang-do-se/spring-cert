@@ -55,7 +55,6 @@
 ** Constructor should have NO more than 6 arguments
 
 
-
 * Bean order annotation (annotation that affect the order in which the IoC Container instantiates beans)
 
 ** @Order - directly specifies the order in which beans are instantiated.
@@ -836,6 +835,7 @@
   |             |                                                 | in the context of a web-aware Spring ApplicationContext.                                   |
   |-------------+-------------------------------------------------+--------------------------------------------------------------------------------------------|
 
+  - If bean A is singleton, and it has a property bean B which is a non-singleton, every time bean A is acquired by a client, the same instance of bean B is supplied.
 
 
 * Spring provides the following mock objects to use in tests:
