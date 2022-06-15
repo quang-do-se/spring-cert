@@ -546,6 +546,9 @@
      public interface PersonRepo extends JpaRepository<Person, Long> {}
    #+end_src
 
+** @Query
+   - Define a custome query to execute in repository
+   - Can execute both JPQL and native SQL queries
 
 ** Add "@EnableJpaRepositories(basePackages = {"com.apress.cems.dj.repos"})" with @Configuration
 
