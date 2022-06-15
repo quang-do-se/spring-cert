@@ -58,8 +58,8 @@ public class FunBean implements InitializingBean, DisposableBean {
     }
 
     @Autowired
-    public void setDepBean(DepBean depBean) {
-        logger.info("Stage 2: Calling the setter");
+    public void addDepBean(DepBean depBean) {
+        logger.info("Stage 2: Calling the setter without 'set' in method name");
         this.depBean = depBean;
     }
 
