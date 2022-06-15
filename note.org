@@ -250,8 +250,8 @@
    - @ComponentScan(basePackages = { "com.myapp" }, excludeFitlers = { @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = Bean.class })
 
 ** Other ways to exclude beans are
-    - Using @ConditionalOn...
-    - Using @Profile(...)
+   - Using @ConditionalOn...
+   - Using @Profile(...)
 
 ** @ComponentScan can be used together with @Import
 
@@ -377,6 +377,7 @@
 ** @EnableAspectJAutoProxy(proxyTargetClass = true)
 ** Local calls within the same class cannot be intercepted
 
+** For those not familiar with AOP, the key point to understand is that Spring Security can help you protect method invocations as well as web requests. Most people are interested in securing method invocations on their services layer. This is because the services layer is where most business logic resides in current-generation Java EE applications. If you just need to secure method invocations in the services layer, Spring’s standard AOP will be adequate. If you need to secure domain objects directly, you will likely find that AspectJ is worth considering.
 
 * Aspect
 
@@ -858,6 +859,7 @@
 
 ** Programmatic usage
    - TransactionTemplate class
+   - Explicitly setting the transaction name is something that can only be done programmatically
 
 ** Local Transaction
    - Local transactions are resource-specific, such as a transaction associated with a JDBC connection. Local transactions may be easier to use, but have significant disadvantages: they cannot work across multiple transactional resources.
@@ -989,6 +991,13 @@
 *** OpenID
 *** Pre-Authentication Scenarios
 *** X509 Authentication
+
+** Configure security
+   - @EnableWebSecurity on Configuration class
+   - Have @Configuration class extends "WebSecurityConfigurerAdapter"
+   - Override "configure(WebSecurity web)" to specify resources that Spring Security should be ignoring, like style files and images.
+   - Override "configure(HttpSecurity http)" to filter URL with "antMatchers(...)" or "mvcMatchers(...)"
+   - The antMatcher(...) method is the equivalent of the <intercept-url.../> element from XML.
 
 ** Enable method security: `@EnableGlobalMethodSecurity(securedEnabled = true)`
    - @Secured is usually used in Service class
