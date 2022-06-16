@@ -106,6 +106,12 @@
     - Can only intercept public and protected methods (and even package-visible methods, if necessary).
       - https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop-pointcuts-designators
     - @Configuration classes are proxied with CGLIB
+      - Since Spring Framework 5.2, we have the option to disable proxying bean methods. If we set the _proxyBeanMethod_ attribute to *false*, Spring doesn't intercept the @Bean method calls.
+        #+begin_src java
+          @Configuration(proxyBeanMethods = false)
+          public class ApplicationConfiguration {
+          }
+        #+end_src
 
 
   - Using wrong "proxyMode" will cause UnsatisfiedDependencyException
