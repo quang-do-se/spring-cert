@@ -424,7 +424,7 @@
 
 ** .update(...) for INSERT, UPDATE, DELETE
 
-** .execute(...) for Data Definition Language
+** .execute(...) for Data Definition Language. It can execute any arbitrary SQL,
 
 
 * Transaction Management
