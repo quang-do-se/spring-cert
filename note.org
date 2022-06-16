@@ -105,7 +105,7 @@
     - The IoC container will create a CGLIB-based class proxy.
     - Can only intercept public and protected methods (and even package-visible methods, if necessary).
       - https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop-pointcuts-designators
-    - @Configuration classes are proxied with CGLIB
+    - @Configuration classes are proxied with CGLIB. That's how @Bean methods are intercepted. For example, for singleton bean, no matter how many times @Bean methods are called, it will return the same object.
       - Since Spring Framework 5.2, we have the option to disable proxying bean methods. If we set the _proxyBeanMethod_ attribute to *false*, Spring doesn't intercept the @Bean method calls.
         #+begin_src java
           @Configuration(proxyBeanMethods = false)
