@@ -322,7 +322,7 @@
 
 * @SpringBootConfiguration is a specialization of @Configuration
 
-** @SpringBootApplication -> @SpringBootConfiguration -> @Configuration
+** @SpringBootApplication -> @SpringBootConfiguration -> @Configuration -> @Component
 
 
 * @SpringBootApplication has the following meta annotations: @ComponentScan, @EnableAutoConfiguration, @SpringBootConfiguration
