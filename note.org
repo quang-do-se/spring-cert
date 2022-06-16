@@ -48,7 +48,7 @@
 
 ** There should be only ONE @Autowired constructor in a class
 
-** @Autowired attribute "required" can only be used with setters. NOT constructor.
+** @Autowired attribute "required" can only be used with setters. NOT constructor. Constructor injection is always "mandatory".
 
 ** @Autowired Constructor and Setter can be used together
 
