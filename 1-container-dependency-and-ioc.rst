@@ -124,9 +124,9 @@ Interface is a contract for classes. It makes swapping implementation easy and l
  Can you use ``@Component`` together with ``@Profile``?
 ========================================================
 
-=================================
+=====================================
  How many ``profiles`` can you have?
-=================================
+=====================================
 
 ============================================================
  How do you inject scalar/literal values into Spring beans?
