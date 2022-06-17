@@ -49,10 +49,11 @@
 ** There should be only ONE @Autowired constructor in a class
 
 ** @Autowired attribute "required" can only be used with setters. NOT constructor. Constructor injection is always "mandatory".
+   - @Required is alternative but deprecated.
 
 ** @Autowired Constructor and Setter can be used together
 
-** Setters' method name DO NOT NEED to start with "set...()"
+** Setters' method name DO NOT NEED to start with "set...()" to be autowired
 
 ** Constructor should have NO more than 6 arguments
 
@@ -750,6 +751,10 @@
 ** *ForObject methods do not return the HTTP status code.
 
 ** ObjectFactory is not used as an argument in any method of RestTemplate.
+
+** @RequestParam is used to map query parameter. It is required by default. It can be changed by swiching `required` attribute.
+
+** @PathVariable is used to map path parameter.
 
 
 * @MockBean
