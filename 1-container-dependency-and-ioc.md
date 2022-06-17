@@ -117,7 +117,9 @@ System.out.println("HeLlo");
 
 ## How many `profiles` can you have?
 
-`Integer.Max`
+- Almost unlimited
+- `Integer.Max` (due to `for` loop using `int`)
+- 2^31
 
 ## How do you inject scalar/literal values into Spring beans?
 
@@ -134,9 +136,21 @@ System.out.println("HeLlo");
 
 # Extras
 
-## Scopes
+## Bean Scopes
 
-| Scope     | Annotation                                                                         | Description                                                                                                                                                                      |
-|-----------|------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| singleton | none <br> `@Scope("singleton")` <br> `@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)` | The Spring IoC creates a single instance of this bean, and any request for beans with a name (or aliases) matching this bean definition results in this instance being returned. |
+| Scope       | Annotation                                                                                              | Description                                                                                                                                                                      |
+|-------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| singleton   | none <br> `@Scope("singleton")` <br> `@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)`                  | The Spring IoC creates a single instance of this bean, and any request for beans with a name (or aliases) matching this bean definition results in this instance being returned. |
+| prototype   | `@Scope("prototype")` <br> `@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)`                            | Every time a request is made for this specific bean, the Spring IoC creates a new instance.                                                                                      |
+| thread      | `@Scope("thread")`                                                                                      | Introduced in Spring 3.0, it is available, but not registered by default, so the developer must explicitly register it in the same way as if a custom scope would be defined.    |
+| request     | `@Scope("request")` <br> `@RequestScope` <br> `@Scope(WebApplicationContext.SCOPE_REQUEST)`             | The Spring IoC creates a bean instance for each HTTP request. Only valid in the context of a web-aware Spring ApplicationContext.                                                |
+| session     | `@Scope("session")` <br> `@SessionScope` <br> `@Scope(WebApplicationContext.SCOPE_SESSION)`             | The Spring IoC creates a bean instance for each HTTP session. Only valid in the context of a web-aware Spring ApplicationContext.                                                |
+| application | `@Scope("application")` <br> `@ApplicationScope` <br> `@Scope(WebApplicationContext.SCOPE_APPLICATION)` | The Spring IoC creates a bean for the global application context. Only valid in the context of a web-aware Spring ApplicationContext.                                            |
+| websocket   | `@Scope("websocket")`                                                                                   | The Spring IoC creates a bean instance for the scope of a WebSocket. Only valid in the context of a web-aware Spring ApplicationContext.                                         |
 
+- If bean A is singleton, and it has a property bean B which is a non-singleton, every time bean A is acquired by a client, the same instance of bean B is supplied.
+- Use _@Lookup_ annotation to inject prototype-scoped bean into a singleton bean.
+
+- As a rule, use the `prototype` scope for all **stateful** beans and the `singleton` scope for **stateless** beans.
+
+- In contrast to the other scopes, Spring does not manage the complete lifecycle of a PROTOTYPE bean: the container instantiates, configures, and otherwise assembles a prototype object, and hands it to the client, with no further record of that prototype instance. Thus, although initialization lifecycle callback methods are called on all objects regardless of scope, in the case of prototypes, configured destruction lifecycle callbacks are not called. The client code must clean up prototype-scoped objects and release expensive resources that the prototype bean(s) are holding. In some respects, the Spring container’s role in regard to a prototype-scoped bean is a replacement for the Java new operator. All lifecycle management past that point must be handled by the client. https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes-prototype
