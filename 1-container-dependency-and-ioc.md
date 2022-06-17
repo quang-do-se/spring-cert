@@ -131,6 +131,9 @@ System.out.println("HeLlo");
 
 ## What is the difference between `$` and `#` in `@Value` expressions?
 
+
+# Extras
+
 ## Scopes
 
 | Scope     | Annotation                                                                         | Description                                                                                                                                                                      |
