@@ -130,3 +130,12 @@ System.out.println("HeLlo");
 ## What can you reference using `SpEL?`
 
 ## What is the difference between `$` and `#` in `@Value` expressions?
+
+## Scopes
+
+|-----------|-------------------------------------------------|--------------------------------------------------------------------------------------------|
+| Scope     | Annotation                                      | Description                                                                                |
+|-----------|-------------------------------------------------|--------------------------------------------------------------------------------------------|
+| singleton | none <br>                                       | The Spring IoC creates a single instance of this bean, and any request for beans with<br>  |
+|           | @Scope("singleton") <br>                        | a name (or aliases) matching this bean definition results in this instance being returned. |
+|           | @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON) |                                                                                            |
