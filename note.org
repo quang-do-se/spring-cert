@@ -1194,6 +1194,8 @@
 
    - Access current Authenication object (which includes principal property): <sec:authentication property="principal.username" />
 
+** Support PasswordEncoder and Salt and Hash...
+
 
 * Spring Boot default embedded containers:
 
