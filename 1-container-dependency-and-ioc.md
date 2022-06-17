@@ -1,11 +1,11 @@
 
-# What is Dependency Injection?
+## What is Dependency Injection?
 
 Dependency injection (DI) is a process whereby objects define their dependencies (that is, the other objects with which they work) only through constructor arguments, arguments to a factory method, or properties that are set on the object instance after it is constructed or returned from a factory method. The container then injects those dependencies when it creates the bean. This process is fundamentally the inverse (hence the name, Inversion of Control) of the bean itself controlling the instantiation or location of its dependencies on its own by using direct construction of classes or the Service Locator pattern.
 
 Code is cleaner with the DI principle, and decoupling is more effective when objects are provided with their dependencies. The object does not look up its dependencies and does not know the location or class of the dependencies. As a result, your classes become easier to test, particularly when the dependencies are on interfaces or abstract base classes, which allow for stub or mock implementations to be used in unit tests.
 
-https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-collaborators
+https://docs.spring.io/spring-framework/docs/current/reference/html/core.html##beans-factory-collaborators
 
 Dependency injection means giving an object its instance variables.
 
@@ -18,7 +18,7 @@ pattern is to have a separate object that injects dependencies with the required
 based on an interface contract.
 
 
-## Advantages of Dependency Injection
+#### Advantages of Dependency Injection
 
 - Increases cohesion
 
@@ -31,52 +31,52 @@ based on an interface contract.
 - Increases flexibility (by interfaces)
 
 
-## Disadvantage of Dependency Injection
+#### Disadvantage of Dependency Injection
 
 - More classes and interfaces
 
 
 
-# What is an interface and what are the advantages of making use of them in Java?
+## What is an interface and what are the advantages of making use of them in Java?
 
 Interface is a contract for classes. It makes swapping implementation easy and loose coupling.
 
 
-# What is an `ApplicationContext`?
+## What is an `ApplicationContext`?
 
 
-# How are you going to create a new instance of an `ApplicationContext`?
+## How are you going to create a new instance of an `ApplicationContext`?
 
 
-# Can you describe the lifecycle of a Spring Bean in an `ApplicationContext`?
+## Can you describe the lifecycle of a Spring Bean in an `ApplicationContext`?
 
-# How are you going to create an `ApplicationContext` in an integration test?
+## How are you going to create an `ApplicationContext` in an integration test?
 
-# What is the preferred way to close an application context? Does Spring Boot do this for you?
+## What is the preferred way to close an application context? Does Spring Boot do this for you?
 
-# Are beans lazily or eagerly instantiated by default? How do you alter this behavior?
+## Are beans lazily or eagerly instantiated by default? How do you alter this behavior?
 
-# What is a property source? How would you use `@PropertySource`?
+## What is a property source? How would you use `@PropertySource`?
 
-# What is a `BeanFactoryPostProcessor` and what is it used for? When is it invoked?
+## What is a `BeanFactoryPostProcessor` and what is it used for? When is it invoked?
 
-# What is a `BeanPostProcessor` and how is it different to a `BeanFactoryPostProcessor`? What do they do? When are they called?
+## What is a `BeanPostProcessor` and how is it different to a `BeanFactoryPostProcessor`? What do they do? When are they called?
 
-# What does `component-scanning` do?
+## What does `component-scanning` do?
 
-# What is the behavior of the annotation `@Autowired` with regards to field injection, constructor injection and method injection?
+## What is the behavior of the annotation `@Autowired` with regards to field injection, constructor injection and method injection?
 
-# How does the `@Qualifier` annotation complement the use of `@Autowired`?
+## How does the `@Qualifier` annotation complement the use of `@Autowired`?
 
-# What is a `proxy` object and what are the two different types of proxies Spring can create?
+## What is a `proxy` object and what are the two different types of proxies Spring can create?
 
-# What does the `@Bean` annotation do?
+## What does the `@Bean` annotation do?
 
-# What is the default bean id if you only use `@Bean`? How can you override this?
+## What is the default bean id if you only use `@Bean`? How can you override this?
 
-# Why are you not allowed to annotate a final class with `@Configuration`?
+## Why are you not allowed to annotate a final class with `@Configuration`?
 
-# How do you configure `profiles`? What are possible use cases where they might be useful?
+## How do you configure `profiles`? What are possible use cases where they might be useful?
 
 The @Profile annotation may be used in any of the following ways:
 
@@ -111,22 +111,22 @@ protected void configure(HttpSecurity http) throws Exception {
 System.out.println("HeLlo");
 ```
 
-# Can you use `@Bean` together with `@Profile`?
+## Can you use `@Bean` together with `@Profile`?
 
-# Can you use `@Component` together with `@Profile`?
+## Can you use `@Component` together with `@Profile`?
 
-# How many `profiles` can you have?
+## How many `profiles` can you have?
 
 `Integer.Max`
 
-# How do you inject scalar/literal values into Spring beans?
+## How do you inject scalar/literal values into Spring beans?
 
-# What is Spring Expression Language (`SpEL` for short)?
+## What is Spring Expression Language (`SpEL` for short)?
 
-# What is the Environment abstraction in Spring?
+## What is the Environment abstraction in Spring?
 
-# Where can properties in the environment come from – there are many sources for properties – check the documentation if not sure. Spring Boot adds even more.
+## Where can properties in the environment come from – there are many sources for properties – check the documentation if not sure. Spring Boot adds even more.
 
-# What can you reference using `SpEL?`
+## What can you reference using `SpEL?`
 
-# What is the difference between `$` and `#` in `@Value` expressions?
+## What is the difference between `$` and `#` in `@Value` expressions?
