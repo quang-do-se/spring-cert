@@ -448,6 +448,8 @@
      }
    #+end_src
 
+*** The DataSourceTransactionManager class is a PlatformTransactionManager implementation for single JDBC datasources. It binds a JDBC connection from the specified data source to the currently executing thread, potentially allowing for one thread connection per data source.
+
 ** Add @EnableTransactionManagement on top of @Configuration class
 
 ** Annotate service methods with @Transactional
