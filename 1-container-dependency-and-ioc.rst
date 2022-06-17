@@ -116,6 +116,21 @@ Interface is a contract for classes. It makes swapping implementation easy and l
  How do you configure ``profiles``? What are possible use cases where they might be useful?
 ============================================================================================
 
+The @Profile annotation may be used in any of the following ways:
+
+* as a type-level annotation on any class directly or indirectly annotated with @Component, including @Configuration classes
+* as a meta-annotation, for the purpose of composing custom stereotype annotations
+* as a method-level annotation on any @Bean method
+
+``@Profile({"p1", "!p2"})``, registration will occur if profile ``p1`` is active **OR** if profile ``p2`` is not active.
+
+``@Profile({"p1", "p2"})``, that class will not be registered or processed unless at least profile ``p1`` OR ``p2`` has been activated.
+
+Source: https://docs.spring.io/spring-framework/docs/4.3.12.RELEASE/javadoc-api/org/springframework/context/annotation/Profile.html
+
+.. code-block:: java
+  System.out.println("Hello world")
+                
 ===================================================
  Can you use ``@Bean`` together with ``@Profile``?
 ===================================================
@@ -127,6 +142,8 @@ Interface is a contract for classes. It makes swapping implementation easy and l
 =====================================
  How many ``profiles`` can you have?
 =====================================
+
+Integer.Max
 
 ============================================================
  How do you inject scalar/literal values into Spring beans?
