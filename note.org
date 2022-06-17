@@ -412,16 +412,6 @@
   - Declaring a bean definition in an XML configuration file
 
 
-* AOP
-** @EnableAspectJAutoProxy
-** @EnableAspectJAutoProxy(proxyTargetClass = true)
-** Local calls within the target object cannot be intercepted
-
-** For those not familiar with AOP, the key point to understand is that Spring Security can help you protect method invocations as well as web requests. Most people are interested in securing method invocations on their services layer. This is because the services layer is where most business logic resides in current-generation Java EE applications. If you just need to secure method invocations in the services layer, Spring’s standard AOP will be adequate. If you need to secure domain objects directly, you will likely find that AspectJ is worth considering.
-
-** Declaring additional methods or fields on behalf of a type. Spring AOP allows you to introduce new interfaces (and a corresponding implementation) to any advised object. For example, you could use an introduction to make a bean implement an IsModified interface, to simplify caching. (An introduction is known as an inter-type declaration in the AspectJ community.): https://stackoverflow.com/a/61555095
-
-
 * Aspect
 
 ** @After
@@ -893,15 +883,6 @@
    - Have @RepositoryDefinition on top of repo interface (for decoupling from Spring components)
 
 
-* AOP annotation
-
-** Advice: @Before, @AfterReturning, @AfterThrowing, @After, @Around
-
-** Pointcut epxression:
-*** For Type matching: execution, within, this, target, args
-*** For Annotation matching: @annotation, @target, @args, @within
-
-
 * Spring bean scopes
 
   |-------------+-------------------------------------------------+--------------------------------------------------------------------------------------------|
@@ -1312,6 +1293,29 @@
 ** _Introduction_: Declaring additional methods, fields, interfaces being implemented, and annotations on behalf of another type. Spring AOP allows this using a suite of AspectJ @Declare* annotations that are part of the aspectjrt library.
 
 ** _AOP proxy_: The object created by AOP to implement the aspect contracts. In Spring proxy objects can be JDK dynamic proxies or CGLIB proxies. By default, the proxy objects are JDK dynamic proxies, and the object being proxied must implement an interface that is also implemented by the proxy object. But a library like CGLIB can create proxies by subclassing, so an interface is not needed.
+
+
+* AOP annotation
+
+** Advice: @Before, @AfterReturning, @AfterThrowing, @After, @Around
+
+** Pointcut epxression:
+*** For Type matching: execution, within, this, target, args
+*** For Annotation matching: @annotation, @target, @args, @within
+
+
+
+
+* AOP
+** @EnableAspectJAutoProxy
+** @EnableAspectJAutoProxy(proxyTargetClass = true)
+** Local calls within the target object cannot be intercepted
+
+** For those not familiar with AOP, the key point to understand is that Spring Security can help you protect method invocations as well as web requests. Most people are interested in securing method invocations on their services layer. This is because the services layer is where most business logic resides in current-generation Java EE applications. If you just need to secure method invocations in the services layer, Spring’s standard AOP will be adequate. If you need to secure domain objects directly, you will likely find that AspectJ is worth considering.
+
+** Declaring additional methods or fields on behalf of a type. Spring AOP allows you to introduce new interfaces (and a corresponding implementation) to any advised object. For example, you could use an introduction to make a bean implement an IsModified interface, to simplify caching. (An introduction is known as an inter-type declaration in the AspectJ community.): https://stackoverflow.com/a/61555095
+
+** Spring AOP cannot use JDK dynamic proxies on target objects that does not implement any interface. Spring AOP can use CGLIB proxies on target objects that does not implement any interface. It will subclass the target class. In Spring AOP, if the target object implements an interface, it defaults to using the standard JDK dynamic proxies, and this behavior can be overridden to force the use CGLIB instead. Spring AOP performs weaving at runtime.
 
 
 * Auto-configuration condition annotations:

@@ -42,3 +42,5 @@ Disadvantage of Dependency Injection
 * More classes and interfaces
   
   
+What is an interface and what are the advantages of making use of them in Java?
+-------------------------------------------------------------------------------
