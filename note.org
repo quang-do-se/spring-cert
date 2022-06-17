@@ -684,6 +684,10 @@
 
 ** DefaultServletHttpRequestHandler is typically configured with a URL mapping of "/*" and the lowest priority relative to all others URL mappings and its sole responsiblity it to serve static resources
 
+** DispatcherServlet has 2 WebApplicationContext: Servlet Web Application Context (DispatcherServletContext) and Root Application Context
+   - Servlet Web Application Context inherits all the beans already defined in the Root Application Context.
+   - Root Application Context contains all non-web beans (services, datasources, repositories...) and is instantiated using a bean of type _org.springframework.web.context.ContextLoaderListener_.
+   - https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-servlet-context-hierarchy
 
 * Default Exception Handler
 
@@ -1324,3 +1328,5 @@
    - Automatic use of a _ConfigurableWebBindingInitializer_ bean.
 
    - Custom _Favicon_ support.
+
+** _InternalResourceViewResolver_ handles the translation of view names and JSP pages. It is the default view resolver.
