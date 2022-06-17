@@ -931,6 +931,10 @@
   - If bean A is singleton, and it has a property bean B which is a non-singleton, every time bean A is acquired by a client, the same instance of bean B is supplied.
     - Use _@Lookup_ annotation to inject prototype-scoped bean into a singleton bean.
 
+  - As a rule, use the prototype scope for all stateful beans and the singleton scope for stateless beans.
+
+  - In contrast to the other scopes, Spring does not manage the complete lifecycle of a PROTOTYPE bean: the container instantiates, configures, and otherwise assembles a prototype object, and hands it to the client, with no further record of that prototype instance. Thus, although initialization lifecycle callback methods are called on all objects regardless of scope, in the case of prototypes, configured destruction lifecycle callbacks are not called. The client code must clean up prototype-scoped objects and release expensive resources that the prototype bean(s) are holding. In some respects, the Spring container’s role in regard to a prototype-scoped bean is a replacement for the Java new operator. All lifecycle management past that point must be handled by the client. https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes-prototype
+
 
 * Spring provides the following mock objects to use in tests:
 ** Environment
