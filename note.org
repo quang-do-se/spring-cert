@@ -28,6 +28,12 @@
 
 ** Spring prefer Unchecked Exceptions as it gives developers freedom of choice as to decide where to implement error handling and removes coupling related to exceptions. It also removes cluttered code as there is no requirement of try-catch blocks.
 
+** You may declare @Bean methods as static, allowing for them to be called without creating their containing configuration class as an instance. This makes particular sense when defining post-processor beans, e.g. of type BeanFactoryPostProcessor or BeanPostProcessor, since such beans will get initialized early in the container lifecycle and should avoid triggering other parts of the configuration at that point.
+
+   - Note that calls to static @Bean methods will never get intercepted by the container, not even within @Configuration classes (see above). This is due to technical limitations: CGLIB subclassing can only override non-static methods. As a consequence, a direct call to another @Bean method will have standard Java semantics, resulting in an independent instance being returned straight from the factory method itself.
+
+   - https://docs.spring.io/spring-framework/docs/5.0.5.RELEASE/spring-framework-reference/core.html#beans-factorybeans-annotations
+
 
 * Autowiring
 ** Precedence
