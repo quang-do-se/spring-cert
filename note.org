@@ -1214,7 +1214,7 @@
 * AOP Terminology
 ** _Aspect_ : A class containing code specific to a cross-cutting concern. A class declaration is recognized in Spring as an aspect if it is annotated with the @Aspect annotation.
 
-** _Weaving_ : A synonym for this word is interlacing, but in software the synonym is linking and it refers to aspects being combined with other types of objects to create an advised object.
+** _Weaving_ : A synonym for this word is interlacing, but in software the synonym is linking and it refers to aspects being combined with other types of objects to create an advised object. This can be done at compile time (using the AspectJ compiler, for example), load time, or at runtime. Spring AOP, like other pure Java AOP frameworks, performs weaving at _runtime_.
 
 ** _Join Point_ : A point during the execution of a program. In Spring AOP, a join point is always a method execution. Basically, the join point marks the execution point where aspect behavior and target behavior join.
 
