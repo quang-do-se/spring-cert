@@ -19,9 +19,9 @@ pattern is to have a separate object that injects dependencies with the required
 based on an interface contract.
 
 
-====================================
- Advantages of Dependency Injection
-====================================
+----------------------------------
+Advantages of Dependency Injection
+----------------------------------
 
 * Increases cohesion
 
@@ -34,18 +34,19 @@ based on an interface contract.
 * Increases flexibility (by interfaces)
 
   
-======================================
- Disadvantage of Dependency Injection
-======================================
+------------------------------------
+Disadvantage of Dependency Injection
+------------------------------------
 
 * More classes and interfaces
-  
-  
+
+
 =================================================================================
  What is an interface and what are the advantages of making use of them in Java?
 =================================================================================
 
 Interface is a contract for classes. It makes swapping implementation easy and loose coupling.
+
 
 ================================
  What is an ApplicationContext?
