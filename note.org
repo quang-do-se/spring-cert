@@ -766,6 +766,8 @@
 * Spring REST
 
   - HTTP verbs are used as actions to execute on the resources (GET, PUT, PATCH, POST, DELETE, HEAD, and OPTIONS).
+  - GET is safe and idempotent  (read-only). PUT and DELETE are not safe but generally idempotent.
+  - POST is neither safe nor idempotent.
 
 
 * RestTemplate
