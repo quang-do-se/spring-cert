@@ -1406,3 +1406,26 @@
    - Custom _Favicon_ support.
 
 ** _InternalResourceViewResolver_ handles the translation of view names and JSP pages. It is the default view resolver.
+
+** Controller Advice
+   - Handle common exceptions thrown by all controllers
+
+     #+begin_src java
+
+       @ControllerAdvice
+       public class MissingRecordsHandler {
+
+           @ExceptionHandler(NotFoundException.class)
+           @ResponseStatus(value= HttpStatus.NOT_FOUND)
+           public ModelAndView notFound(HttpServletRequest req, NotFoundException nfe) {
+               //...
+           }
+       }
+     #+end_src
+
+   - Note that `@ResponseStatus` can be used on a Class as well to add HTTP status code and reason to method return.
+
+     #+begin_src java
+       @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Something wrong!")
+       class CustomException extends RuntimeException {}
+     #+end_src
