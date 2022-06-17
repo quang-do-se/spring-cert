@@ -646,6 +646,10 @@
      }
     #+end_src
 
+** How Spring Data JPA repository is implemented:
+   - There's no code generation going on, which means: no CGLib, no byte-code generation at all. The fundamental approach is that a JDK proxy instance is created programmatically using Spring's ProxyFactory API to back the interface and a MethodInterceptor intercepts all calls to the instance and routes the method into the appropriate places.
+   - https://stackoverflow.com/questions/38509882/how-are-spring-data-repositories-actually-implemented/38511337#38511337
+
 
 * Embedded databases are HSQLDB, H2 and DERBY.
   - spring.jpa.hibernate.ddl-auto defaults to "none" for non-embedded databases such as Oracle, MySQL, Postgres...
