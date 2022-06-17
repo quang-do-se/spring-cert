@@ -22,18 +22,23 @@ pattern is to have a separate object that injects dependencies with the required
 based on an interface contract.
 
 
-Advantage of Dependency Injection
+Advantages of Dependency Injection
 ---------------------------------
 
 * Increases cohesion
 
 * Decreases coupling between classes and their dependencies
 
-* Reduces boilerplate Code
+* Reduces boilerplate code
 
-* Makes program more reusable, testable and maintainable
+* Makes program more reusable, maintainable and testable (mocked objects)
 
 * Increases flexibility (by interfaces)
 
+  
+Disadvantage of Dependency Injection
+------------------------------------
+
+* More classes and interfaces
   
   
