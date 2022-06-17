@@ -669,6 +669,10 @@
   - _org.springframework.dao.DataAccessException_ is the Root of the hierarchy of data access exceptions in Spring Framework.
   - There are NonTransientDataAccessException, RecoverableDataAccessException and TransientDataAccessException under it.
 
+  - It helps convert proprietary, checked exceptions (e.g. Hibernate) to a set of focused runtime exceptions.
+  - This allows one to switch between the aforementioned persistence technologies fairly easily and it also allows one to code without worrying about catching exceptions that are specific to each technology.
+  - These exceptions wrap the original exception so there is never any risk that one might lose any information as to what might have gone wrong.
+
 
 * Spring Boot JPA
 
