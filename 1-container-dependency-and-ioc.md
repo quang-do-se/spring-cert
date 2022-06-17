@@ -148,8 +148,8 @@ System.out.println("HeLlo");
 | application | `@Scope("application")` <br> `@ApplicationScope` <br> `@Scope(WebApplicationContext.SCOPE_APPLICATION)` | The Spring IoC creates a bean for the global application context. Only valid in the context of a web-aware Spring ApplicationContext.                                            |
 | websocket   | `@Scope("websocket")`                                                                                   | The Spring IoC creates a bean instance for the scope of a WebSocket. Only valid in the context of a web-aware Spring ApplicationContext.                                         |
 
-- If bean A is singleton, and it has a property bean B which is a non-singleton, every time bean A is acquired by a client, the same instance of bean B is supplied.
-- Use _@Lookup_ annotation to inject prototype-scoped bean into a singleton bean.
+- If bean A is `singleton`, and it has a property bean B which is a **non-singleton**, every time bean A is acquired by a client, the same instance of bean B is supplied.
+- Use `@Lookup` annotation to inject `prototype`-scoped bean into a `singleton` bean.
 
 - As a rule, use the `prototype` scope for all **stateful** beans and the `singleton` scope for **stateless** beans.
 
