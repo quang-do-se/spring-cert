@@ -37,18 +37,13 @@
 
 - `Join Point` : A point during the execution of a program, such as the execution of a method or the handling of an exception. I. In Spring AOP, a join point is *always* a method execution. Basically, the join point marks the execution point where aspect behavior and target behavior join.
 
-- `Target object` : An object to which the aspect applies.
+- `Target object`: An object to which the aspect applies.
 
-- `Target method` : the advised method.
+- `Target method`: the advised method.
 
-- `Advice` : The action taken by an aspect at a join point. In Spring AOP, there are multiple advice types.
-  - @Before advice: Methods annotated with @Before that will execute before the join point. These methods do not prevent the execution of the target method unless they throw an exception.
-  - @AfterReturning advice: Methods annotated with @AfterReturning that will execute after a join point completes normally, meaning that the target method returns normally without throwing an exception.
-  - @AfterThrowing advice: Methods annotated with @AfterThrowing that will execute after a join point execution ends by throwing an exception.
-  - @After (finally) advice: Methods annotated with @After that will execute after a join point execution, no matter how the execution ended.
-  - @Around advice: Methods annotated with @Around intercept the target method and surround the join point. This is the most powerful type of advice since can perform custom behavior before and after the invocation. It has the responsibility of choosing to perform the invocation or return its own value, and it provides the option of stopping the propagation of an exception.
+- `Advice`: The action taken by an aspect at a join point. In Spring AOP, there are multiple advice types. See below.
 
-- `Pointcut` : A predicate used to identify join points. Advice definitions are associated with a pointcut expression and the advice will execute on any join point matching the pointcut expression. Pointcut expressions are defined using AspectJ Pointcut Expression Language3 Pointcut expressions can be defined as arguments for Advice annotations or as arguments for the @Pointcut annotation.
+- `Pointcut`: A predicate used to identify join points. Advice definitions are associated with a pointcut expression and the advice will execute on any join point matching the pointcut expression. Pointcut expressions are defined using AspectJ Pointcut Expression Language3 Pointcut expressions can be defined as arguments for Advice annotations or as arguments for the @Pointcut annotation.
 
 - `Introduction`: Declaring additional methods, fields, interfaces being implemented, and annotations on behalf of another type. Spring AOP allows this using a suite of AspectJ @Declare* annotations that are part of the aspectjrt library.
 
@@ -68,7 +63,7 @@
 ## Which are the limitations of the two proxy-types?
 
 - Overview of `CGLIB Proxies`:
-  - Generate a new class that subclass the target class and wrap the target object at compile time.
+  - Generate a new class that subclass the target class and wrap the target object at runtime.
   
 - Overview of `JDK Dynamic Proxies`:
   - Implement the same interface as target class and wrap the target object at runtime.
@@ -79,7 +74,9 @@
 - Limitations of `CGLIB Proxies` are:
   - Requires the class of the proxied object to be non-`final`. Subclasses cannot be created from `final` classes.
   - Requires methods in the proxied object to be non-final. Final methods cannot be overridden.
-  - Only `public` and `protected` method calls on the proxy are intercepted (and `package`-visible methods, if necessary).
+  - CGLIB proxies intercept only `public` method calls! `protected` and `package` methods may be interceptable but not recommended.
+    - https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes-other-injection-proxies
+    - https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop-pointcuts-designators
   - Requires a third-party library. Not built into the Java language and thus require a library. The CGLIB library has been included into Spring, so when using the Spring framework, no additional library is required.
 
 - Limitations of `JDK Dynamic Proxies` are:
@@ -88,12 +85,20 @@
   - Can only intercept `public` and `default` methods.
     - Starting with Java 8, interfaces can be declared to contain private and default methods. For obvious reasons, related to their access modifier, private methods are not proxied. Default methods are methods that are declared in the interface, so that classes implementing the interface don’t have to. They are inherited by the classes, so they are proxied just like any normal method, with the specific behavior being executed before the call being forwarded to the target object.
 
+- Benefits of `CGLIB Proxies` are:
+  - Target class does not need to implement an interface.
+
 - Benefits of `JDK Dynamic Proxies` are:
-  - There's no code generation going on, which means: no CGLib, no byte-code generation at all.
-  - Less invasive than `CGLIB Proxies`.
+  - Programming to interface is recommended.
 
 
 ## How many advice types does Spring support? Can you name each one?
+
+- `@Before` advice: Methods annotated with @Before that will execute before the join point. These methods do not prevent the execution of the target method unless they throw an exception.
+- `@AfterReturning` advice: Methods annotated with @AfterReturning that will execute after a join point completes normally, meaning that the target method returns normally without throwing an exception.
+- `@AfterThrowing` advice: Methods annotated with @AfterThrowing that will execute after a join point execution ends by throwing an exception.
+- `@After` (finally) advice: Methods annotated with @After that will execute after a join point execution, no matter how the execution ended.
+- `@Around` advice: Methods annotated with @Around intercept the target method and surround the join point. This is the most powerful type of advice since can perform custom behavior before and after the invocation. It has the responsibility of choosing to perform the invocation or return its own value, and it provides the option of stopping the propagation of an exception.
 
 
 ## If shown pointcut expressions, would you understand them?
