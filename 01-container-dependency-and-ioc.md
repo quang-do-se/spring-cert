@@ -223,6 +223,10 @@ The lifecycle of a Spring bean looks like this:
     - Bean Destruction methods can be specified either in the value of the `destroy-method` attribute in the corresponding `<bean>` element in s Spring XML configuration or in the `destroyMethod` property of the `@Bean` annotation.
     - If the same destruction method has already been invoked, it will not be invoked again.
 
+<p align="center">
+  <img src="img/bean-lifecycle.png" alt="Bean Lifecycle" width="70%"/>
+</p>
+
 
 ## How are you going to create an `ApplicationContext` in an integration test?
 
