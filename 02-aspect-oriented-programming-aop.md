@@ -115,6 +115,25 @@ The template that a pointcut expression follows can be defined as follows.
 
 The expression can contain wildcards like `+` and `*` and can be made of multiple expressions concatenated by boolean operators such as `&&`, `||`, and so forth. The `*` wildcard replaces any group of characters when used to match pieces of package names, classes, and methods, and a single character when used to match method parameters. The `+` wildcard specifies that the method to advise can also be found in subclasses identified by `[FullClassName]` criteria. The `+` wildcard works in a similar way when the criteria used is an interface and the pointcut expression matches the methods in all implementations.
 
+The `[ReturnType]` is mandatory. If the return type is not a criterion, just use `*`. If it is missing the application crashes at boot time throwing an `java.lang.IllegalArgumentException` with a message explaining that the pointcut is not well-formed.
+
+• The `[Modifers]` is NOT mandatory and if not specified, defaults to `public`.
+
+• The `[MethodName]` is NOT mandatory, meaning no exception will be thrown at boot time. But if unspecified, the join point where to execute the advice won’t be identified. It’s safe to say that if you want to define a technically useful pointcut expression you need to specify it.
+
+• The `[Arguments]` is mandatory. If it is missing the application crashes at boot time throwing a `java.lang.IllegalArgumentException` with a message explaining that the pointcut is not well formed. If the arguments are not a criterion, just use `(..)` which matches a method with 0 or many arguments. If you want the match to be done on a method with no arguments, use `()`. If you want the match to be done on a method with a single argument, use `(*)`.
+
+
+Even pointcut declarations can be decoupled using `@Poincut`. Example:
+
+``` java
+
+public class PointcutContainer {
+    @Pointcut("execution (* com.apress.cems.aop.service.*Service+.save(..)) && args(person) && target(service)")
+    public void beforeSavePointcut(Person person, PersonService service){}
+}
+
+```
 
 ## What is the `JoinPoint` argument used for?
 
