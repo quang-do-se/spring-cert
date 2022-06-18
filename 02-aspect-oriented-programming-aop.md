@@ -61,7 +61,6 @@
 - In Spring AOP, if the target object implements an interface, it defaults to using the standard `JDK Dynamic proxies`, and this behavior can be overridden to force the use `CGLIB proxies` instead. 
 
 ## Which are the limitations of the two proxy-types?
-
 - Overview of `CGLIB Proxies`:
   - Generate a new class that subclasses the target class and wrap the target object at runtime.
   
@@ -81,7 +80,7 @@
 
 - Limitations of `JDK Dynamic Proxies` are:
   - Class for which a proxy is to be created must implement an **interface**.
-  - Can only intercept the methods that are in *interface*. If the implemented object has additional methods not in **interface**, they will not be intercepted. For example, `equal(...)` or `hashCode(...)` method will have issues since concrete classes will likely have different implementation for them.
+  - Can only intercept the methods that are in *interface*. If the implemented object has additional methods not in **interface**, they will not be intercepted.
   - Can only intercept `public` and `default` methods.
     - Starting with Java 8, interfaces can be declared to contain private and default methods. For obvious reasons, related to their access modifier, private methods are not proxied. Default methods are methods that are declared in the interface, so that classes implementing the interface don’t have to. They are inherited by the classes, so they are proxied just like any normal method, with the specific behavior being executed before the call being forwarded to the target object.
 

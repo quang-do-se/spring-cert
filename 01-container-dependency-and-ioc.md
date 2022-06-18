@@ -84,6 +84,27 @@ Interface is a contract for classes. It makes swapping implementation easy and l
 
 ## What is a `proxy` object and what are the two different types of proxies Spring can create?
 
+- `Proxy Object` is an object that adds additional logic on top of object that is being proxied without having to modify code of proxied object. Proxy object has the same public methods as object that is being proxied and it should be as much as possible indistinguishable from proxied object. When method is invoked on Proxy Object, additional code, usually before and after sections are invoked, also code from proxied object is invoked by Proxy Object.
+
+- Proxy Advantages:
+  - Ability to change behavior of existing beans without changing original code.
+  - Separation of concerns (logging, transactions, security, ...).
+  
+- Proxy Disadvantages:
+  - May create code hard to debug.
+  - Needs to use unchecked exception for exceptions not declared in original method.
+  - May cause performance issues if before/after section in proxy code is using IO (Network, Disk)
+  - May cause unexpected equals operator (`==`) results since Proxy Object and Proxied Object are two different objects.
+
+- Spring can create `CGLIB proxy` and `JDK Dynamic proxy`.
+
+- Overview of `CGLIB Proxies`:
+  - Generate a new class that subclasses the target class and wrap the target object at runtime.
+  
+- Overview of `JDK Dynamic Proxies`:
+  - Generate a new class that implements the same interface as target class and wrap the target object at runtime.
+
+
 ## What does the `@Bean` annotation do?
 
 ## What is the default bean id if you only use `@Bean`? How can you override this?
