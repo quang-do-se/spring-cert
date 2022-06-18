@@ -87,14 +87,14 @@ Given the interfaces the `ApplicationContext` interface inherits from, an applic
 
 
 There can be more than one application context in a single Spring application. Multiple application contexts can be arranged in a parent child hierarchy where the relation is directional from child context to parent context. Many child contexts can have one and the same parent context. Some commonly used implementations of the ApplicaionContext interface are:
-  - `AnnotationConfigApplicaionContext`: Standalone applicaion context used with configuration in the form of annotate classes.
-  - `AnnotationConfigWebApplicaionContext`: Same as `AnnotationConfigApplicaionContext` but for web applications.
-  - `ClassPathXmlApplicaionContext`: Standalone applicaion context used with XML configuration located on the classpath of the application.
+  - `AnnotationConfigApplicationContext`: Standalone applicaion context used with configuration in the form of annotate classes.
+  - `AnnotationConfigWebApplicationContext`: Same as `AnnotationConfigApplicaionContext` but for web applications.
+  - `ClassPathXmlApplicationContext`: Standalone applicaion context used with XML configuration located on the classpath of the application.
   - `FileSystemXmlApplicationContext`: Standalone applicaion context used with XML configuration located as one ore more files in the file system.
-  - `XmlWebApplicaionContext`: Web applicaion context used with XML configuration.
+  - `XmlWebApplicationContext`: Web applicaion context used with XML configuration.
 
 
-DispatcherServlet has 2 WebApplicationContext: Servlet Web Application Context (DispatcherServletContext) and Root Application Context
+`DispatcherServlet` has 2 `WebApplicationContext`: Servlet Web Application Context (DispatcherServletContext) and Root Application Context
   - Servlet Web Application Context inherits all the beans already defined in the Root Application Context.
   - Root Application Context contains all non-web beans (services, datasources, repositories...) and is instantiated using a bean of type _org.springframework.web.context.ContextLoaderListener_.
   - https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-servlet-context-hierarchy
