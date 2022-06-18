@@ -230,6 +230,55 @@ The lifecycle of a Spring bean looks like this:
 
 ## How are you going to create an `ApplicationContext` in an integration test?
 
+#### `JUnit 4`
+- `@RunWith(SpringJUnit4ClassRunner.class)` or `@RunWith(SpringRunner.class)`
+- Must have `@ContextConfiguration` to tell the runner class where the bean definitions come from. For example:
+  - `@ContextConfiguration(loader = AnnotationConfigContextLoader.class)`
+  - `@ContextConfiguration(classes = {TestDbConfig.class, RepoConfig.class})`
+
+``` java
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = {TestDbConfig.class, RepoConfig.class})
+public class RepositoryTest {
+}
+```
+- To use Mockito, `@RunWith(MockitoJUnitRunner.class)`
+
+``` java
+@RunWith(MockitoJUnitRunner.class)
+@ContextConfiguration(classes = {TestDbConfig.class, RepoConfig.class})
+public class RepositoryTest {
+}
+```
+
+#### `JUnit 5`
+
+- `@ExtendWith(SpringExtension.class)`
+
+``` java
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {TestDbConfig.class, RepoConfig.class})
+public class RepositoryTest {
+}
+```
+
+- `@SpringJUnitConfig` = `@ExtendWith(SpringExtension.class)` + `@ContextConfiguration`
+
+``` java
+@SpringJUnitConfig(classes = {TestDbConfig.class, RepoConfig.class})
+class RepositoryTest {
+}
+```
+
+- To use Mockto, `@ExtendWith(MockitoExtension.class)`
+
+``` java
+@ExtendWith(MockitoExtension.class)
+@ContextConfiguration(classes = {TestDbConfig.class, RepoConfig.class})
+public class RepositoryTest {
+}
+```
+
 ## What is the preferred way to close an application context? Does Spring Boot do this for you?
 
 ## Are beans lazily or eagerly instantiated by default? How do you alter this behavior?
