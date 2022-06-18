@@ -63,17 +63,17 @@
 ## Which are the limitations of the two proxy-types?
 
 - Overview of `CGLIB Proxies`:
-  - Generate a new class that subclass the target class and wrap the target object at runtime.
+  - Generate a new class that subclasses the target class and wrap the target object at runtime.
   
 - Overview of `JDK Dynamic Proxies`:
-  - Implement the same interface as target class and wrap the target object at runtime.
+  - Generate a new class that implements the same interface as target class and wrap the target object at runtime.
 
 - Common limitations for both proxies:
   - Does not support self-invocations. Self-invocation is where one method of the object invokes another method on the same object.
 
 - Limitations of `CGLIB Proxies` are:
-  - Requires the class of the proxied object to be non-`final`. Subclasses cannot be created from `final` classes.
-  - Requires methods in the proxied object to be non-final. Final methods cannot be overridden.
+  - Requires the class of the proxied object to be **non-final**. Subclasses cannot be created from `final` classes.
+  - Requires methods in the proxied object to be **non-final**. `Final` methods cannot be overridden.
   - CGLIB proxies intercept only `public` method calls! `protected` and `package` methods may be interceptable but not recommended.
     - https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes-other-injection-proxies
     - https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop-pointcuts-designators
@@ -94,11 +94,15 @@
 
 ## How many advice types does Spring support? Can you name each one?
 
-- `@Before` advice: Methods annotated with @Before that will execute before the join point. These methods do not prevent the execution of the target method unless they throw an exception.
-- `@AfterReturning` advice: Methods annotated with @AfterReturning that will execute after a join point completes normally, meaning that the target method returns normally without throwing an exception.
-- `@AfterThrowing` advice: Methods annotated with @AfterThrowing that will execute after a join point execution ends by throwing an exception.
-- `@After` (finally) advice: Methods annotated with @After that will execute after a join point execution, no matter how the execution ended.
-- `@Around` advice: Methods annotated with @Around intercept the target method and surround the join point. This is the most powerful type of advice since can perform custom behavior before and after the invocation. It has the responsibility of choosing to perform the invocation or return its own value, and it provides the option of stopping the propagation of an exception.
+- `@Before` advice: Methods annotated with `@Before` that will execute before the join point. These methods do not prevent the execution of the target method unless they throw an exception.
+
+- `@AfterReturning` advice: Methods annotated with `@AfterReturning` that will execute after a join point completes normally, meaning that the target method returns normally without throwing an exception.
+
+- `@AfterThrowing` advice: Methods annotated with `@AfterThrowing` that will execute after a join point execution ends by throwing an exception.
+
+- `@After` (finally) advice: Methods annotated with `@After` that will execute after a join point execution, no matter how the execution ended.
+
+- `@Around` advice: Methods annotated with `@Around` intercept the target method and surround the join point. This is the most powerful type of advice since can perform custom behavior before and after the invocation. It has the responsibility of choosing to perform the invocation or return its own value, and it provides the option of stopping the propagation of an exception.
 
 
 ## If shown pointcut expressions, would you understand them?
