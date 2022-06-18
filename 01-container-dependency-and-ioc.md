@@ -75,7 +75,7 @@ It is responsible for:
 - Managing the life-cycle of Sping beans.
 
 
-Given the interface the `ApplicationContext` interface inherits from, an application context have the following properties:
+Given the interfaces the `ApplicationContext` interface inherits from, an application context have the following properties:
 - Is a bean factory
   - A bean factory instantiates, configures and assembles Spring beans. Configuration and assembly is value and dependency injection. A bean factory also manages the beans.
 - Is a hierarchical bean factory.
@@ -100,7 +100,7 @@ DispatcherServlet has 2 WebApplicationContext: Servlet Web Application Context (
   - https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-servlet-context-hierarchy
 
 <p align="center">
-  <img src="img/dispatcher-servlet.png" alt="Dispatcher Servlet Context" width="80%"/>
+  <img src="img/dispatcher-servlet.png" alt="Dispatcher Servlet Context" width="50%"/>
 </p>
 
 
