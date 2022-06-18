@@ -1,4 +1,28 @@
+
 ## What is the concept of AOP? Which problem does it solve? What is a cross cutting concern?
+
+- `AOP` is the acronym for `Aspect-Oriented Programming`, which refers to a type of programming that aims to increase modularity by allowing the separation of cross-cutting concerns.
+
+- `AOP` is a type of programming that aims to help with separation of cross-cutting concerns to increase modularity; it implies declaring an aspect class that will alter the behavior of base code by applying advices to specific join points specified by pointcuts.
+
+- The business or base code is not actually changed, you can imagine aspects as plugins. They modify the behavior, not the actual implementation.
+
+- AOP is a complement of OOP (object-oriented programming). AOP and OOP can be used together to write powerful applications, because both provide different ways of structuring your code. OOP is focused on making everything an object, while AOP introduces the aspect, which is a special type of object that injects and wraps its behavior to complement the behavior of other objects.
+
+- A `cross-cutting concern` is a functionality that is tangled with business code, which usually cannot be separated from the business logic.
+
+- Cross-cutting concerns for an Enterprise Application:
+  - Security
+  - Caching
+  - Logging
+  - Monitoring
+  - Data validation
+  - Internationalization
+  - Error detection and correction. Exception handling.
+  - Memory management
+  - Synchronization
+  - Connecting to the database (connection pooling, reusing connections, open and close connections)
+  - Transaction
 
 
 ## What is a pointcut, a join point, an advice, an aspect, weaving?
