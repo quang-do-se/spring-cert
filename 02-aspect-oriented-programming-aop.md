@@ -131,11 +131,15 @@ public class PointcutContainer {
     @Pointcut("execution (* com.apress.cems.aop.service.*Service+.save(..)) && args(person) && target(service)")
     public void beforeSavePointcut(Person person, PersonService service){}
 }
+```
 
+``` java
 @Aspect
 @Component
 public class PersonMonitor {
     private static final Logger logger = LoggerFactory.getLogger(PersonMonitor.class);
+
+    private static final String[] SPECIAL_CHARS = new String[]{"$", "#", "&", "%"};
 
     @Before("com.apress.cems.aop.PointcutContainer.beforeSavePointcut(person,service)")
     public void beforeSave(Person person, PersonService service) {
@@ -148,7 +152,6 @@ public class PersonMonitor {
         }
     }
 }
-
 ```
 
 ## What is the `JoinPoint` argument used for?
