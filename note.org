@@ -21,7 +21,7 @@
      - All the configurations how to create a bin
      - Dependencies that it has
      - The intial values for that bin
-   - Beans
+   - Beans (simple POJOs)
    - Spring Expression Language (SPEL)
 
 ** The configuration metadata is represented in XML, Java annotations, or Java code.
