@@ -445,7 +445,8 @@
      }
    #+end_src
 
-*** The DataSourceTransactionManager class is a PlatformTransactionManager implementation for single JDBC datasources. It binds a JDBC connection from the specified data source to the currently executing thread, potentially allowing for one thread connection per data source.
+*** The DataSourceTransactionManager class is a PlatformTransactionManager implementation for *single JDBC datasources*. It binds a JDBC connection from the specified data source to the currently executing thread, potentially allowing for *one thread connection per data source*. (Source: https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#jdbc-DataSourceTransactionManager)
+
     - The DriverManagerDataSource class is an implementation of the standard DataSource interface that configures a plain JDBC driver through bean properties, and returns a new Connection every time. Pool-assuming Connection.close() calls will simply close the connection, so any DataSource-aware persistence code should work.
     - Spring obtains a connection to the database through a DataSource. https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#jdbc-datasource
 
