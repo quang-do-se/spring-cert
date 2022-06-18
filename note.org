@@ -561,7 +561,7 @@
 
 ** Reduce boiler-plate code by introducing abstract repositories
 
-   - Simply extends JpaRepository interface and Spring will implement the interface and add data functionalities (CRUD, pagination...) at runtime
+   - Simply extends JpaRepository interface and Spring will implement the interface and add data functionalities (CRUD, pagination...) at runtime (using JDK proxy).
 
    #+begin_src java
      public interface PersonRepo extends JpaRepository<Person, Long> {}
@@ -1383,7 +1383,7 @@
 
 * Spring Web MVC
 ** Definition:
-    - In Spring MVC, which of these is being described below?  Select the one that applies best. It is usually prepared inside controller methods, and it carries information that the view needs to create the view output.
+    - Model: It is usually prepared inside controller methods, and it carries information that the view needs to create the view output.
     
 ** Method Arguments
    - https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-arguments
