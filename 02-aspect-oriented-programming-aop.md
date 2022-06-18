@@ -127,10 +127,26 @@ The `[ReturnType]` is mandatory. If the return type is not a criterion, just use
 Even pointcut declarations can be decoupled using `@Poincut`. Example:
 
 ``` java
-
 public class PointcutContainer {
     @Pointcut("execution (* com.apress.cems.aop.service.*Service+.save(..)) && args(person) && target(service)")
     public void beforeSavePointcut(Person person, PersonService service){}
+}
+
+@Aspect
+@Component
+public class PersonMonitor {
+    private static final Logger logger = LoggerFactory.getLogger(PersonMonitor.class);
+
+    @Before("com.apress.cems.aop.PointcutContainer.beforeSavePointcut(person,service)")
+    public void beforeSave(Person person, PersonService service) {
+        logger.info("[beforeSave]: ---> Target object {}", service.getClass());
+        logger.info("[beforeSave]: ---> first name {}, last name {}", person.getFirstName(), person.getLastName());
+
+        if (StringUtils.indexOfAny(person.getFirstName(), SPECIAL_CHARS) != -1 ||
+            StringUtils.indexOfAny(person.getLastName(), SPECIAL_CHARS) != -1) {
+            throw new IllegalArgumentException("Text contains weird characters!");
+        }
+    }
 }
 
 ```
