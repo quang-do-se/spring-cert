@@ -30,11 +30,10 @@
 
 ## What is a pointcut, a join point, an advice, an aspect, weaving?
 
-- `Aspect` : A class containing code specific to a cross-cutting concern. A class declaration is recognized in Spring as an aspect if it is annotated with the @Aspect annotation.
-  - A module that encapsulates pointcuts and advice.
+- `Aspect` : A class containing code specific to a cross-cutting concern. A class declaration is recognized in Spring as an aspect if it is annotated with the @Aspect annotation. A module that encapsulates pointcuts and advice.
 
 - `Weaving` : A synonym for this word is interlacing, but in software the synonym is linking and it refers to aspects being combined with other types of objects to create an advised object. This can be done at compile time (using the AspectJ compiler, for example), load time, or at runtime. 
-  - **Spring AOP, like other pure Java AOP frameworks, performs weaving at RUNTIME**
+  - **Spring AOP, like other pure Java AOP frameworks, performs weaving at RUNTIME.**
 
 - `Join Point` : A point during the execution of a program, such as the execution of a method or the handling of an exception. I. In Spring AOP, a join point is *always* a method execution. Basically, the join point marks the execution point where aspect behavior and target behavior join.
 
@@ -64,22 +63,35 @@
 
 - Spring AOP is also non-invasive; it was developed to keep AOP components decoupled from application components.
 
+- In Spring AOP, if the target object implements an interface, it defaults to using the standard `JDK Dynamic proxies`, and this behavior can be overridden to force the use `CGLIB proxies` instead. 
 
 ## Which are the limitations of the two proxy-types?
+
+- Overview of `CGLIB Proxies`:
+  - Generate a new class that subclass the target class and wrap the target object at compile time.
+  
+- Overview of `JDK Dynamic Proxies`:
+  - Implement the same interface as target class and wrap the target object at runtime.
 
 - Common limitations for both proxies:
   - Does not support self-invocations. Self-invocation is where one method of the object invokes another method on the same object.
 
 - Limitations of `CGLIB Proxies` are:
-  - Requires the class of the proxied object to be non-final. Subclasses cannot be created from final classes.
+  - Requires the class of the proxied object to be non-`final`. Subclasses cannot be created from `final` classes.
   - Requires methods in the proxied object to be non-final. Final methods cannot be overridden.
-  - Only `public` and `protected` method calls on the proxy are intercepted (and even `package`-visible methods, if necessary).
+  - Only `public` and `protected` method calls on the proxy are intercepted (and `package`-visible methods, if necessary).
   - Requires a third-party library. Not built into the Java language and thus require a library. The CGLIB library has been included into Spring, so when using the Spring framework, no additional library is required.
 
 - Limitations of `JDK Dynamic Proxies` are:
-  - Class for which a proxy is to be created must implement an interface.
+  - Class for which a proxy is to be created must implement an **interface**.
+  - Can only intercept the methods that are in *interface*. If the implemented object has additional methods not in **interface**, they will not be intercepted. For example, `equal(...)` or `hashCode(...)` method will have issues since concrete classes will likely have different implementation for them.
   - Can only intercept `public` and `default` methods.
     - Starting with Java 8, interfaces can be declared to contain private and default methods. For obvious reasons, related to their access modifier, private methods are not proxied. Default methods are methods that are declared in the interface, so that classes implementing the interface don’t have to. They are inherited by the classes, so they are proxied just like any normal method, with the specific behavior being executed before the call being forwarded to the target object.
+
+- Benefits of `JDK Dynamic Proxies` are:
+  - There's no code generation going on, which means: no CGLib, no byte-code generation at all.
+  - Less invasive than `CGLIB Proxies`.
+
 
 ## How many advice types does Spring support? Can you name each one?
 
