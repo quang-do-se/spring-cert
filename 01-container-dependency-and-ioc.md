@@ -224,7 +224,7 @@ The lifecycle of a Spring bean looks like this:
     - If the same destruction method has already been invoked, it will not be invoked again.
 
 <p align="center">
-  <img src="img/bean-lifecycle.png" alt="Bean Lifecycle" width="70%"/>
+  <img src="img/bean-lifecycle.png" alt="Bean Lifecycle" width="80%"/>
 </p>
 
 
