@@ -70,7 +70,7 @@ An application context is an instance of any type implementing `org.springframew
 
 It is responsible for:
 - Instantiating beans in the application context.
-- Configuring the beans in the applicaion context.
+- Configuring the beans in the application context.
 - Assembling the beans in the application context.
 - Managing the life-cycle of Sping beans.
 
@@ -80,18 +80,18 @@ Given the interfaces the `ApplicationContext` interface inherits from, an applic
   - A bean factory instantiates, configures and assembles Spring beans. Configuration and assembly is value and dependency injection. A bean factory also manages the beans.
 - Is a hierarchical bean factory.
 - Is a resource loader that can load file resources in a generic fashion.
-- Is an event publisher. As such it publishes applicaion events to listener in the application.
+- Is an event publisher. As such it publishes application events to listener in the application.
 - Is a message source. Can resolve messages and supports internationalization.
 - Is an environment.
-  - From such an environment, properties can be resolved. The environment also allows maintaining named groups of beans, so-called `profiles`. The beans beloging to a certain `profile` are registered with the applicaion context only when the `profile` is active.
+  - From such an environment, properties can be resolved. The environment also allows maintaining named groups of beans, so-called `profiles`. The beans beloging to a certain `profile` are registered with the application context only when the `profile` is active.
 
 
-There can be more than one application context in a single Spring application. Multiple application contexts can be arranged in a parent child hierarchy where the relation is directional from child context to parent context. Many child contexts can have one and the same parent context. Some commonly used implementations of the ApplicaionContext interface are:
-  - `AnnotationConfigApplicationContext`: Standalone applicaion context used with configuration in the form of annotate classes.
-  - `AnnotationConfigWebApplicationContext`: Same as `AnnotationConfigApplicaionContext` but for web applications.
-  - `ClassPathXmlApplicationContext`: Standalone applicaion context used with XML configuration located on the classpath of the application.
-  - `FileSystemXmlApplicationContext`: Standalone applicaion context used with XML configuration located as one ore more files in the file system.
-  - `XmlWebApplicationContext`: Web applicaion context used with XML configuration.
+There can be more than one application context in a single Spring application. Multiple application contexts can be arranged in a parent child hierarchy where the relation is directional from child context to parent context. Many child contexts can have one and the same parent context. Some commonly used implementations of the ApplicationContext interface are:
+  - `AnnotationConfigApplicationContext`: Standalone application context used with configuration in the form of annotate classes.
+  - `AnnotationConfigWebApplicationContext`: Same as `AnnotationConfigApplicationContext` but for web applications.
+  - `ClassPathXmlApplicationContext`: Standalone application context used with XML configuration located on the classpath of the application.
+  - `FileSystemXmlApplicationContext`: Standalone application context used with XML configuration located as one ore more files in the file system.
+  - `XmlWebApplicationContext`: Web application context used with XML configuration.
 
 
 `DispatcherServlet` has 2 `WebApplicationContext`: Servlet Web Application Context (DispatcherServletContext) and Root Application Context
