@@ -1,6 +1,7 @@
 
 ## What is the concept of AOP? Which problem does it solve? What is a cross cutting concern?
 
+#### What is the concept of AOP?
 - `AOP` is the acronym for `Aspect-Oriented Programming`, which refers to a type of programming that aims to increase modularity by allowing the separation of cross-cutting concerns.
 
 - `AOP` is a type of programming that aims to help with separation of cross-cutting concerns to increase modularity; it implies declaring an aspect class that will alter the behavior of base code by applying advices to specific join points specified by pointcuts.
@@ -9,7 +10,15 @@
 
 - AOP is a complement of OOP (object-oriented programming). AOP and OOP can be used together to write powerful applications, because both provide different ways of structuring your code. OOP is focused on making everything an object, while AOP introduces the aspect, which is a special type of object that injects and wraps its behavior to complement the behavior of other objects.
 
-- A `cross-cutting concern` is a functionality that is tangled with business code, which usually cannot be separated from the business logic.
+#### Which problem does it solve?
+
+- **Code Tangling**: Code tangling occurs when there is a mixing of cross-cutting concerns with the application's business logic. It promotes tigh coupling between the cross-cutting and business modules.
+
+- **Code Scattering**: This means that the same concern is spread across modules in the application. Code scattering promotes the duplicity of the concern's code across the application modules.
+
+#### What is a cross cutting concern?
+
+- A `cross-cutting concern` is a functionality that is tangled with business code, which usually cannot be separated from the business logic. This functionality is not related to the application's business logic and is needed in many places.
 
 - Cross-cutting concerns for an Enterprise Application:
   - Security
@@ -23,6 +32,7 @@
   - Synchronization
   - Connecting to the database (connection pooling, reusing connections, open and close connections)
   - Transaction
+  - Custom business rules
 
 <p align="center">
   <img src="img/cross-cutting-concern.png" alt="Cross Cutting Concern" width="70%"/>
@@ -107,7 +117,7 @@
 
 ## If shown pointcut expressions, would you understand them?
 
-#### The template that a pointcut expression follows can be defined as follows.
+#### The template that a pointcut expression follows can be defined as follows:
 
 `execution(public * com.apress.cems.repos.*.JdbcPersonRepo+.findById(..))`
 
@@ -175,8 +185,6 @@ public class PersonMonitor {
 - `@annotation`: Limits matching to join points where the subject of the join point (the method being run in Spring AOP) has the given annotation.
 
 
-
-
 ## What is the `JoinPoint` argument used for?
 
 `JoinPoint` provides reflective access to both the state available at a `join point` and `static` information about it.
@@ -235,3 +243,12 @@ public class AroundExample {
 
 }
 ```
+
+
+# Extras
+
+## How do you enable Aspect support?
+
+To enable aspect support, the `@Configuration` class must be annotated with `@EnableAspectJAutoProxy`.
+
+Add `@Aspect` and `@Component` on class that contains pointcuts and advice.
