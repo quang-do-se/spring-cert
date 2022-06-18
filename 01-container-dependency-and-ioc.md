@@ -127,22 +127,74 @@ AnnotationConfigApplicationContext context = new AnnotationConfigApplicationCont
   - `AbstractAnnotationConfigDispatcherServletInitializer`: Abstract base class that registers a `DispatcherServlet` in teh servlet context and uses Java-based Spring configuration.
   - `AbstractReactiveWebInitializer`: Creates a Spring application context that uses Java-based Spring configuration. Creates a Spring reactive web application in the servlet container.
   
-#### AnnotationConfigWebApplicationContext
+#### `AnnotationConfigWebApplicationContext` with `WebApplicationInitializer`
 
 ``` java
 public class WebConfig implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) {
-        AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        rootContext.register(RootConfig.class, WebConfig.class);
+        // Create Root Context and load Root web application configuration
+        var rootContext = new AnnotationConfigWebApplicationContext();
+        rootContext.register(SecurityConfig.class, PostgresDbConfig.class, ServiceConfig.class);
         servletContext.addListener(new ContextLoaderListener(rootContext));
-
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("web-app-dispatcher", new DispatcherServlet(rootContext));
-        dispatcher.setLoadOnStartup(1);
-        dispatcher.addMapping("/");
+        
+        // Create Servlet Context and load Servlet web application configuration
+        var dispatcherContext = new AnnotationConfigWebApplicationContext();
+        dispatcherContext.register(WebConfig.class);
+        
+        // Create and register the DispatcherServlet
+        DispatcherServlet servlet = new DispatcherServlet(dispatcherContext);
+        ServletRegistration.Dynamic registration = servletContext.addServlet("app", servlet);
+        registration.setLoadOnStartup(1);
+        registration.addMapping("/app/*");
     }
 }
 ```
+Reference: https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-servlet
+
+#### `AbstractAnnotationConfigDispatcherServletInitializer`
+
+``` java
+class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class[]{
+            SecurityConfig.class,
+            PostgresDbConfig.class,
+            ServiceConfig.class
+        };
+    }
+
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class[]{
+            WebConfig.class
+        };
+    }
+
+    @Override
+    protected String[] getServletMappings() {
+        return new String[]{"/"};
+    }
+
+    @Override
+    protected Filter[] getServletFilters() {
+        CharacterEncodingFilter cef = new CharacterEncodingFilter();
+        cef.setEncoding("UTF-8");
+        cef.setForceEncoding(true);
+        return new Filter[]{new HiddenHttpMethodFilter(), cef};
+    }
+
+    @Override
+    protected DispatcherServlet createDispatcherServlet(WebApplicationContext servletAppContext) {
+        final DispatcherServlet dispatcherServlet = (DispatcherServlet) super.createDispatcherServlet(servletAppContext);
+        dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
+        return dispatcherServlet;
+    }
+}
+```
+Reference: https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-servlet-context-hierarchy
 
 ## Can you describe the lifecycle of a Spring Bean in an `ApplicationContext`?
 
