@@ -107,9 +107,9 @@
 
 ## If shown pointcut expressions, would you understand them?
 
-`execution(public * com.apress.cems.repos.*.JdbcPersonRepo+.findById(..))`
+#### The template that a pointcut expression follows can be defined as follows.
 
-The template that a pointcut expression follows can be defined as follows.
+`execution(public * com.apress.cems.repos.*.JdbcPersonRepo+.findById(..))`
 
 `execution([Modifiers] [ReturnType] [FullClassName].[MethodName]([Arguments]) throws [ExceptionType])`
 
@@ -124,7 +124,7 @@ The `[ReturnType]` is mandatory. If the return type is not a criterion, just use
 • The `[Arguments]` is mandatory. If it is missing the application crashes at boot time throwing a `java.lang.IllegalArgumentException` with a message explaining that the pointcut is not well formed. If the arguments are not a criterion, just use `(..)` which matches a method with 0 or many arguments. If you want the match to be done on a method with no arguments, use `()`. If you want the match to be done on a method with a single argument, use `(*)`.
 
 
-Even pointcut declarations can be decoupled using `@Poincut`. Example:
+#### Even pointcut declarations can be decoupled using `@Poincut`. Example:
 
 ``` java
 public class PointcutContainer {
@@ -153,6 +153,29 @@ public class PersonMonitor {
     }
 }
 ```
+
+#### Spring AOP supports the following AspectJ pointcut designators (PCD) for use in pointcut expressions:
+
+- `execution`: For matching method execution join points. This is the primary pointcut designator to use when working with Spring AOP.
+
+- `within`: Limits matching to join points within certain types (the execution of a method declared within a matching type when using Spring AOP).
+
+- `this`: Limits matching to join points (the execution of methods when using Spring AOP) where the bean reference (Spring AOP proxy) is an instance of the given type.
+
+- `target`: Limits matching to join points (the execution of methods when using Spring AOP) where the target object (application object being proxied) is an instance of the given type.
+
+- `args`: Limits matching to join points (the execution of methods when using Spring AOP) where the arguments are instances of the given types.
+
+- `@target`: Limits matching to join points (the execution of methods when using Spring AOP) where the class of the executing object has an annotation of the given type.
+
+- `@args`: Limits matching to join points (the execution of methods when using Spring AOP) where the runtime type of the actual arguments passed have annotations of the given types.
+
+- `@within`: Limits matching to join points within types that have the given annotation (the execution of methods declared in types with the given annotation when using Spring AOP).
+
+- `@annotation`: Limits matching to join points where the subject of the join point (the method being run in Spring AOP) has the given annotation.
+
+
+
 
 ## What is the `JoinPoint` argument used for?
 
