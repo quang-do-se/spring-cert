@@ -201,28 +201,27 @@ Reference: https://docs.spring.io/spring-framework/docs/current/reference/html/w
 
 The lifecycle of a Spring bean looks like this:
 
-- The lifecycle of a Spring looks like this:
-  - Spring bean configuration is read and metadata in the form of a `BeanDefinition` object is created for each bean.
-  - All instances of BeanFactoryPostProcessor are invoked in sequence and are allowed an opportunity to alter the bean metadata.
-  - For each bean in the container:
-    - An instance of the bean is created using the bean metadata.
-    - Properties and dependencies of the bean are set.
-    - Any instances of BeanPostProcessor are given a change to process the new bean instance before and after initialization.
-  - Any methods in the bean implementation class annotated with `@PostConstruct` are invoked. 
-    - This processing is performed by a `BeanPostProcessor`.
-  - Any `afterPropertiesSet` method in a bean implementation class implementing the `InitializingBean` interface is invoked.
-    - This processing is performed by a `BeanPostProcessor`. If the same initialization method has already bean invoked, it will not be invoked again.
-  - Any custom bean initialization method is invoked.
-    - Bean initialization methods can be specified either in the value of the `init-method` attribute in the corresponding `<bean>` in a Spring XML configuration or in the `initMethod` property of the `@Bean` annotation.
-    - This processing is performed by a `BeanPostProcessor`. If the same initialization method has already bean invoked, it will not be invoked again.
-  - The bean is ready for use.
-  - When the Spring application context is to shut down, the beans in it will receive destruction callbacks in this order:
-    - Any methods in the bean implementation class annotated with `@PreDestroy` are invoked.
-    - Any `destroy` method in a bean implementation class implementing the `DisposableBean` interface is invoked.
-      - If the same destruction method has already been invoked, it will not be invoked again.
-    - Any custom bean destruction method is invoked.
-      - Bean Destruction methods can be specified either in the value of the `destroy-method` attribute in the corresponding `<bean>` element in s Spring XML configuration or in the `destroyMethod` property of the `@Bean` annotation.
-      - If the same destruction method has already been invoked, it will not be invoked again.
+- Spring bean configuration is read and metadata in the form of a `BeanDefinition` object is created for each bean.
+- All instances of BeanFactoryPostProcessor are invoked in sequence and are allowed an opportunity to alter the bean metadata.
+- For each bean in the container:
+  - An instance of the bean is created using the bean metadata.
+  - Properties and dependencies of the bean are set.
+  - Any instances of BeanPostProcessor are given a change to process the new bean instance before and after initialization.
+- Any methods in the bean implementation class annotated with `@PostConstruct` are invoked. 
+  - This processing is performed by a `BeanPostProcessor`.
+- Any `afterPropertiesSet` method in a bean implementation class implementing the `InitializingBean` interface is invoked.
+  - This processing is performed by a `BeanPostProcessor`. If the same initialization method has already bean invoked, it will not be invoked again.
+- Any custom bean initialization method is invoked.
+  - Bean initialization methods can be specified either in the value of the `init-method` attribute in the corresponding `<bean>` in a Spring XML configuration or in the `initMethod` property of the `@Bean` annotation.
+  - This processing is performed by a `BeanPostProcessor`. If the same initialization method has already bean invoked, it will not be invoked again.
+- The bean is ready for use.
+- When the Spring application context is to shut down, the beans in it will receive destruction callbacks in this order:
+  - Any methods in the bean implementation class annotated with `@PreDestroy` are invoked.
+  - Any `destroy` method in a bean implementation class implementing the `DisposableBean` interface is invoked.
+    - If the same destruction method has already been invoked, it will not be invoked again.
+  - Any custom bean destruction method is invoked.
+    - Bean Destruction methods can be specified either in the value of the `destroy-method` attribute in the corresponding `<bean>` element in s Spring XML configuration or in the `destroyMethod` property of the `@Bean` annotation.
+    - If the same destruction method has already been invoked, it will not be invoked again.
 
 
 ## How are you going to create an `ApplicationContext` in an integration test?
