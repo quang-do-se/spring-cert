@@ -33,7 +33,8 @@
 - `Aspect` : A class containing code specific to a cross-cutting concern. A class declaration is recognized in Spring as an aspect if it is annotated with the @Aspect annotation.
   - A module that encapsulates pointcuts and advice.
 
-- `Weaving` : A synonym for this word is interlacing, but in software the synonym is linking and it refers to aspects being combined with other types of objects to create an advised object. This can be done at compile time (using the AspectJ compiler, for example), load time, or at runtime. Spring AOP, like other pure Java AOP frameworks, performs weaving at `runtime`.
+- `Weaving` : A synonym for this word is interlacing, but in software the synonym is linking and it refers to aspects being combined with other types of objects to create an advised object. This can be done at compile time (using the AspectJ compiler, for example), load time, or at runtime. 
+  - **Spring AOP, like other pure Java AOP frameworks, performs weaving at RUNTIME**
 
 - `Join Point` : A point during the execution of a program, such as the execution of a method or the handling of an exception. I. In Spring AOP, a join point is *always* a method execution. Basically, the join point marks the execution point where aspect behavior and target behavior join.
 
@@ -57,9 +58,28 @@
 
 ## How does Spring solve (implement) a cross cutting concern?
 
+- The Spring AOP framework is a complement to the current version of `AspectJ` and contains many annotations that can develop and configure aspects using Java code, but the Spring development team knows and recognizes its limitations. For example, it cannot advise fine-grained objects such as domain objects. Spring AOP functionality is based on AspectJ which is why when Spring AOP libraries are used, `aspectjweaver` and `aspectjrt` must be added to the application classpath.
+
+- Spring AOP cannot advise objects that are not managed by the Spring container. AspectJ does that. Spring AOP uses dynamic proxies for aspect weaving, so the bytecode of the target object is not affected in any way. This is a specific of the Java language; once a class has been compiled, its code can no longer be changed. The target object is effectively wrapped at runtime into a generated object that either implements the same interfaces that the target object class does, or extends the class of the target object.
+
+- Spring AOP is also non-invasive; it was developed to keep AOP components decoupled from application components.
+
 
 ## Which are the limitations of the two proxy-types?
 
+- Common limitations for both proxies:
+  - Does not support self-invocations. Self-invocation is where one method of the object invokes another method on the same object.
+
+- Limitations of `CGLIB Proxies` are:
+  - Requires the class of the proxied object to be non-final. Subclasses cannot be created from final classes.
+  - Requires methods in the proxied object to be non-final. Final methods cannot be overridden.
+  - Only `public` and `protected` method calls on the proxy are intercepted (and even `package`-visible methods, if necessary).
+  - Requires a third-party library. Not built into the Java language and thus require a library. The CGLIB library has been included into Spring, so when using the Spring framework, no additional library is required.
+
+- Limitations of `JDK Dynamic Proxies` are:
+  - Class for which a proxy is to be created must implement an interface.
+  - Can only intercept `public` and `default` methods.
+    - Starting with Java 8, interfaces can be declared to contain private and default methods. For obvious reasons, related to their access modifier, private methods are not proxied. Default methods are methods that are declared in the interface, so that classes implementing the interface don’t have to. They are inherited by the classes, so they are proxied just like any normal method, with the specific behavior being executed before the call being forwarded to the target object.
 
 ## How many advice types does Spring support? Can you name each one?
 
