@@ -124,7 +124,7 @@ AnnotationConfigApplicationContext context = new AnnotationConfigApplicationCont
 - A class implementing the `WebApplicationInitializer` can be used to create a Spring application context. The following classes implement the `WebApplicationInitializer` interface:
   - `AbstractContextLoaderInitializer`: Abstract base class that registers a `ContextLoaderListerer` in the servlet context.
   - `AbstractDispatcherServletInitializer`: Abstract base class that registers a `DispatcherServlet` in the servlet context.
-  - `AbstractAnnotationConfigDispatcherServletInitializer`: Abstract base class that registers a `DispatcherServlet` in teh servlet context and uses Java-based Spring configuration.
+  - `AbstractAnnotationConfigDispatcherServletInitializer`: Abstract base class that registers a `DispatcherServlet` in the servlet context and uses Java-based Spring configuration.
   - `AbstractReactiveWebInitializer`: Creates a Spring application context that uses Java-based Spring configuration. Creates a Spring reactive web application in the servlet container.
   
 #### `AnnotationConfigWebApplicationContext` with `WebApplicationInitializer`
@@ -195,6 +195,7 @@ class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitialize
 }
 ```
 Reference: https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-servlet-context-hierarchy
+
 
 ## Can you describe the lifecycle of a Spring Bean in an `ApplicationContext`?
 
