@@ -1,18 +1,24 @@
 ## What is the concept of AOP? Which problem does it solve? What is a cross cutting concern?
 
+
 ## What is a pointcut, a join point, an advice, an aspect, weaving?
+
 
 ## How does Spring solve (implement) a cross cutting concern?
 
+
 ## Which are the limitations of the two proxy-types?
+
 
 ## How many advice types does Spring support? Can you name each one?
 
+
 ## If shown pointcut expressions, would you understand them?
+
 
 ## What is the `JoinPoint` argument used for?
 
-`JoinPoint` provides reflective access to both the state available at a join point and static information about it.
+`JoinPoint` provides reflective access to both the state available at a `join point` and `static` information about it.
 
 It must be the **first** parameter of the advice method.
 
@@ -28,6 +34,7 @@ The `JoinPoint` interface provides a number of useful methods:
 
 - `toString()`: Prints a useful description of the method being advised.
 
+`JoinPoint.StaticPart` contains only the static information about a join point.
 
 
 ## What is a `ProceedingJoinPoint`? Which advice type is it used with?
