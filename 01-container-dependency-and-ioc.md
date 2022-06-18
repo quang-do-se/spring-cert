@@ -106,6 +106,43 @@ There can be more than one application context in a single Spring application. M
 
 ## How are you going to create a new instance of an `ApplicationContext`?
 
+#### Non-Web Applications
+
+- With `@Configuration` class (for example, `AppConfig.class`):
+
+``` java
+AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+```
+
+- Configuration found in any sub-packages of "org.spring.examples.configuration":
+
+``` java
+AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("org.spring.examples.configuration");
+```
+#### Web Application
+
+- A class implementing the `WebApplicationInitializer` can be used to create a Spring application context. The following classes implement the `WebApplicationInitializer` interface:
+  - `AbstractContextLoaderInitializer`: Abstract base class that registers a `ContextLoaderListerer` in the servlet context.
+  - `AbstractDispatcherServletInitializer`: Abstract base class that registers a `DispatcherServlet` in the servlet context.
+  - `AbstractAnnotationConfigDispatcherServletInitializer`: Abstract base class that registers a `DispatcherServlet` in teh servlet context and uses Java-based Spring configuration.
+  - `AbstractReactiveWebInitializer`: Creates a Spring application context that uses Java-based Spring configuration. Creates a Spring reactive web application in the servlet container.
+  
+#### AnnotationConfigWebApplicationContext
+
+``` java
+public class WebConfig implements WebApplicationInitializer {
+    @Override
+    public void onStartup(ServletContext servletContext) {
+        AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
+        rootContext.register(RootConfig.class, WebConfig.class);
+        servletContext.addListener(new ContextLoaderListener(rootContext));
+
+        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("web-app-dispatcher", new DispatcherServlet(rootContext));
+        dispatcher.setLoadOnStartup(1);
+        dispatcher.addMapping("/");
+    }
+}
+```
 
 ## Can you describe the lifecycle of a Spring Bean in an `ApplicationContext`?
 
