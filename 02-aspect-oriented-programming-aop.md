@@ -58,7 +58,8 @@
 
 - Spring AOP is also non-invasive; it was developed to keep AOP components decoupled from application components.
 
-- In Spring AOP, if the target object implements an interface, it defaults to using the standard `JDK Dynamic proxies`, and this behavior can be overridden to force the use `CGLIB proxies` instead. 
+- In spring aop, if the target object implements an interface, it defaults to using the standard `JDK Dynamic proxies`, and this behavior can be overridden to force the use `CGLIB proxies` instead. 
+
 
 ## Which are the limitations of the two proxy-types?
 - Overview of `CGLIB Proxies`:
@@ -105,6 +106,14 @@
 
 
 ## If shown pointcut expressions, would you understand them?
+
+`execution(public * com.apress.cems.repos.*.JdbcPersonRepo+.findById(..))`
+
+The template that a pointcut expression follows can be defined as follows.
+
+`execution([Modifiers] [ReturnType] [FullClassName].[MethodName]([Arguments]) throws [ExceptionType])`
+
+The expression can contain wildcards like `+` and `*` and can be made of multiple expressions concatenated by boolean operators such as `&&`, `||`, and so forth. The `*` wildcard replaces any group of characters when used to match pieces of package names, classes, and methods, and a single character when used to match method parameters. The `+` wildcard specifies that the method to advise can also be found in subclasses identified by `[FullClassName]` criteria. The `+` wildcard works in a similar way when the criteria used is an interface and the pointcut expression matches the methods in all implementations.
 
 
 ## What is the `JoinPoint` argument used for?
