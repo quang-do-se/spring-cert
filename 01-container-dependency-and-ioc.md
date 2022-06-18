@@ -68,6 +68,22 @@ An interface is an abstract type that can contain the following:
 
 An application context is an instance of any type implementing `org.springframework.context.ApplicationContext`, which is the central interface for providing configuration for a Spring application. The application context will manage all objects instantiated and initialized by the Spring IoC container (Spring beans).
 
+It is responsible for:
+- Instantiating beans in the application context.
+- Configuring the beans in the applicaion context.
+- Assembling the beans in the application context.
+- Managing the life-cycle of Sping beans.
+
+given the interface the `ApplicationContext` interface inherits from, an application context have the following properties:
+- Is a bean factory
+  - A bean factory instantiates, configures and assembles Spring beans. Configuration and assembly is value and dependency injection. A bean factory also manages the beans.
+- Is a hierarchical bean factory.
+- Is a resource loader that can load file resources in a generic fashion.
+- Is an event publisher. As such it publishes applicaion events to listener in the application.
+- Is a message source. Can resolve messages and supports internationalization.
+- Is an environment.
+  - From such an environment, properties can be resolved. The environment also allows maintaining named groups of beans, so-called `profiles`. The beans beloging to a certain `profile` are registered with the applicaion context only when the `profile` is active.
+
 ## How are you going to create a new instance of an `ApplicationContext`?
 
 
