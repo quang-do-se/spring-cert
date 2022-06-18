@@ -107,8 +107,10 @@
 - `@Before` advice: Methods annotated with `@Before` that will execute before the join point. These methods do not prevent the execution of the target method unless they throw an exception.
 
 - `@AfterReturning` advice: Methods annotated with `@AfterReturning` that will execute after a join point completes normally, meaning that the target method returns normally without throwing an exception.
+    - Use attribute `returning` to bind result returned by target method.
 
 - `@AfterThrowing` advice: Methods annotated with `@AfterThrowing` that will execute after a join point execution ends by throwing an exception.
+    - Use attribute `throwing` to bind the exception thrown by target method.
 
 - `@After` (finally) advice: Methods annotated with `@After` that will execute after a join point execution, no matter how the execution ended.
 
