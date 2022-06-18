@@ -74,7 +74,8 @@ It is responsible for:
 - Assembling the beans in the application context.
 - Managing the life-cycle of Sping beans.
 
-given the interface the `ApplicationContext` interface inherits from, an application context have the following properties:
+
+Given the interface the `ApplicationContext` interface inherits from, an application context have the following properties:
 - Is a bean factory
   - A bean factory instantiates, configures and assembles Spring beans. Configuration and assembly is value and dependency injection. A bean factory also manages the beans.
 - Is a hierarchical bean factory.
@@ -83,6 +84,25 @@ given the interface the `ApplicationContext` interface inherits from, an applica
 - Is a message source. Can resolve messages and supports internationalization.
 - Is an environment.
   - From such an environment, properties can be resolved. The environment also allows maintaining named groups of beans, so-called `profiles`. The beans beloging to a certain `profile` are registered with the applicaion context only when the `profile` is active.
+
+
+There can be more than one application context in a single Spring application. Multiple application contexts can be arranged in a parent child hierarchy where the relation is directional from child context to parent context. Many child contexts can have one and the same parent context. Some commonly used implementations of the ApplicaionContext interface are:
+  - `AnnotationConfigApplicaionContext`: Standalone applicaion context used with configuration in the form of annotate classes.
+  - `AnnotationConfigWebApplicaionContext`: Same as `AnnotationConfigApplicaionContext` but for web applications.
+  - `ClassPathXmlApplicaionContext`: Standalone applicaion context used with XML configuration located on the classpath of the application.
+  - `FileSystemXmlApplicationContext`: Standalone applicaion context used with XML configuration located as one ore more files in the file system.
+  - `XmlWebApplicaionContext`: Web applicaion context used with XML configuration.
+
+
+DispatcherServlet has 2 WebApplicationContext: Servlet Web Application Context (DispatcherServletContext) and Root Application Context
+  - Servlet Web Application Context inherits all the beans already defined in the Root Application Context.
+  - Root Application Context contains all non-web beans (services, datasources, repositories...) and is instantiated using a bean of type _org.springframework.web.context.ContextLoaderListener_.
+  - https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-servlet-context-hierarchy
+
+<p align="center">
+  <img src="img/dispatcher-servlet.png" alt="Dispatcher Servlet Context" width="80%"/>
+</p>
+
 
 ## How are you going to create a new instance of an `ApplicationContext`?
 
