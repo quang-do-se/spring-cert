@@ -315,7 +315,7 @@
   - is a central interface to provide configuration for an application
 
 
-* @ContextConfiguration defines class-level metadata that is used to determine how to load and configure an ApplicationContext for *Integration Tests*. (Spring framework)
+* `@ContextConfiguration` defines class-level metadata that is used to determine how to load and configure an ApplicationContext for *Integration Tests*. (Spring framework)
 
 
 * @SpringBootTest
