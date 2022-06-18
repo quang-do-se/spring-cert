@@ -199,6 +199,18 @@ Reference: https://docs.spring.io/spring-framework/docs/current/reference/html/w
 
 ## Can you describe the lifecycle of a Spring Bean in an `ApplicationContext`?
 
+The lifecycle of a Spring bean looks like this:
+
+- The lifecycle of a Spring looks like this:
+  - Spring bean configuration is read and metadata in the form of a `BeanDefinition` object is created for each bean.
+  - All instances of BeanFactoryPostProcessor are invoked in sequence and are allowed an opportunity to alter the bean metadata.
+  - For each bean in the container:
+    - An instance of the bean is created using the bean metadata.
+    - Properties and dependencies of the bean are set.
+    - Any instances of BeanPostProcessor are given a change to process the new bean instance before and after initialization.
+
+
+
 ## How are you going to create an `ApplicationContext` in an integration test?
 
 ## What is the preferred way to close an application context? Does Spring Boot do this for you?
