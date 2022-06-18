@@ -68,9 +68,12 @@ Interface is a contract for classes. It makes swapping implementation easy and l
 
     - `postProcessAfterInitialization`: post-processors that wrap beans with proxies will normally implement this
 
-    - Post Processes happen before any initialization callbacks, for example: `@PostConstruct`, `afterPropertiesSet()` from `InitializingBean` interface, `initMethod` property of `@Bean` property
+    - Post Processes happen BEFORE any initialization callbacks, for example: `@PostConstruct`, `afterPropertiesSet()` from `InitializingBean` interface, `initMethod` property of `@Bean` property
 
-- `BeanFactoryPostProcessor`: The semantics of this interface are similar to those of the BeanPostProcessor, with one major difference: BeanFactoryPostProcessor operates on the bean configuration metadata. That is, the Spring IoC container lets a BeanFactoryPostProcessor read the configuration metadata and potentially change it before the container instantiates any beans other than BeanFactoryPostProcessor instances.
+- `BeanFactoryPostProcessor`: Factory hook that allows for custom modification of an application context's **bean definitions**, adapting the bean property values of the context's underlying bean factory.
+
+    - The semantics of this interface are similar to those of the `BeanPostProcessor`, with one major difference: `BeanFactoryPostProcessor` operates on the **bean configuration metadata**. That is, the Spring IoC container lets a `BeanFactoryPostProcessor` read the **configuration metadata** and potentially change it before the container instantiates any beans other than BeanFactoryPostProcessor instances.
+
     - Source: https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-extension-factory-postprocessors
 
 ## What does `component-scanning` do?
