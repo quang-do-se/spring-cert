@@ -1,7 +1,7 @@
 
 ## What is Dependency Injection?
 
-Dependency injection (DI) is a process whereby objects define their dependencies (that is, the other objects with which they work) only through constructor arguments, arguments to a factory method, or properties that are set on the object instance after it is constructed or returned from a factory method. The container then injects those dependencies when it creates the bean. This process is fundamentally the inverse (hence the name, Inversion of Control) of the bean itself controlling the instantiation or location of its dependencies on its own by using direct construction of classes or the Service Locator pattern.
+Dependency injection (DI) is a process whereby objects define their dependencies (that is, the other objects with which they work) only through constructor arguments, arguments to a factory method, or properties that are set on the object instance after it is constructed or returned from a factory method. **The container then injects those dependencies when it creates the bean.** This process is fundamentally the inverse (hence the name, Inversion of Control) of the bean itself controlling the instantiation or location of its dependencies on its own by using direct construction of classes or the Service Locator pattern.
 
 Code is cleaner with the DI principle, and decoupling is more effective when objects are provided with their dependencies. The object does not look up its dependencies and does not know the location or class of the dependencies. As a result, your classes become easier to test, particularly when the dependencies are on interfaces or abstract base classes, which allow for stub or mock implementations to be used in unit tests.
 
@@ -20,15 +20,21 @@ based on an interface contract.
 
 #### Advantages of Dependency Injection
 
-- Increases cohesion
+- Increase cohesion
 
-- Decreases coupling between classes and their dependencies
+- Decrease coupling between classes and their dependencies
 
-- Reduces boilerplate code
+- Reduce boilerplate code
 
-- Makes program more reusable, maintainable and testable (mocked objects)
+- Increase testability (with mocked objects)
 
-- Increases flexibility (by interfaces)
+- Make program more reusable, maintainable
+
+- Increase flexibility (by interfaces)
+
+- Better design of applications when using dependency injection
+
+- Standardize parts of application development
 
 
 #### Disadvantage of Dependency Injection
