@@ -66,6 +66,7 @@ An interface is an abstract type that can contain the following:
 
 ## What is an `ApplicationContext`?
 
+An application context is an instance of any type implementing `org.springframework.context.ApplicationContext`, which is the central interface for providing configuration for a Spring application. The application context will manage all objects instantiated and initialized by the Spring IoC container (Spring beans).
 
 ## How are you going to create a new instance of an `ApplicationContext`?
 
