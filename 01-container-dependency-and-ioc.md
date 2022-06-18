@@ -230,6 +230,8 @@ The lifecycle of a Spring bean looks like this:
 
 ## How are you going to create an `ApplicationContext` in an integration test?
 
+`@ContextConfiguration` defines class-level metadata that is used to determine how to load and configure an ApplicationContext for **Integration Tests**. (Spring framework)
+
 #### `JUnit 4`
 - `@RunWith(SpringJUnit4ClassRunner.class)` or `@RunWith(SpringRunner.class)`
 - Must have `@ContextConfiguration` to tell the runner class where the bean definitions come from. For example:
