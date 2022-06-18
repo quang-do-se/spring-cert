@@ -42,10 +42,26 @@ based on an interface contract.
 - More classes and interfaces
 
 
-
 ## What is an interface and what are the advantages of making use of them in Java?
 
-Interface is a contract for classes. It makes swapping implementation easy and loose coupling.
+#### What is an interface?
+Interfaces form a contract between the class and the outside world, and this contract is enforced at build time by the compiler. If your class claims to implement an interface, all methods defined by that interface must appear in its source code before the class will successfully compile.
+
+An interface is an abstract type that can contain the following:
+- Constants
+- Method signatures (These are methods that have no implementation)
+- Default methods (A method with an implementation that, if not implemented in a class that implements the interface, will be used aas a default implementation of the method in question. This can be useful when adding new methods(s) to an interface and not watnting to modify all the classes that implement the interface)
+- Static methods (Static method with implementation)
+- Nested types (Such a nested type can be an enumeration)
+
+#### What are the advantages of making use of them in Java?
+
+- Allow for decoupling of a contract and its implementation(s).
+  - The contract is the interface and the implementation are the classes that implement the interface. This allows for implementations to be easily interchanged. Interfaces can be defined separately from the implementations.
+- Allow For modularization of Java programs.
+- Allow for handling of groups of object in a similar fashion.
+- Increase testability.
+  - Using interface types when referencing other objects make it easy to replace such references with `mock` and `stub` objects that implement the same interface(s).
 
 
 ## What is an `ApplicationContext`?
