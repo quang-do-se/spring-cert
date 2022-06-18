@@ -87,7 +87,7 @@ Given the interfaces the `ApplicationContext` interface inherits from, an applic
 
 
 There can be more than one application context in a single Spring application. Multiple application contexts can be arranged in a parent child hierarchy where the relation is directional from child context to parent context. Many child contexts can have one and the same parent context. Some commonly used implementations of the ApplicationContext interface are:
-  - `AnnotationConfigApplicationContext`: Standalone application context used with configuration in the form of annotate classes.
+  - `AnnotationConfigApplicationContext`: Standalone application context used with configuration in the form of annotated classes.
   - `AnnotationConfigWebApplicationContext`: Same as `AnnotationConfigApplicationContext` but for web applications.
   - `ClassPathXmlApplicationContext`: Standalone application context used with XML configuration located on the classpath of the application.
   - `FileSystemXmlApplicationContext`: Standalone application context used with XML configuration located as one ore more files in the file system.
