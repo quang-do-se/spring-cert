@@ -162,9 +162,12 @@ System.out.println("HeLlo");
 | application | `@Scope("application")` <br> `@ApplicationScope` <br> `@Scope(WebApplicationContext.SCOPE_APPLICATION)` | The Spring IoC creates a bean for the global application context. Only valid in the context of a web-aware Spring ApplicationContext.                                            |
 | websocket   | `@Scope("websocket")`                                                                                   | The Spring IoC creates a bean instance for the scope of a WebSocket. Only valid in the context of a web-aware Spring ApplicationContext.                                         |
 
+- Beans that are `singleton`-scoped and set to be pre-instantiated (the default) are created when the container is created.
+
 - If bean A is `singleton`, and it has a property bean B which is a **non-singleton**, every time bean A is acquired by a client, the same instance of bean B is supplied.
-- Use `@Lookup` annotation to inject `prototype`-scoped bean into a `singleton` bean.
+  - Use `@Lookup` annotation to inject `prototype`-scoped bean into a `singleton` bean.
 
 - As a rule, use the `prototype` scope for all **stateful** beans and the `singleton` scope for **stateless** beans.
 
 - In contrast to the other scopes, Spring does NOT manage the complete lifecycle of a PROTOTYPE bean: the container instantiates, configures, and otherwise assembles a prototype object, and hands it to the client, with no further record of that prototype instance. Thus, although initialization lifecycle callback methods are called on all objects regardless of scope, in the case of prototypes, configured destruction lifecycle callbacks are not called. The client code must clean up prototype-scoped objects and release expensive resources that the prototype bean(s) are holding. In some respects, the Spring container’s role in regard to a prototype-scoped bean is a replacement for the Java new operator. All lifecycle management past that point must be handled by the client. https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes-prototype
+
