@@ -24,6 +24,7 @@
   - Connecting to the database (connection pooling, reusing connections, open and close connections)
   - Transaction
 
+![Cross Cutting Concern](img/cross-cutting-concern.png)
 
 ## What is a pointcut, a join point, an advice, an aspect, weaving?
 
