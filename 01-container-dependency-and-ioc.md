@@ -434,11 +434,19 @@ Filtering configuration can be added to the `@ComponentScan` annotation as to in
                basePackages = { "com.myapp" },
                basePackageClasses = { Service.class },
                excludeFitlers = { @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = Bean.class) }
-               includeFitlers = { @ComponentScan.Filter(type = FilterType.REGEX, pattern = "email.*") }
+               includeFitlers = { @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com\\.myapp\\.email\\..*") }
           )
 public class AppConfig {}
 
 ```
+
+The above example configures component scanning:
+
+- Using `basePackages` property to scan components and beans in the base packages "com.myapp" and its subpackages.
+- Using `basePackageClasses` property to scan components and beans in the target class's base packages and its subpackages.
+  - It is preferred over `basePackages` property due to type-safe and better support from refactoring tooling.
+- `excludeFilters` property will exclude components and beans based on a specified fitler.
+- `includeFilters` property will include components and beans based on a specified fitler.
 
 ----------
 
