@@ -686,9 +686,13 @@ If beans are not annotated with `@Profile`, they will be always included in IoC 
 
 ### Can you use `@Bean` together with `@Profile`?
 
+Yes, see above.
+
 ----------
 
 ### Can you use `@Component` together with `@Profile`?
+
+Yes, see above.
 
 ----------
 
