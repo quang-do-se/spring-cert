@@ -733,9 +733,22 @@ The `@Value` annotation can be applied to:
 
 ### What is Spring Expression Language (`SpEL` for short)?
 
+The Spring Expression Language (SpEL for short) is a powerful expression language that supports querying and manipulating an object graph at runtime.
+
+Reference: https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions-language-ref
+
 ----------
 
 ### What is the Environment abstraction in Spring?
+
+The environment is a part of the application container. The Environment contains **profiles** and **properties**, two important parts of the application environment.
+
+<p align="center">
+  <img src="img/environment.png" alt="Environment" width="50%"/>
+</p>
+
+
+The Spring `ApplicationContext` interface extends the `EnvironmentCapable` interface, which contain one single method namely the `getEnvironment` method, which returns an object implementing the `Environment` interface. Thus a Spring `ApplicationContext` has a relation to one single `Environment` object.
 
 ----------
 
@@ -749,6 +762,9 @@ The `@Value` annotation can be applied to:
 
 ### What is the difference between `$` and `#` in `@Value` expressions?
 
+`@Value` can have `$` for scalar and `#` for expression.
+
+To reference a bean, use `#{@<bean>}`
 
 ----------
 
