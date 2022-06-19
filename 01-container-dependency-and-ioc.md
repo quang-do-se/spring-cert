@@ -818,9 +818,14 @@ Reference: https://docs.spring.io/spring-boot/docs/current/reference/html/featur
 
 ### What is the difference between `$` and `#` in `@Value` expressions?
 
-`@Value` can have `$` for scalar and `#` for expression.
+Expression in `@Value` annotations are of two types:
 
-To reference a bean, use `#{@<bean>}`
+- Expressions starting with `$`.
+  - Such expressions reference a property name in the application's environment. These expressions are evaluated by the `PropertySourcesPlaceholderConfigurer` Spring bean prior to bean creation and can only be used in `@Value` annotations.
+
+- Expressions starting with `#`.
+  - Such expressions are parsed by a SpEL expression parser and evaluated by a SpEL expression instance.
+  - To reference a bean, use `#{@<bean>}`
 
 ----------
 
