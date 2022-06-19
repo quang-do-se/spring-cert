@@ -448,6 +448,14 @@ The above example configures component scanning:
 - `excludeFilters` property will exclude components and beans based on a specified fitler.
 - `includeFilters` property will include components and beans based on a specified fitler.
 
+`FilterType`:
+
+- `ANNOTATION`: Filter candidates marked with a given annotation.
+- `ASSIGNABLE_TYPE`: Filter candidates assignable to a given type.
+- `ASPECTJ`: Filter candidates matching a given AspectJ type pattern expression.
+- `REGEX`: Filter candidates matching a given regex pattern.
+- `CUSTOM`: Filter candidates using a given custom.
+
 ----------
 
 ### What is the behavior of the annotation `@Autowired` with regards to field injection, constructor injection and method injection?
