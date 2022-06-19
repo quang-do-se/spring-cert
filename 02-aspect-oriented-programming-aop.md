@@ -195,7 +195,7 @@ public class PersonMonitor {
 
 ### What is the `JoinPoint` argument used for?
 
-`JoinPoint` provides reflective access to both the state available at a `join point` and `static` information about it.
+`JoinPoint` provides reflective access to the state available at a given join point, like method parameters, return value, or thrown exception. It also provides all static information about the method itself.
 
 It must be the **first** parameter of the advice method.
 
