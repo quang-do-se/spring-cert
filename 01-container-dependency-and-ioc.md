@@ -467,7 +467,7 @@ Precedence from highest to lowest:
 
 - Type (class, abstract, interface...)
 - If there are multiple beans of the same type, then:
-  - `@Qualifier`
+  - `@Qualifier` at Injection Point (`@Autowire`)
   - `@Primary`
   - Bean name or alias - `@Bean({"myBean", "myAlias"})`, `@Component("myBean")`, `@Named("myBean")`
 
