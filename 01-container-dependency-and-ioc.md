@@ -706,6 +706,29 @@ Yes, see above.
 
 ### How do you inject scalar/literal values into Spring beans?
 
+Scalar/literal values can be injected into Spring beans using the `@Value` annotation. Such values can originate from environment variables, property files, Spring beans etc.
+
+``` java
+@Component
+public class MyBeanClass {
+    @Value("${value-to-be-injected:default-literal-value}")
+
+    @Value("${another-value:{backup-value}}")
+
+    @Value("#{ T(java.lang.Math).random() * 50.0 }")
+}
+
+The `@Value` annotation can be applied to:
+
+- Fields
+- Methods (typically setter methods)
+- Method parameters 
+  - Including constructor parameters. Note that when annotating a parameter in a method other than a constructor, automatic dependency injection will not occur. If automatic injection of the value is desired, the `@Value` annotation should be moved to the method instead.
+- Definition of annotations
+  - In order to create a custom annotation.
+
+```
+
 ----------
 
 ### What is Spring Expression Language (`SpEL` for short)?
