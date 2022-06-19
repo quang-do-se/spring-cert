@@ -512,7 +512,7 @@ public void setMovieCatalogs(Map<String, MovieCatalog> movieCatalogs) {
 The `@Qualifier` annotation can be used at these different locations:
 - At Injection points
 - At bean definitions
-- At stereotype annotations (Classes annotated with stereotyp annotation is a type of bean definition)
+- At stereotype annotations (Classes annotated with stereotype annotation is a type of bean definition)
 - At annotation definitions (This creates a customer qualifier annotation)
 
 #### `@Qualifier` at Injection Points
