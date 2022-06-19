@@ -241,16 +241,14 @@ The lifecycle of a Spring bean looks like this:
 ``` java
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {TestDbConfig.class, RepoConfig.class})
-public class RepositoryTest {
-}
+public class RepositoryTest {}
 ```
 - To use Mockito, `@RunWith(MockitoJUnitRunner.class)`
 
 ``` java
 @RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(classes = {TestDbConfig.class, RepoConfig.class})
-public class RepositoryTest {
-}
+public class RepositoryTest {}
 ```
 
 #### `JUnit 5`
@@ -260,16 +258,14 @@ public class RepositoryTest {
 ``` java
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {TestDbConfig.class, RepoConfig.class})
-public class RepositoryTest {
-}
+public class RepositoryTest {}
 ```
 
 - `@SpringJUnitConfig` = `@ExtendWith(SpringExtension.class)` + `@ContextConfiguration`
 
 ``` java
 @SpringJUnitConfig(classes = {TestDbConfig.class, RepoConfig.class})
-class RepositoryTest {
-}
+class RepositoryTest {}
 ```
 
 - To use Mockto, `@ExtendWith(MockitoExtension.class)`
@@ -277,11 +273,44 @@ class RepositoryTest {
 ``` java
 @ExtendWith(MockitoExtension.class)
 @ContextConfiguration(classes = {TestDbConfig.class, RepoConfig.class})
-public class RepositoryTest {
-}
+public class RepositoryTest {}
 ```
 
+
 ## What is the preferred way to close an application context? Does Spring Boot do this for you?
+
+The preferred way to close an application context depends on the type of application.
+
+#### Standalone Application
+
+In a standalone non-web Spring application, there are two ways by which the Spring application context can be closed.
+
+- Registering a shutdown-hook by calling the method `registerShutdownHook`, also implemented in the `AbstractApplicationContext` class.
+  - This will cause the Spring application context to be closed when the Java virtual machine is shut down normally. This is the recommended way to close the application context in a non-web application.
+  
+``` java
+var context = new AnnotationConfigApplicationContext(AppConfig.class);
+context.registerShutdownHook();
+```
+  
+- Calling the `close` method from the `AbstractApplicationContext` class. 
+  - This will cause the Spring application to closed immediately.
+
+``` java
+var context = new AnnotationConfigApplicationContext(AppConfig.class);
+context.close();
+```
+
+#### Web Application
+
+In a Web application, closing of the Spring application context is taken care of by the `ContextLoaderListener`, which implements the `ServletContextListener` interface. The `ContextLoaderListener` will receive a `ServletContextEvent` when the web container stops the web application.
+
+#### Spring Boot Application
+
+Spring Boot will register a shutdown-hook as described above when a Spring application that uses Spring Boot is started.
+
+The mechanism described above with the `ContextLoaderListerner` also applies to Spring Boot web applications.
+
 
 ## Are beans lazily or eagerly instantiated by default? How do you alter this behavior?
 
