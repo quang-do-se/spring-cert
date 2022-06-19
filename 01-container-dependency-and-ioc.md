@@ -476,6 +476,8 @@ If there is only one instance of the bean type, it does not really matter the be
 
 If there is no unique matching, exception will be thrown.
 
+If bean name is not specified, the method name with `@Bean` annotation will be used as bean name.
+
 `@Autowired` cannot be used to autowire primitive type, such as `String`. `@Value` is used for these primitive types.
 
 `@Autowired` supports Generic Types.
