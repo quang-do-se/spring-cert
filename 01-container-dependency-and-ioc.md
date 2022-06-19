@@ -41,7 +41,7 @@ based on an interface contract.
 
 - More classes and interfaces
 
----
+----------
 
 ### What is an interface and what are the advantages of making use of them in Java?
 
@@ -64,6 +64,8 @@ An interface is an abstract type that can contain the following:
 - Increase testability.
   - Using interface types when referencing other objects make it easy to replace such references with `mock` and `stub` objects that implement the same interface(s).
 
+
+----------
 
 ### What is an `ApplicationContext`?
 
@@ -104,6 +106,8 @@ There can be more than one application context in a single Spring application. M
   <img src="img/dispatcher-servlet.png" alt="Dispatcher Servlet Context" width="50%"/>
 </p>
 
+
+----------
 
 ### How are you going to create a new instance of an `ApplicationContext`?
 
@@ -198,6 +202,8 @@ class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitialize
 Reference: https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-servlet-context-hierarchy
 
 
+----------
+
 ### Can you describe the lifecycle of a Spring Bean in an `ApplicationContext`?
 
 The lifecycle of a Spring bean looks like this:
@@ -228,6 +234,8 @@ The lifecycle of a Spring bean looks like this:
   <img src="img/bean-lifecycle.png" alt="Bean Lifecycle" width="100%"/>
 </p>
 
+
+----------
 
 ### How are you going to create an `ApplicationContext` in an integration test?
 
@@ -278,6 +286,8 @@ public class RepositoryTest {}
 ```
 
 
+----------
+
 ### What is the preferred way to close an application context? Does Spring Boot do this for you?
 
 The preferred way to close an application context depends on the type of application.
@@ -317,6 +327,8 @@ Spring Boot will register a shutdown-hook as described above when a Spring appli
 The mechanism described above with the `ContextLoaderListerner` also applies to Spring Boot web applications.
 
 
+----------
+
 ### Are beans lazily or eagerly instantiated by default? How do you alter this behavior?
 
 `Singleton` Spring beans in an application context are eagerly initialized by default, as the application context is created.
@@ -332,9 +344,15 @@ To explicitly set whether beans are to  be lazily or eagerly initialized, the `@
   - The bean created from the component class will be lazy or not as specified by the boolean parameter to the `@Lazy` annotation (default value is **true**).
 
 
+----------
+
 ### What is a property source? How would you use `@PropertySource`?
 
+----------
+
 ### What is a `BeanFactoryPostProcessor` and what is it used for? When is it invoked?
+
+----------
 
 ### What is a `BeanPostProcessor` and how is it different to a `BeanFactoryPostProcessor`? What do they do? When are they called?
 
@@ -352,11 +370,19 @@ To explicitly set whether beans are to  be lazily or eagerly initialized, the `@
 
     - Source: https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-extension-factory-postprocessors
 
+----------
+
 ### What does `component-scanning` do?
+
+----------
 
 ### What is the behavior of the annotation `@Autowired` with regards to field injection, constructor injection and method injection?
 
+----------
+
 ### How does the `@Qualifier` annotation complement the use of `@Autowired`?
+
+----------
 
 ### What is a `proxy` object and what are the two different types of proxies Spring can create?
 
@@ -381,11 +407,19 @@ To explicitly set whether beans are to  be lazily or eagerly initialized, the `@
   - Generate a new class that implements the same interface as target class and wrap the target object at runtime.
 
 
+----------
+
 ### What does the `@Bean` annotation do?
+
+----------
 
 ### What is the default bean id if you only use `@Bean`? How can you override this?
 
+----------
+
 ### Why are you not allowed to annotate a final class with `@Configuration`?
+
+----------
 
 ### How do you configure `profiles`? What are possible use cases where they might be useful?
 
@@ -422,9 +456,15 @@ protected void configure(HttpSecurity http) throws Exception {
 System.out.println("HeLlo");
 ```
 
+----------
+
 ### Can you use `@Bean` together with `@Profile`?
 
+----------
+
 ### Can you use `@Component` together with `@Profile`?
+
+----------
 
 ### How many `profiles` can you have?
 
@@ -432,20 +472,37 @@ System.out.println("HeLlo");
 - `Integer.Max` (due to `for` loop using `int`)
 - 2^31
 
+----------
+
 ### How do you inject scalar/literal values into Spring beans?
+
+----------
 
 ### What is Spring Expression Language (`SpEL` for short)?
 
+----------
+
 ### What is the Environment abstraction in Spring?
+
+----------
 
 ### Where can properties in the environment come from – there are many sources for properties – check the documentation if not sure. Spring Boot adds even more.
 
+----------
+
 ### What can you reference using `SpEL?`
+
+----------
 
 ### What is the difference between `$` and `#` in `@Value` expressions?
 
 
+----------
+
+
 # Extras
+
+
 
 ### Bean Scopes
 
