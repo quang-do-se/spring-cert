@@ -341,6 +341,9 @@ To explicitly set whether beans are to  be lazily or eagerly initialized, the `@
 - Classes annotated with `@Component` or any related stereotype annotation.
   - The bean created from the component class will be lazy or not as specified by the boolean parameter to the `@Lazy` annotation (default value is **true**).
 
+
+**Note**: Try to avoid `@Lazy`, it can cause some errors not catched early.
+
 ----------
 
 ### What is a property source? How would you use `@PropertySource`?
@@ -459,6 +462,39 @@ The above example configures component scanning:
 ----------
 
 ### What is the behavior of the annotation `@Autowired` with regards to field injection, constructor injection and method injection?
+
+Precedence from highest to lowest:
+
+- Type (class, abstract, interface...)
+- `@Qualifier`
+- `@Primary`
+- Bean Name - `@Bean("myBean")`, `@Component("myBean")`, `@Named("myBean")`
+
+If both the `@Qualifier` and `@Primary` annotations are present, then the @Qualifier annotation will have precedence. Basically, `@Primary` defines a default, while `@Qualifier` is very specific.
+
+There is only one instance of the bean type, it does not really matter the bean name.
+
+`@Autowired` supports Generic Types.
+
+`@Autowired` supports Arrays, Collections, and Maps.
+
+There should be only ONE @Autowired constructor in a class
+
+`@Autowired` attribute `required` can only be used with setters, NOT constructor. Constructor injection is always **mandatory**.
+  - `@Required` is alternative for `required` attribute but deprecated.
+
+`@Autowired` Constructor and Setter can be used together.
+
+Setter method name does NOT NEED to start with `set...()` to be autowired.
+
+Typed Map collection can be autowired as long as the expected key type is String.
+
+``` java
+@Autowired
+public void setMovieCatalogs(Map<String, MovieCatalog> movieCatalogs) {
+    this.movieCatalogs = movieCatalogs;
+}
+```
 
 ----------
 
