@@ -396,7 +396,7 @@ Registration
 
 
 Ordering
-- `BeanFactoryPostProcessor` beans that are autodetected in an `ApplicationContext` will be ordered according to `PriorityOrdered` and `Ordered` semantics. In contrast, `BeanFactoryPostProcessor` beans that are registered programmatically with a `ConfigurableApplicationContext` will be applied in the order of registration; any ordering semantics expressed through implementing the `PriorityOrdered` or `Ordered` interface will be ignored for programmatically registered post-processors. Furthermore, the `@Order` annotation is not taken into account for BeanFactoryPostProcessor beans
+- `BeanFactoryPostProcessor` beans that are autodetected in an `ApplicationContext` will be ordered according to `PriorityOrdered` and `Ordered` semantics. In contrast, `BeanFactoryPostProcessor` beans that are registered programmatically with a `ConfigurableApplicationContext` will be applied in the order of registration; any ordering semantics expressed through implementing the `PriorityOrdered` or `Ordered` interface will be ignored for programmatically registered post-processors. Furthermore, the `@Order` annotation is not taken into account for `BeanFactoryPostProcessor` beans.
 
 
 Reference: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/config/BeanFactoryPostProcessor.html
@@ -679,9 +679,15 @@ System.out.println("HeLlo");
 
 ### Why would you define a static @Bean method?
 
-You may declare @Bean methods as static, allowing for them to be called without creating their containing configuration class as an instance. This makes particular sense when defining post-processor beans, e.g. of type BeanFactoryPostProcessor or BeanPostProcessor, since such beans will get initialized early in the container lifecycle and should avoid triggering other parts of the configuration at that point.
+You may declare `@Bean` methods as static, allowing for them to be called without creating their containing configuration class as an instance. This makes particular sense when defining post-processor beans, e.g. of type `BeanFactoryPostProcessor` or `BeanPostProcessor`, since such beans will get initialized early in the container lifecycle and should avoid triggering other parts of the configuration at that point.
 
-Note that calls to static @Bean methods will never get intercepted by the container, not even within @Configuration classes (see above). This is due to technical limitations: CGLIB subclassing can only override non-static methods. As a consequence, a direct call to another @Bean method will have standard Java semantics, resulting in an independent instance being returned straight from the factory method itself.
+Note that calls to static `@Bean` methods will never get intercepted by the container, not even within @Configuration classes (see above). This is due to technical limitations: CGLIB subclassing can only override non-static methods. As a consequence, a direct call to another @Bean method will have standard Java semantics, resulting in an independent instance being returned straight from the factory method itself.
+
+> The `PropertySourcesPlaceholderConfigurer` bean declaration needs to be a static method picked up when the context is created, earlier than the configuration class annotated with `@Configuration`, so the property values are added to the Spring Environment and become available for injection in the said configuration class, before this class is initialized.
+>
+> Since the `PropertySourcesPlaceholderConfigurer` modifies the declaration of a configuration class, this obviously means that these classes are proxied by Spring IoC container, and this obviously means that these classes cannot be final. The infrastructure bean responsible for bootstrapping the processing of `@Configuration` annotated classes is the bean named `InternalConfigurationAnnotationProcessor` and is of `type org.springframework.context.annotation.ConfigurationClassPostProcessor` which is an implementation of `BeanFactoryPostProcessor.`
+>
+> --- <cite>Iuliana</cite>
 
 Reference: https://docs.spring.io/spring-framework/docs/5.0.5.RELEASE/spring-framework-reference/core.html#beans-factorybeans-annotations
 

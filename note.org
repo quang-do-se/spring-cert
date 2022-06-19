@@ -157,8 +157,6 @@
 * BeanFactoryPostProcessor vs BeanPostProcessor (diagrams)
 
 ** BeanFactoryPostProcessor: Factory hook that allows for custom modification of an application context's _bean definitions_, adapting the bean property values of the context's underlying bean factory.
-   - @Value placeholders are injected before Configuration classes are instantiated.
-   - @Value is injected by PropertySourcesPlaceholderConfigurer bean.
 
 **  BeanPostProcessor: Factory hook that allows for custom modification of new _bean instances_ - for example, checking for marker interfaces or wrapping beans with proxies.
 *** It is an interface that defines callback methods that allow for modification of bean instances. There are 2 methods that can be implemented:
