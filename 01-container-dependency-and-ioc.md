@@ -419,6 +419,18 @@ Reference: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/
 
 ### What does `component-scanning` do?
 
+Component, or classpath, scanning is the process using which the Spring container searches the classpath for classes annotated with stereotype annotations and registers bean definitions in the Spring container for such classes.
+
+To enable component scanning, annotate a configuration class in your Spring application with the `@ComponentScan` annotation. The default component scanning behavior is to detect classes annotated with `@Component` or an annotation that itself is annotated with `@Component` (`@Controller`, `@Service`, `@Repository`). Note that the `@Configuration` annotation si annotated with the `@Component` annotation and thus are Spring Java configuration classes and `@SpringBootApplication` also candidates for auto-detection using component scanning.
+
+`@SpringBootApplication` inheritance chain
+ - `@SpringBootApplication` -> `@SpringBootConfiguration` -> `@Configuration` -> `@Component`
+
+Filtering configuration can be added to the `@ComponentScan` annotation as to include or exclude certain classes.
+
+``` java
+
+```
 
 
 ----------
