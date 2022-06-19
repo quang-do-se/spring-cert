@@ -650,17 +650,37 @@ As earlier the Spring container subclass classes `@Configuration` classes and ov
 
 ### How do you configure `profiles`? What are possible use cases where they might be useful?
 
-The @Profile annotation may be used in any of the following ways:
+A profile is a logical group of bean definitions that is registered within the Spring IoC container when the profile is active. Using profiles within a Spring application is practical because it becomes easier to activate configuration for one environment or another.
 
-- as a type-level annotation on any class directly or indirectly annotated with @Component, including @Configuration classes
+`Profile` is a mechanism that allows for registering different beans depending on different conditions. Some examples of such conditions are:
+- Testing and development
+  - Certain beans are only to be created when running tests. When developing, an in-memory database is to be used, but when deploying to production, a regular database is to be used.
+  - Performance monitoring
+  - Application customization for different markets, customers, etc.
+
+
+The `@Profile` annotation may be used in any of the following ways:
+
+- as a type-level annotation on any class directly or indirectly annotated with `@Component`, including `@Configuration` classes
 - as a meta-annotation, for the purpose of composing custom stereotype annotations
-- as a method-level annotation on any @Bean method
+- as a method-level annotation on any `@Bean` method
 
 `@Profile({"p1", "!p2"})`, registration will occur if profile `p1` is active **OR** if profile `p2` is not active.
 
 `@Profile({"p1", "p2"})`, that class will not be registered or processed unless at least profile `p1` OR `p2` has been activated.
 
 Source: https://docs.spring.io/spring-framework/docs/4.3.12.RELEASE/javadoc-api/org/springframework/context/annotation/Profile.html
+
+
+One or more profiles can be activated using one of the following options:
+
+- Programmatic registration of active profiles when the Spring application context is created.
+- Using the `spring.profiles.active` property
+- In test, the `@ActiveProfiles` annotation may be applied at class level to the test class specifying which profile(s) that are to be activated when the tests in the class are run.
+
+There is a default profile named `default` that will be active if no other profile is activated.
+
+If beans are not annotated with `@Profile`, they will be always included in IoC container.
 
 ----------
 
