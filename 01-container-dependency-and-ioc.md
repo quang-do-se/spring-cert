@@ -638,8 +638,13 @@ The Spring container will create a subclass of each class annotated with `@Confi
 
 The reason for the Spring container subclassing `@Configuration` classes is to control bean creation - for single beans, subsequent requests to the method creating the bean shoul return the same bean isntance as created at the first invocation of the `@Bean` annotated method.
 
+#### How do `@Configuration` annotated classes support singleton beans?
 
+Singleton beans are supported by the Spring container by sublassing classes annotated with `@Configuration` and overriding the `@Bean` annotated methods in the class. Invocations to the `@Bean` annotated methods are intercepted and, if a bean is a singleton bean and no instance of the singleton bean exists, the call is allowed to continue to the `@Bean` annotated method, in order to create an instance of the bean. If an instance of the singleton bean already exists, the existing instance is returned (and the call is not allowed to continue to the `@Bean` annotated method).
 
+#### Why can't `@Bean` methods be final either?
+
+As earlier the Spring container subclass classes `@Configuration` classes and overrides the methods annotated with the `@Bean` annotation, in order to intercept requests for the beans. If the bean is a singleton bean, subsequent requests for the bean will not yield new instances, but the existing instance of the bean.
 
 ----------
 
