@@ -750,3 +750,32 @@ Spring prefer `Unchecked Exceptions` as it gives developers freedom of choice as
 - `@Lazy` - makes the Container only instantiate the annotated bean when it is called.
 - `@DependsOn` - make sure that the annotated beans are instantiated after their dependencies.
 - `@Import` -  make sure that the annotated beans are instantiated after their dependencies.
+
+
+----------
+
+### `@Bean` *Lite* Mode
+
+`@Bean` methods may also be declared within classes that are not annotated with `@Configuration`. For example, bean methods may be declared in a `@Component` class or even in a *plain old class*. In such cases, a `@Bean` method will get processed in a so-called *'lite'* mode.
+
+Bean methods in *lite* mode will be treated as plain *factory methods* by the container (similar to *factory-method* declarations in XML), with scoping and lifecycle callbacks properly applied. The containing class remains unmodified in this case, and there are no unusual constraints for the containing class or the factory methods.
+
+In contrast to the semantics for bean methods in `@Configuration` classes, *'inter-bean references'* are not supported in lite mode. Instead, when one `@Bean`-method invokes another `@Bean`-method in *lite* mode, the invocation is a standard Java method invocation; Spring does not intercept the invocation via a CGLIB proxy. This is analogous to inter-`@Transactional` method calls where in proxy mode, Spring does not intercept the invocation — Spring does so only in AspectJ mode.
+
+For example:
+
+``` java
+@Component
+public class Calculator {
+    public int sum(int a, int b) {
+        return a+b;
+    }
+
+    @Bean
+    public MyBean myBean() {
+        return new MyBean();
+    }
+}
+
+```
+
