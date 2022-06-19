@@ -285,7 +285,6 @@ class RepositoryTest {}
 public class RepositoryTest {}
 ```
 
-
 ----------
 
 ### What is the preferred way to close an application context? Does Spring Boot do this for you?
@@ -326,7 +325,6 @@ Spring Boot will register a shutdown-hook as described above when a Spring appli
 
 The mechanism described above with the `ContextLoaderListerner` also applies to Spring Boot web applications.
 
-
 ----------
 
 ### Are beans lazily or eagerly instantiated by default? How do you alter this behavior?
@@ -343,14 +341,62 @@ To explicitly set whether beans are to  be lazily or eagerly initialized, the `@
 - Classes annotated with `@Component` or any related stereotype annotation.
   - The bean created from the component class will be lazy or not as specified by the boolean parameter to the `@Lazy` annotation (default value is **true**).
 
-
 ----------
 
 ### What is a property source? How would you use `@PropertySource`?
 
+A property source in Spring's `environment` abstraction represents a source of key-value pairs. Examples of property sources are:
+
+- The system properties of the JVM in which the Spring application is executed. They can be obtained by calling `System.getProperties()`.
+- The system environment variables. They can be obtained by callling `System.getenv()`.
+- Properties in a JNDI environment.
+- Servlet configuration init parameters.
+- Servlet context init parameters.
+- Properties files.
+  - Both traditional properties file format and XML format are supported. See the `ResourcePropertySource` class for details.
+  
+The `@PropertySource` annotation can be used to add a property source to the Spring environment. The annotation is applied to classes annotated with `@Configuration`. Example:
+
+``` java
+@Configuration
+@PropertySource("classpath:db.properties")
+public class DbConfig {
+    @Value("${db.driverClassName}")
+    private String driverClassName;
+    @Value("${db.url}")
+    private String url;
+    @Value("${db.username}")
+    private String username;
+    @Value("${db.password}")
+    private String password;
+    @Value("${db.dialect}")
+    private String dialect;
+}
+
+```
+
 ----------
 
 ### What is a `BeanFactoryPostProcessor` and what is it used for? When is it invoked?
+
+`BeanFactoryPostProcessor` is an interface that contains a single method definition that must be implemented: `postProcessBeanFactory(...)`. It is used to modify Spring bean meta-data prior to instantiation of the beans in a container. A `BeanFactoryPostProcessor` may not create instances of beans, only modify bean meta-data. A `BeanFactoryPostProcessor` is only applied to the meta-data of the beans in the same container in which it is defined in (**scoped per-container**).
+
+
+Examples of `BeanFactoryPostProcessor` are:
+
+- `PropertySourcesPlaceholderConfigurer`
+  - Allows for injection of values from the current Spring environment and its set of `PropertySources`. Typically values from the applicaions properties-file are injected using the `@Value` annotation.
+  
+
+Registration
+- An ApplicationContext auto-detects BeanFactoryPostProcessor beans in its bean definitions and applies them before any other beans get created. A BeanFactoryPostProcessor may also be registered programmatically with a ConfigurableApplicationContext.
+
+
+Ordering
+- BeanFactoryPostProcessor beans that are autodetected in an ApplicationContext will be ordered according to PriorityOrdered and Ordered semantics. In contrast, BeanFactoryPostProcessor beans that are registered programmatically with a ConfigurableApplicationContext will be applied in the order of registration; any ordering semantics expressed through implementing the PriorityOrdered or Ordered interface will be ignored for programmatically registered post-processors. Furthermore, the @Order annotation is not taken into account for BeanFactoryPostProcessor beans
+
+
+Reference: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/config/BeanFactoryPostProcessor.html
 
 ----------
 
@@ -503,7 +549,6 @@ System.out.println("HeLlo");
 # Extras
 
 
-
 ### Bean Scopes
 
 | Scope       | Annotation                                                                                              | Description                                                                                                                                                                      |
@@ -524,4 +569,14 @@ System.out.println("HeLlo");
 - As a rule, use the `prototype` scope for all **stateful** beans and the `singleton` scope for **stateless** beans.
 
 - In contrast to the other scopes, Spring does NOT manage the complete lifecycle of a PROTOTYPE bean: the container instantiates, configures, and otherwise assembles a prototype object, and hands it to the client, with no further record of that prototype instance. Thus, although initialization lifecycle callback methods are called on all objects regardless of scope, in the case of prototypes, configured destruction lifecycle callbacks are not called. The client code must clean up prototype-scoped objects and release expensive resources that the prototype bean(s) are holding. In some respects, the Spring container’s role in regard to a prototype-scoped bean is a replacement for the Java new operator. All lifecycle management past that point must be handled by the client. https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes-prototype
+
+----------
+
+### Why would you define a static @Bean method?
+
+You may declare @Bean methods as static, allowing for them to be called without creating their containing configuration class as an instance. This makes particular sense when defining post-processor beans, e.g. of type BeanFactoryPostProcessor or BeanPostProcessor, since such beans will get initialized early in the container lifecycle and should avoid triggering other parts of the configuration at that point.
+
+Note that calls to static @Bean methods will never get intercepted by the container, not even within @Configuration classes (see above). This is due to technical limitations: CGLIB subclassing can only override non-static methods. As a consequence, a direct call to another @Bean method will have standard Java semantics, resulting in an independent instance being returned straight from the factory method itself.
+
+Reference: https://docs.spring.io/spring-framework/docs/5.0.5.RELEASE/spring-framework-reference/core.html#beans-factorybeans-annotations
 
