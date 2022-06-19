@@ -1,5 +1,5 @@
 
-### What is the @Controller annotation used for?
+### What is the `@Controller` annotation used for?
 
 ----------
 
@@ -7,15 +7,15 @@
 
 ----------
 
-### What is the difference between @RequestMapping and @GetMapping?
+### What is the difference between `@RequestMapping` and `@GetMapping`?
 
 ----------
 
-### What is @RequestParam used for?
+### What is `@RequestParam` used for?
 
 ----------
 
-### What are the differences between @RequestParam and @PathVariable?
+### What are the differences between `@RequestParam` and `@PathVariable`?
 
 ----------
 
