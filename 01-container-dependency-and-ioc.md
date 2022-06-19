@@ -773,7 +773,15 @@ Spring Boot uses a very particular `PropertySource` order that is designed to al
 
 - `@PropertySource` annotations on your `@Configuration` classes. Please note that such property sources are not added to the `Environment` until the application context is being refreshed. This is too late to configure certain properties such as `logging.*` and `spring.main.*` which are read before refresh begins.
 
-- Config data (such as `application.properties` files). See below.
+- Config data (such as `application.properties` files). Config data files are considered in the following order:
+
+  1. Application properties packaged inside your jar (`application.properties` and YAML variants).
+
+  2. Profile-specific application properties packaged inside your jar (`application-{profile}.properties` and YAML variants).
+
+  3. Application properties outside of your packaged jar (`application.properties` and YAML variants).
+
+  4. Profile-specific application properties outside of your packaged jar (`application-{profile}.properties` and YAML variants).
 
 - A `RandomValuePropertySource` that has properties only in `random.*`.
 
@@ -796,17 +804,6 @@ Spring Boot uses a very particular `PropertySource` order that is designed to al
 - `@TestPropertySource` annotations on your tests.
 
 - Devtools global settings properties in the `$HOME/.config/spring-boot` directory when devtools is active.
-
-
-Config data files are considered in the following order:
-
-1. Application properties packaged inside your jar (`application.properties` and YAML variants).
-
-2. Profile-specific application properties packaged inside your jar (`application-{profile}.properties` and YAML variants).
-
-3. Application properties outside of your packaged jar (`application.properties` and YAML variants).
-
-4. Profile-specific application properties outside of your packaged jar (`application-{profile}.properties` and YAML variants).
 
 
 Note: It is recommended to stick with one format for your entire application. If you have configuration files with both `.properties` and `.yml` format in the same location, `.properties` takes precedence.
