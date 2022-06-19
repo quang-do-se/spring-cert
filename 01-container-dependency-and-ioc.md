@@ -392,11 +392,11 @@ Examples of `BeanFactoryPostProcessor` are:
   
 
 Registration
-- An ApplicationContext auto-detects BeanFactoryPostProcessor beans in its bean definitions and applies them before any other beans get created. A BeanFactoryPostProcessor may also be registered programmatically with a ConfigurableApplicationContext.
+- An `ApplicationContext` auto-detects `BeanFactoryPostProcessor` beans in its bean definitions and applies them before any other beans get created. A `BeanFactoryPostProcessor` may also be registered programmatically with a ConfigurableApplicationContext.
 
 
 Ordering
-- BeanFactoryPostProcessor beans that are autodetected in an ApplicationContext will be ordered according to PriorityOrdered and Ordered semantics. In contrast, BeanFactoryPostProcessor beans that are registered programmatically with a ConfigurableApplicationContext will be applied in the order of registration; any ordering semantics expressed through implementing the PriorityOrdered or Ordered interface will be ignored for programmatically registered post-processors. Furthermore, the @Order annotation is not taken into account for BeanFactoryPostProcessor beans
+- `BeanFactoryPostProcessor` beans that are autodetected in an `ApplicationContext` will be ordered according to `PriorityOrdered` and `Ordered` semantics. In contrast, `BeanFactoryPostProcessor` beans that are registered programmatically with a `ConfigurableApplicationContext` will be applied in the order of registration; any ordering semantics expressed through implementing the `PriorityOrdered` or `Ordered` interface will be ignored for programmatically registered post-processors. Furthermore, the `@Order` annotation is not taken into account for BeanFactoryPostProcessor beans
 
 
 Reference: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/config/BeanFactoryPostProcessor.html
