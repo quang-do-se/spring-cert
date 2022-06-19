@@ -814,6 +814,28 @@ Reference: https://docs.spring.io/spring-boot/docs/current/reference/html/featur
 
 ### What can you reference using `SpEL?`
 
+The following entities can be referenced from Spring Expression Language (SpEL) expressions:
+
+- Static methods and static properties/fields. 
+  - `T(java.math.RoundingMode).CEILING < T(java.math.RoundingMode).FLOOR`
+  - `T(java.lang.Math).random() * 50.0`
+- Properties and methods in Spring beans.
+  - `@myComponent.oneValue`
+  - `@myComponent.toString()`
+- Properties and methods in Java objects with references stored in SpEL variables.
+  - `#javaObject.firstName`
+  - `#javaObject.getFirstName()`
+- JVM System properties
+  - `@systemProperties['os.name']`
+- System environment properties
+  - `@systemEnvironment['KOTLIN_HOME']`
+- Spring application environment
+  - `@environment['defaultProfiles'][0]`
+  
+Additional references can be added depending on context and what parts of the Spring ecosystem used by the application.
+
+Reference: https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions-language-ref
+
 ----------
 
 ### What is the difference between `$` and `#` in `@Value` expressions?
