@@ -479,7 +479,7 @@ If there is no unique matching, exception will be thrown.
 If a bean name is not specified:
   - The method name with `@Bean` annotation will be used as bean name.
   - Class name with `@Component` annotation (or its derivatives) will be used as bean name.
-  - Bean name will be changed to **lower camel case**.
+    - Bean name will be changed to **lower camel case**.
 
 `@Autowired` cannot be used to autowire primitive type, such as `String`. `@Value` is used for these primitive types.
 
@@ -508,6 +508,30 @@ public void setMovieCatalogs(Map<String, MovieCatalog> movieCatalogs) {
 ----------
 
 ### How does the `@Qualifier` annotation complement the use of `@Autowired`?
+
+The `@Qualifier` annotation can be used at these different locations:
+- At Injection points
+- At bean definitions
+- At stereotype annotations (Classes annotated with stereotyp annotation is a type of bean definition)
+- At annotation definitions (This creates a customer qualifier annotation)
+
+#### `@Qualifier` at Injection Points
+
+The `@Qualifier` annotation can aid in selecting one single bean to be dependency-injected into a field or parameter annotated with `@Autowired` when there are multiple candidates. The most basic use of the `@Qualifier` annotation is to specify the name of the Spring bean to be selected to be dependency-injected.
+
+#### `@Qualifier` at Bean Definitions
+
+Qualifiers can also be applied on bean definitions by annotating a method annotated with `@Bean` in a configuration class with `@Qualifier` and supplying a value in the `@Qualifier` annotation. This will assign a qualifier to the bean and the same qualifier can later be used at an injection point to inject the bean in question.
+
+If a bean has not been assigned a qualifier, the default qualifier, being the name of the bean, will be assigned to the bean.
+
+#### `@Qualifier` at Stereotype Annotation
+
+Similar to qualifiers at bean definition, the `@Qualifier` annotation can also be used at the same place, that is class level, to accompany stereotype annotations like `@Component`, `@Repository`, `@Service` etc. This will have the same effect at annotating a bean definition with the `@Qualifier` annotation and the same qualifier can be used at an injection point to inject the bean created from the annotated component, repository, service etc.
+
+#### `@Qualifier` at Annotation Definitions
+
+Annotation definitions can be annotated with the `@Qualifier` annotation in order to create custom qualifier annotations.
 
 ----------
 
