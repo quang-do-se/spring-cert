@@ -472,13 +472,13 @@ Precedence from highest to lowest:
 
 If both the `@Qualifier` and `@Primary` annotations are present, then the @Qualifier annotation will have precedence. Basically, `@Primary` defines a default, while `@Qualifier` is very specific.
 
-There is only one instance of the bean type, it does not really matter the bean name.
+If there is only one instance of the bean type, it does not really matter the bean name.
 
 `@Autowired` supports Generic Types.
 
 `@Autowired` supports Arrays, Collections, and Maps.
 
-There should be only ONE @Autowired constructor in a class
+There should be only one and only one `@Autowired` constructor in a class
 
 `@Autowired` attribute `required` can only be used with setters, NOT constructor. Constructor injection is always **mandatory**.
   - `@Required` is alternative for `required` attribute but deprecated.
