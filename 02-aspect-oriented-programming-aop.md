@@ -148,9 +148,7 @@ public class PointcutContainer {
     @Pointcut("execution (* com.apress.cems.aop.service.*Service+.save(..)) && args(person) && target(service)")
     public void beforeSavePointcut(Person person, PersonService service){}
 }
-```
 
-``` java
 @Aspect
 @Component
 public class PersonMonitor {
@@ -159,7 +157,7 @@ public class PersonMonitor {
     private static final String[] SPECIAL_CHARS = new String[]{"$", "#", "&", "%"};
 
     @Before("com.apress.cems.aop.PointcutContainer.beforeSavePointcut(person,service)")
-    public void beforeSave(Person person, PersonService service) {
+    public void beforeSave(JoinPoint joinPoint, Person person, PersonService service) {
         logger.info("[beforeSave]: ---> Target object {}", service.getClass());
         logger.info("[beforeSave]: ---> first name {}, last name {}", person.getFirstName(), person.getLastName());
 
