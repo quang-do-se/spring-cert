@@ -43,12 +43,12 @@ class FunBeanConfig {
     private Logger logger = LoggerFactory.getLogger(FunBeanConfig.class);
 
     // TODO 13. Add the proper annotation to specify an initialization method and a destroy method
-//    @Bean(initMethod = "beanInitMethod", destroyMethod = "beanDestroyMethod")
-//    FunBean funBean() {
-//        logger.info("Creating bean...");
-//        FunBean funBean = new FunBean(new DepBean());
-//        logger.info("Setting bean description...");
-//        funBean.setDescription("Hello World");
-//        return funBean;
-//    }
+    @Bean(initMethod = "beanInitMethod", destroyMethod = "beanDestroyMethod")
+    FunBean funBean() {
+        logger.info("Creating bean...");
+        FunBean funBean = new FunBean(new DepBean());
+        logger.info("Setting bean description...");
+        funBean.setDescription("Hello World");
+        return funBean;
+    }
 }

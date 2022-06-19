@@ -567,6 +567,50 @@ Annotation definitions can be annotated with the `@Qualifier` annotation in orde
 
 ### What does the `@Bean` annotation do?
 
+The `@Bean` annotation tells the Spring container that the method annotated with the `@Bean` annotation will instantiate, configure and initialize an object that is to be managed by the Spring container. In addition, there are the following optional configuration that can be made in the `@Bean` annotation:
+
+- Configure autowiring of dependencies; whether by name or type.
+- Configure a method to be called during bean initialization (`initMethod`)
+  - As before, this method will be called after all the properties have been set on the bean but before the bean is taken in use.
+
+``` java
+@Bean(initMethod = "beanInitMethod")
+FunBean funBean(){}
+
+@Component
+public class FunBean {
+    void beanInitMethod() {
+        // ...
+    }
+}
+
+```
+
+- Configure a method to be called on the bean before it is discarded (`destroyMethod`)
+
+``` java
+@Bean(destroyMethod = "beanDestroyMethod")
+FunBean funBean(){}
+
+@Component
+public class FunBean {
+    void beanDestroyMethod() {
+        // ...
+    }
+}
+```
+
+- Specify the name and aliases of the bean.
+  - An alias of a bean is an alternative bean-name that can be used to reference the bean.
+
+``` java
+// Set bean name to "myBean" and alias to "beanAlias"
+@Bean({"myBean", "beanAlias"})
+FunBean funBean(){}
+```
+
+The default bean name is the name of the method annotated with the `@Bean` annotation and it will be used if there are no other name specified for the bean.
+
 ----------
 
 ### What is the default bean id if you only use `@Bean`? How can you override this?
