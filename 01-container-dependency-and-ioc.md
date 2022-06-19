@@ -41,7 +41,8 @@ based on an interface contract.
 
 - More classes and interfaces
 
-
+<br>
+---
 ### What is an interface and what are the advantages of making use of them in Java?
 
 #### What is an interface?
