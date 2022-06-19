@@ -96,7 +96,7 @@ There can be more than one application context in a single Spring application. M
 
 `DispatcherServlet` has 2 `WebApplicationContext`: Servlet Web Application Context (DispatcherServletContext) and Root Application Context
   - Servlet Web Application Context inherits all the beans already defined in the Root Application Context.
-  - Root Application Context contains all non-web beans (services, datasources, repositories...) and is instantiated using a bean of type _org.springframework.web.context.ContextLoaderListener_.
+  - Root Application Context contains all non-web beans (services, datasources, repositories...) and is instantiated using a bean of type `org.springframework.web.context.ContextLoaderListener`.
   - https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-servlet-context-hierarchy
 
 <p align="center">
