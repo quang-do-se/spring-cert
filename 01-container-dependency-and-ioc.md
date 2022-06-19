@@ -472,6 +472,10 @@ Precedence from highest to lowest:
 
 If both the `@Qualifier` and `@Primary` annotations are present, then the `@Qualifier` annotation will have precedence. Basically, `@Primary` defines a default, while `@Qualifier` is very specific.
 
+`@Qualifier` at Injection Point can match bean name or other `@Qualifier("...")` definition.
+
+However, `@Qualifier` at bean definition or component definition does NOT add new bean name or alias.
+
 If there is only one instance of the bean type, it does not really matter the bean name.
 
 If there is no unique matching, exception will be thrown.
