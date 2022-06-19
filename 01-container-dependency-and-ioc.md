@@ -473,9 +473,9 @@ Precedence from highest to lowest:
 
 If both the `@Qualifier` and `@Primary` annotations are present, then the `@Qualifier` annotation will have precedence. Basically, `@Primary` defines a default, while `@Qualifier` is very specific.
 
-`@Qualifier` at Injection Point (`@Autowired`) can match bean name or existing `@Qualifier("...")` definitions.
+`@Qualifier` at Injection Point (`@Autowired`) can match bean names or existing `@Qualifier("...")` definitions.
 
-However, `@Qualifier` at bean definition (`@Bean` or `@Component`) does NOT add new bean name or alias.
+However, `@Qualifier` at bean definition (`@Bean` or `@Component`) does NOT add a new bean name or an alias. It can only match against an `@Qualifier` at Injection Point (`@Autowired`).
 
 If there is only one instance of the bean type, it does not really matter the bean name.
 
