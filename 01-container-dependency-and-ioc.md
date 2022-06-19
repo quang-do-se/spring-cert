@@ -677,7 +677,7 @@ System.out.println("HeLlo");
 
 ----------
 
-### Why would you define a static @Bean method?
+### Why would you define a static `@Bean` method?
 
 You may declare `@Bean` methods as static, allowing for them to be called without creating their containing configuration class as an instance. This makes particular sense when defining post-processor beans, e.g. of type `BeanFactoryPostProcessor` or `BeanPostProcessor`, since such beans will get initialized early in the container lifecycle and should avoid triggering other parts of the configuration at that point.
 
