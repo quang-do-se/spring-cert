@@ -404,11 +404,10 @@ Reference: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/
 
 - `BeanPostProcessor`: Factory hook that allows for custom modification of new **bean instances** - for example, checking for marker interfaces or wrapping beans with proxies. It is an interface that defines callback methods that allow for modification of bean instances. There are 2 methods that can be implemented:
 
-    - `postProcessBeforeInitialization`: post-processors that populate beans via marker interfaces or the like will implement this.
+    - `postProcessBeforeInitialization`: post-processors that populate beans via marker interfaces or the like will implement this. This is applied **before** any bean initialization callbacks (like `InitializingBean's afterPropertiesSet` or a custom `init-method`).
 
     - `postProcessAfterInitialization`: post-processors that wrap beans with proxies will normally implement this.
 
-    - Post Processes happen BEFORE any initialization callbacks, for example: `@PostConstruct`, `afterPropertiesSet()` from `InitializingBean` interface, `initMethod` property of `@Bean` property.
 
 - `BeanFactoryPostProcessor`: Factory hook that allows for custom modification of an application context's **bean definitions**, adapting the bean property values of the context's underlying bean factory.
 
@@ -419,6 +418,8 @@ Reference: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/
 ----------
 
 ### What does `component-scanning` do?
+
+
 
 ----------
 
