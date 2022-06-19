@@ -476,7 +476,11 @@ If there is only one instance of the bean type, it does not really matter the be
 
 If there is no unique matching, exception will be thrown.
 
-If bean name is not specified, the method name with `@Bean` annotation will be used as bean name.
+If bean name is not specified,
+  - The method name with `@Bean` annotation will be used as bean name.
+  - Class name with `@Component` annotation (or its derivatives) will be used as bean name.
+  - Bean name will be changed to **lower camel case**.
+
 
 `@Autowired` cannot be used to autowire primitive type, such as `String`. `@Value` is used for these primitive types.
 
