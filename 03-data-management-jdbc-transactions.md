@@ -1,3 +1,4 @@
+
 What is the difference between checked and unchecked exceptions?
 
 ----------
