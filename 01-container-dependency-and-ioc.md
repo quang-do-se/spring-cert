@@ -470,7 +470,7 @@ Precedence from highest to lowest:
 - `@Primary`
 - Bean Name - `@Bean("myBean")`, `@Component("myBean")`, `@Named("myBean")`
 
-If both the `@Qualifier` and `@Primary` annotations are present, then the @Qualifier annotation will have precedence. Basically, `@Primary` defines a default, while `@Qualifier` is very specific.
+If both the `@Qualifier` and `@Primary` annotations are present, then the `@Qualifier` annotation will have precedence. Basically, `@Primary` defines a default, while `@Qualifier` is very specific.
 
 If there is only one instance of the bean type, it does not really matter the bean name.
 
