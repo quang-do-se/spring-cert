@@ -617,9 +617,9 @@ The default bean name is the name of the method annotated with the `@Bean` annot
 
 As in the previous section, the default bean name, also called bean id, is the name of the `@Bean` annotated method. This default id can be overriden using the `name`, or its alias `value`, attribute of the `@Bean` annotation.
 
-Currently we cannot create Aliases for stereotype annotation, such as `@Component`.
+Currently we cannot create **aliases** for stereotype annotation, such as `@Component`.
 
-This can be done with @Bean annotation:
+This can be done with `@Bean` annotation:
   - The first alias will be the unique identifier for the bean.
   - Everything after that will be treated as alias.
 
