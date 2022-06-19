@@ -1,5 +1,5 @@
 
-## What is the concept of AOP? Which problem does it solve? What is a cross cutting concern?
+### What is the concept of AOP? Which problem does it solve? What is a cross cutting concern?
 
 #### What is the concept of AOP?
 - `AOP` is the acronym for `Aspect-Oriented Programming`, which refers to a type of programming that aims to increase modularity by allowing the separation of cross-cutting concerns.
@@ -38,7 +38,7 @@
   <img src="img/cross-cutting-concern.png" alt="Cross Cutting Concern" width="70%"/>
 </p>
 
-## What is a pointcut, a join point, an advice, an aspect, weaving?
+### What is a pointcut, a join point, an advice, an aspect, weaving?
 
 - `Aspect` : A class containing code specific to a cross-cutting concern. A class declaration is recognized in Spring as an aspect if it is annotated with the @Aspect annotation. A module that encapsulates pointcuts and advice.
 
@@ -60,7 +60,7 @@
 - `AOP proxy`: The object created by AOP to implement the aspect contracts. In Spring proxy objects can be JDK dynamic proxies or CGLIB proxies. By default, the proxy objects are JDK dynamic proxies, and the object being proxied must implement an interface that is also implemented by the proxy object. But a library like CGLIB can create proxies by subclassing, so an interface is not needed.
 
 
-## How does Spring solve (implement) a cross cutting concern?
+### How does Spring solve (implement) a cross cutting concern?
 
 - The Spring AOP framework is a complement to the current version of `AspectJ` and contains many annotations that can develop and configure aspects using Java code, but the Spring development team knows and recognizes its limitations. For example, it cannot advise fine-grained objects such as domain objects. Spring AOP functionality is based on AspectJ which is why when Spring AOP libraries are used, `aspectjweaver` and `aspectjrt` must be added to the application classpath.
 
@@ -71,7 +71,7 @@
 - In spring aop, if the target object implements an interface, it defaults to using the standard `JDK Dynamic proxies`, and this behavior can be overridden to force the use `CGLIB proxies` instead. 
 
 
-## Which are the limitations of the two proxy-types?
+### Which are the limitations of the two proxy-types?
 - Overview of `CGLIB Proxies`:
   - Generate a new class that subclasses the target class and wrap the target object at runtime.
   
@@ -102,7 +102,7 @@
   - Programming to interface is recommended.
 
 
-## How many advice types does Spring support? Can you name each one?
+### How many advice types does Spring support? Can you name each one?
 
 - `@Before` advice: Methods annotated with `@Before` that will execute before the join point. These methods do not prevent the execution of the target method unless they throw an exception.
 
@@ -117,7 +117,7 @@
 - `@Around` advice: Methods annotated with `@Around` intercept the target method and surround the join point. This is the most powerful type of advice since can perform custom behavior before and after the invocation. It has the responsibility of choosing to perform the invocation or return its own value, and it provides the option of stopping the propagation of an exception.
 
 
-## If shown pointcut expressions, would you understand them?
+### If shown pointcut expressions, would you understand them?
 
 #### The template that a pointcut expression follows can be defined as follows:
 
@@ -187,7 +187,7 @@ public class PersonMonitor {
 - `@annotation`: Limits matching to join points where the subject of the join point (the method being run in Spring AOP) has the given annotation.
 
 
-## What is the `JoinPoint` argument used for?
+### What is the `JoinPoint` argument used for?
 
 `JoinPoint` provides reflective access to both the state available at a `join point` and `static` information about it.
 
@@ -208,7 +208,7 @@ The `JoinPoint` interface provides a number of useful methods:
 `JoinPoint.StaticPart` contains only the static information about a join point.
 
 
-## What is a `ProceedingJoinPoint`? Which advice type is it used with?
+### What is a `ProceedingJoinPoint`? Which advice type is it used with?
 
 It's a special `JoinPoint` used by `@Around` advice.
 
@@ -249,7 +249,7 @@ public class AroundExample {
 
 # Extras
 
-## How do you enable Aspect support?
+### How do you enable Aspect support?
 
 To enable aspect support, the `@Configuration` class must be annotated with `@EnableAspectJAutoProxy`.
 
