@@ -1,5 +1,5 @@
 
-## What is Dependency Injection?
+### What is Dependency Injection?
 
 Dependency injection (DI) is a process whereby objects define their dependencies (that is, the other objects with which they work) only through constructor arguments, arguments to a factory method, or properties that are set on the object instance after it is constructed or returned from a factory method. **The container then injects those dependencies when it creates the bean.** This process is fundamentally the inverse (hence the name, Inversion of Control) of the bean itself controlling the instantiation or location of its dependencies on its own by using direct construction of classes or the Service Locator pattern.
 
@@ -42,7 +42,7 @@ based on an interface contract.
 - More classes and interfaces
 
 
-## What is an interface and what are the advantages of making use of them in Java?
+### What is an interface and what are the advantages of making use of them in Java?
 
 #### What is an interface?
 Interfaces form a contract between the class and the outside world, and this contract is enforced at build time by the compiler. If your class claims to implement an interface, all methods defined by that interface must appear in its source code before the class will successfully compile.
@@ -64,7 +64,7 @@ An interface is an abstract type that can contain the following:
   - Using interface types when referencing other objects make it easy to replace such references with `mock` and `stub` objects that implement the same interface(s).
 
 
-## What is an `ApplicationContext`?
+### What is an `ApplicationContext`?
 
 An application context is an instance of any type implementing `org.springframework.context.ApplicationContext`, which is the central interface for providing configuration for a Spring application. The application context will manage all objects instantiated and initialized by the Spring IoC container (Spring beans).
 
@@ -104,7 +104,7 @@ There can be more than one application context in a single Spring application. M
 </p>
 
 
-## How are you going to create a new instance of an `ApplicationContext`?
+### How are you going to create a new instance of an `ApplicationContext`?
 
 #### Non-Web Applications
 
@@ -197,7 +197,7 @@ class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitialize
 Reference: https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-servlet-context-hierarchy
 
 
-## Can you describe the lifecycle of a Spring Bean in an `ApplicationContext`?
+### Can you describe the lifecycle of a Spring Bean in an `ApplicationContext`?
 
 The lifecycle of a Spring bean looks like this:
 
@@ -228,7 +228,7 @@ The lifecycle of a Spring bean looks like this:
 </p>
 
 
-## How are you going to create an `ApplicationContext` in an integration test?
+### How are you going to create an `ApplicationContext` in an integration test?
 
 `@ContextConfiguration` defines class-level metadata that is used to determine how to load and configure an `ApplicationContext` for **Integration Tests**. (Spring framework)
 
@@ -277,7 +277,7 @@ public class RepositoryTest {}
 ```
 
 
-## What is the preferred way to close an application context? Does Spring Boot do this for you?
+### What is the preferred way to close an application context? Does Spring Boot do this for you?
 
 The preferred way to close an application context depends on the type of application.
 
@@ -316,13 +316,13 @@ Spring Boot will register a shutdown-hook as described above when a Spring appli
 The mechanism described above with the `ContextLoaderListerner` also applies to Spring Boot web applications.
 
 
-## Are beans lazily or eagerly instantiated by default? How do you alter this behavior?
+### Are beans lazily or eagerly instantiated by default? How do you alter this behavior?
 
-## What is a property source? How would you use `@PropertySource`?
+### What is a property source? How would you use `@PropertySource`?
 
-## What is a `BeanFactoryPostProcessor` and what is it used for? When is it invoked?
+### What is a `BeanFactoryPostProcessor` and what is it used for? When is it invoked?
 
-## What is a `BeanPostProcessor` and how is it different to a `BeanFactoryPostProcessor`? What do they do? When are they called?
+### What is a `BeanPostProcessor` and how is it different to a `BeanFactoryPostProcessor`? What do they do? When are they called?
 
 - `BeanPostProcessor`: Factory hook that allows for custom modification of new **bean instances** - for example, checking for marker interfaces or wrapping beans with proxies. It is an interface that defines callback methods that allow for modification of bean instances. There are 2 methods that can be implemented:
 
@@ -338,13 +338,13 @@ The mechanism described above with the `ContextLoaderListerner` also applies to 
 
     - Source: https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-extension-factory-postprocessors
 
-## What does `component-scanning` do?
+### What does `component-scanning` do?
 
-## What is the behavior of the annotation `@Autowired` with regards to field injection, constructor injection and method injection?
+### What is the behavior of the annotation `@Autowired` with regards to field injection, constructor injection and method injection?
 
-## How does the `@Qualifier` annotation complement the use of `@Autowired`?
+### How does the `@Qualifier` annotation complement the use of `@Autowired`?
 
-## What is a `proxy` object and what are the two different types of proxies Spring can create?
+### What is a `proxy` object and what are the two different types of proxies Spring can create?
 
 - `Proxy Object` is an object that adds additional logic on top of object that is being proxied without having to modify code of proxied object. Proxy object has the same public methods as object that is being proxied and it should be as much as possible indistinguishable from proxied object. When method is invoked on Proxy Object, additional code, usually before and after sections are invoked, also code from proxied object is invoked by Proxy Object.
 
@@ -367,13 +367,13 @@ The mechanism described above with the `ContextLoaderListerner` also applies to 
   - Generate a new class that implements the same interface as target class and wrap the target object at runtime.
 
 
-## What does the `@Bean` annotation do?
+### What does the `@Bean` annotation do?
 
-## What is the default bean id if you only use `@Bean`? How can you override this?
+### What is the default bean id if you only use `@Bean`? How can you override this?
 
-## Why are you not allowed to annotate a final class with `@Configuration`?
+### Why are you not allowed to annotate a final class with `@Configuration`?
 
-## How do you configure `profiles`? What are possible use cases where they might be useful?
+### How do you configure `profiles`? What are possible use cases where they might be useful?
 
 The @Profile annotation may be used in any of the following ways:
 
@@ -408,32 +408,32 @@ protected void configure(HttpSecurity http) throws Exception {
 System.out.println("HeLlo");
 ```
 
-## Can you use `@Bean` together with `@Profile`?
+### Can you use `@Bean` together with `@Profile`?
 
-## Can you use `@Component` together with `@Profile`?
+### Can you use `@Component` together with `@Profile`?
 
-## How many `profiles` can you have?
+### How many `profiles` can you have?
 
 - Almost unlimited
 - `Integer.Max` (due to `for` loop using `int`)
 - 2^31
 
-## How do you inject scalar/literal values into Spring beans?
+### How do you inject scalar/literal values into Spring beans?
 
-## What is Spring Expression Language (`SpEL` for short)?
+### What is Spring Expression Language (`SpEL` for short)?
 
-## What is the Environment abstraction in Spring?
+### What is the Environment abstraction in Spring?
 
-## Where can properties in the environment come from – there are many sources for properties – check the documentation if not sure. Spring Boot adds even more.
+### Where can properties in the environment come from – there are many sources for properties – check the documentation if not sure. Spring Boot adds even more.
 
-## What can you reference using `SpEL?`
+### What can you reference using `SpEL?`
 
-## What is the difference between `$` and `#` in `@Value` expressions?
+### What is the difference between `$` and `#` in `@Value` expressions?
 
 
 # Extras
 
-## Bean Scopes
+### Bean Scopes
 
 | Scope       | Annotation                                                                                              | Description                                                                                                                                                                      |
 |-------------|---------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
