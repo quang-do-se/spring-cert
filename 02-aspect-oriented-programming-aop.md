@@ -144,6 +144,10 @@ The `[ReturnType]` is mandatory. If the return type is not a criterion, just use
 #### Even pointcut declarations can be decoupled using `@Poincut`. Example:
 
 ``` java
+public interface PersonService {
+    Person save(Person person);
+}
+
 public class PointcutContainer {
     @Pointcut("execution (* com.apress.cems.aop.service.*Service+.save(..)) && args(person) && target(service)")
     public void beforeSavePointcut(Person person, PersonService service){}
@@ -158,6 +162,7 @@ public class PersonMonitor {
 
     @Before("com.apress.cems.aop.PointcutContainer.beforeSavePointcut(person,service)")
     public void beforeSave(JoinPoint joinPoint, Person person, PersonService service) {
+        
         logger.info("[beforeSave]: ---> Target object {}", service.getClass());
         logger.info("[beforeSave]: ---> first name {}, last name {}", person.getFirstName(), person.getLastName());
 
