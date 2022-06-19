@@ -466,9 +466,10 @@ The above example configures component scanning:
 Precedence from highest to lowest:
 
 - Type (class, abstract, interface...)
-- `@Qualifier`
-- `@Primary`
-- Bean Name or Alias - `@Bean({"myBean", "myAlias"})`, `@Component("myBean")`, `@Named("myBean")`
+- If there are multiple beans of the same type, then:
+  - `@Qualifier`
+  - `@Primary`
+  - Bean name or alias - `@Bean({"myBean", "myAlias"})`, `@Component("myBean")`, `@Named("myBean")`
 
 If both the `@Qualifier` and `@Primary` annotations are present, then the `@Qualifier` annotation will have precedence. Basically, `@Primary` defines a default, while `@Qualifier` is very specific.
 
