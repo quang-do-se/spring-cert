@@ -652,27 +652,6 @@ The @Profile annotation may be used in any of the following ways:
 
 Source: https://docs.spring.io/spring-framework/docs/4.3.12.RELEASE/javadoc-api/org/springframework/context/annotation/Profile.html
 
-``` java
-/**
-   Ensures that any request to our application requires the user to be authenticated
-
-   Allows users to authenticate with form based login
-
-   Allows users to authenticate with HTTP Basic authentication
-   ,*/
-protected void configure(HttpSecurity http) throws Exception {
-    http
-        .authorizeRequests()
-        .anyRequest().authenticated()
-        .and()
-        .formLogin()
-        .and()
-        .httpBasic();
-}
-
-System.out.println("HeLlo");
-```
-
 ----------
 
 ### Can you use `@Bean` together with `@Profile`?
