@@ -429,9 +429,16 @@ To enable component scanning, annotate a configuration class in your Spring appl
 Filtering configuration can be added to the `@ComponentScan` annotation as to include or exclude certain classes.
 
 ``` java
+@Configuration
+@ComponentScan(
+               basePackages = { "com.myapp" },
+               basePackageClasses = { Service.class },
+               excludeFitlers = { @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = Bean.class) }
+               includeFitlers = { @ComponentScan.Filter(type = FilterType.REGEX, pattern = "email.*") }
+          )
+public class AppConfig {}
 
 ```
-
 
 ----------
 
