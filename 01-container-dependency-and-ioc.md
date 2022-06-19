@@ -615,9 +615,20 @@ The default bean name is the name of the method annotated with the `@Bean` annot
 
 ### What is the default bean id if you only use `@Bean`? How can you override this?
 
+As in the previous section, the default bean name, also called bean id, is the name of the `@Bean` annotated method. This default id can be overriden using the `name`, or its alias `value`, attribute of the `@Bean` annotation.
+
+``` java
+// Set bean name to "myBean" and alias to "beanAlias"
+@Bean({"myBean", "beanAlias"})
+FunBean funBean(){}
+
+```
+
 ----------
 
 ### Why are you not allowed to annotate a final class with `@Configuration`?
+
+
 
 ----------
 
