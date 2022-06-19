@@ -634,6 +634,11 @@ FunBean funBean(){}
 
 ### Why are you not allowed to annotate a final class with `@Configuration`?
 
+The Spring container will create a subclass of each class annotated with `@Configuration` when creating an applicaion context using CGLIB. Final classes cannot be subclassed, thus classes annotated with `@Configuration` cannot be declared as final. 
+
+The reason for the Spring container subclassing `@Configuration` classes is to control bean creation - for single beans, subsequent requests to the method creating the bean shoul return the same bean isntance as created at the first invocation of the `@Bean` annotated method.
+
+
 
 
 ----------

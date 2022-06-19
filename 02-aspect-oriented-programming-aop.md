@@ -1,4 +1,3 @@
-
 ### What is the concept of AOP? Which problem does it solve? What is a cross cutting concern?
 
 #### What is the concept of AOP?
@@ -38,6 +37,8 @@
   <img src="img/cross-cutting-concern.png" alt="Cross Cutting Concern" width="70%"/>
 </p>
 
+-----------
+
 ### What is a pointcut, a join point, an advice, an aspect, weaving?
 
 - `Aspect` : A class containing code specific to a cross-cutting concern. A class declaration is recognized in Spring as an aspect if it is annotated with the @Aspect annotation. A module that encapsulates pointcuts and advice.
@@ -59,6 +60,7 @@
 
 - `AOP proxy`: The object created by AOP to implement the aspect contracts. In Spring proxy objects can be JDK dynamic proxies or CGLIB proxies. By default, the proxy objects are JDK dynamic proxies, and the object being proxied must implement an interface that is also implemented by the proxy object. But a library like CGLIB can create proxies by subclassing, so an interface is not needed.
 
+-----------
 
 ### How does Spring solve (implement) a cross cutting concern?
 
@@ -70,6 +72,7 @@
 
 - In spring aop, if the target object implements an interface, it defaults to using the standard `JDK Dynamic proxies`, and this behavior can be overridden to force the use `CGLIB proxies` instead. 
 
+-----------
 
 ### Which are the limitations of the two proxy-types?
 - Overview of `CGLIB Proxies`:
@@ -101,6 +104,7 @@
 - Benefits of `JDK Dynamic Proxies` are:
   - Programming to interface is recommended.
 
+-----------
 
 ### How many advice types does Spring support? Can you name each one?
 
@@ -116,6 +120,7 @@
 
 - `@Around` advice: Methods annotated with `@Around` intercept the target method and surround the join point. This is the most powerful type of advice since can perform custom behavior before and after the invocation. It has the responsibility of choosing to perform the invocation or return its own value, and it provides the option of stopping the propagation of an exception.
 
+-----------
 
 ### If shown pointcut expressions, would you understand them?
 
@@ -186,6 +191,7 @@ public class PersonMonitor {
 
 - `@annotation`: Limits matching to join points where the subject of the join point (the method being run in Spring AOP) has the given annotation.
 
+-----------
 
 ### What is the `JoinPoint` argument used for?
 
@@ -207,6 +213,7 @@ The `JoinPoint` interface provides a number of useful methods:
 
 `JoinPoint.StaticPart` contains only the static information about a join point.
 
+-----------
 
 ### What is a `ProceedingJoinPoint`? Which advice type is it used with?
 
@@ -246,6 +253,7 @@ public class AroundExample {
 }
 ```
 
+----------
 
 # Extras
 
