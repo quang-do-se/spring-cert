@@ -301,9 +301,13 @@ var context = new AnnotationConfigApplicationContext(AppConfig.class);
 context.close();
 ```
 
+
 #### Web Application
 
 In a Web application, closing of the Spring application context is taken care of by the `ContextLoaderListener`, which implements the `ServletContextListener` interface. The `ContextLoaderListener` will receive a `ServletContextEvent` when the web container stops the web application.
+
+A **standard servlet listener** is used to bootstrap and shutdown the Spring application context. The application context is created and injected into the `DispatcherServlet` before any request is made, and when the application is stopped, the Spring context is closed gracefully. The Spring servlet listener class is `org.springframework.web.context.ContextLoaderListener`.
+
 
 #### Spring Boot Application
 
