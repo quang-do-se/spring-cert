@@ -169,7 +169,7 @@
 * Don't couple application code with Spring infrastructure
 
 
-* @Vaolue can have $ for scalar and # for reference and #{@<bean>} for bean
+* @Value can have $ for scalar and # for reference and #{@<bean>} for bean
   - See SpEL
 
 
