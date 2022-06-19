@@ -617,6 +617,12 @@ The default bean name is the name of the method annotated with the `@Bean` annot
 
 As in the previous section, the default bean name, also called bean id, is the name of the `@Bean` annotated method. This default id can be overriden using the `name`, or its alias `value`, attribute of the `@Bean` annotation.
 
+Currently we cannot create Aliases for stereotype annotation, such as `@Component`.
+
+This can be done with @Bean annotation:
+  - The first alias will be the unique identifier for the bean.
+  - Everything after that will be treated as alias.
+
 ``` java
 // Set bean name to "myBean" and alias to "beanAlias"
 @Bean({"myBean", "beanAlias"})
@@ -751,3 +757,17 @@ Note that calls to static `@Bean` methods will never get intercepted by the cont
 
 Reference: https://docs.spring.io/spring-framework/docs/5.0.5.RELEASE/spring-framework-reference/core.html#beans-factorybeans-annotations
 
+----------
+
+### Which type of excpetion that Spring uses?
+
+Spring prefer `Unchecked Exceptions` as it gives developers freedom of choice as to decide where to implement error handling and removes coupling related to exceptions. It also removes cluttered code as there is no requirement of try-catch blocks.
+
+----------
+
+### What annotatiosn that can affect the order in which the IoC Container instantiates beans?
+
+- `@Order` - directly specifies the order in which beans are instantiated.
+- `@Lazy` - makes the Container only instantiate the annotated bean when it is called.
+- `@DependsOn` - make sure that the annotated beans are instantiated after their dependencies.
+- `@Import` -  make sure that the annotated beans are instantiated after their dependencies.
