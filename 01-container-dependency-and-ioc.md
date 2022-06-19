@@ -318,6 +318,17 @@ The mechanism described above with the `ContextLoaderListerner` also applies to 
 
 ### Are beans lazily or eagerly instantiated by default? How do you alter this behavior?
 
+`Singleton` Spring beans in an application context are eagerly initialized by default, as the application context is created.
+
+An instance of a `prototype` scoped bean is typically created lazily when requested. An *exception* is when a `prototype` scoped bean is a dependency of a `singleton` scoped bean, in which case the `prototype` scoped bean will be eagerly initialized.
+
+To explicitly set whether beans are to  be lazily or eagerly initialized, the `@Lazy` annotation can be applied either to:
+- Methods annotated with the `@Bean` annotation.
+  - Bean will be lazy or not as specified by the boolean parameter to the `@Lazy` annotation (default value is **true**).
+- Classes annotated with the `@Configuration` annotation.
+  - All beans declared with the configuration class will be lazy or not as specified by the boolean parameter to the `@Lazy` annotation (default value is **true**).
+- Classes annotated with `@Component` or any related stereotype annotation.
+  - The bean created from the component class will be lazy or not as specified by the boolean parameter to the `@Lazy` annotation (default value is **true**).
 
 
 ### What is a property source? How would you use `@PropertySource`?
