@@ -422,9 +422,9 @@ Reference: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/
 
 ### What does `component-scanning` do?
 
-Component, or classpath, scanning is the process using which the Spring container searches the classpath for classes annotated with stereotype annotations and registers bean definitions in the Spring container for such classes.
+Component, or classpath, scanning is the process in which the Spring container searches the classpath for classes annotated with stereotype annotations and registers bean definitions in the Spring container for such classes.
 
-To enable component scanning, annotate a configuration class in your Spring application with the `@ComponentScan` annotation. The default component scanning behavior is to detect classes annotated with `@Component` or an annotation that itself is annotated with `@Component` (`@Controller`, `@Service`, `@Repository`). Note that the `@Configuration` annotation si annotated with the `@Component` annotation and thus are Spring Java configuration classes and `@SpringBootApplication` also candidates for auto-detection using component scanning.
+To enable component scanning, annotate a configuration class in your Spring application with the `@ComponentScan` annotation. The default component scanning behavior is to detect classes annotated with `@Component` or an annotation that itself is annotated with `@Component` (`@Controller`, `@Service`, `@Repository`). Note that the `@Configuration` annotation is annotated with the `@Component` annotation and thus are Spring Java configuration classes and `@SpringBootApplication` also candidates for auto-detection using component scanning.
 
 `@SpringBootApplication` inheritance chain
  - `@SpringBootApplication` -> `@SpringBootConfiguration` -> `@Configuration` -> `@Component`
@@ -542,7 +542,7 @@ Annotation definitions can be annotated with the `@Qualifier` annotation in orde
 
 ### What is a `proxy` object and what are the two different types of proxies Spring can create?
 
-- `Proxy Object` is an object that adds additional logic on top of object that is being proxied without having to modify code of proxied object. Proxy object has the same public methods as object that is being proxied and it should be as much as possible indistinguishable from proxied object. When method is invoked on Proxy Object, additional code, usually before and after sections are invoked, also code from proxied object is invoked by Proxy Object.
+- `Proxy` object is an object that adds additional logic on top of object that is being proxied without having to modify code of proxied object. Proxy object has the same public methods as object that is being proxied and it should be as much as possible indistinguishable from proxied object. When method is invoked on Proxy Object, additional code, usually before and after sections are invoked, also code from proxied object is invoked by Proxy Object.
 
 - Proxy Advantages:
   - Ability to change behavior of existing beans without changing original code.
