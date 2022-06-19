@@ -128,7 +128,7 @@
 
 `execution(public * com.apress.cems.repos.*.JdbcPersonRepo+.findById(..))`
 
-`execution([Modifiers] [ReturnType] [FullClassName].[MethodName]([Arguments]) throws [ExceptionType])`
+`execution([method visibility] [return type] [package].[class].[method name]([parameters]) [throws exceptions])`
 
 The expression can contain wildcards like `+` and `*` and can be made of multiple expressions concatenated by boolean operators such as `&&`, `||`, and so forth. The `*` wildcard replaces any group of characters when used to match pieces of package names, classes, and methods, and a single character when used to match method parameters. The `+` wildcard specifies that the method to advise can also be found in subclasses identified by `[FullClassName]` criteria. The `+` wildcard works in a similar way when the criteria used is an interface and the pointcut expression matches the methods in all implementations.
 
