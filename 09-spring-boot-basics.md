@@ -200,7 +200,7 @@ spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 
 ### How do you configure default schema and initial data?
 
-Configure Default Schema
+#### Configure Default Schema
 
 The name of a default schema can be supplied in the datasource URL, as shown in the following example:
 
@@ -217,7 +217,7 @@ spring.datasource.url=jdbc:mysql://localhost/<default-schema-name>
 There are other ways of accomplishing the same for specific technologies, such as Hibernate in this example:
 
 ```
-spring.jpa.properties.hibernate.default_schema=defaultschemaname
+spring.jpa.properties.hibernate.default_schema=<default-schema-name>
 ```
 
 However, including the name of the default schema in the datasource URL is to be preferred since it does not create any coupling to the underlying JPA library – Hibernate in this example.
@@ -246,14 +246,21 @@ data.sql
 data-${platform}.sql
 ```
 
-As before, `platform` is the value of the property `spring.datasource.platform`.
-This method of supplying initial data can be used in projects that uses JPA as well as those who do not.
-
+As before, `platform` is the value of the property `spring.datasource.platform`. This method of supplying initial data can be used in projects that uses JPA as well as those who do not.
 
 ----------
 
 ### What is a fat jar? How is it different from the original jar?
 
+A `fat JAR` or `executable jar` is a self-contained JAR file which contains all dependencies needed for the application to be run. The JAR files of the dependencies are contained in the application’s JAR file. With the current version of Spring Boot, the nested JAR files of the application’s dependencies are contained in the `BOOT-INF/lib` directory.
+
+Reference: https://docs.spring.io/spring-boot/docs/current/reference/html/executable-jar.html
+
 ----------
 
 ### What embedded containers does Spring Boot support?
+
+Spring Boot supports the following embedded containers:
+- Tomcat
+- Jetty
+- Undertow
