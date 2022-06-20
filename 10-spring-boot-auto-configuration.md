@@ -157,3 +157,21 @@ Another option is to disable one or more auto-configuration classes altogether. 
 ----------
 
 ### What are the examples of `@Conditional` annotations? How are they used?
+
+`@Conditional` annotations are typically used in auto-configuration classes such as those of Spring Boot starter modules.
+
+`@Conditional` annotations are applied either at class level in `@Configuration` classes or at method level, also in `@Configuration` classes, annotating `@Bean` methods. They allow for the creation of Spring beans to be conditional depending on, for example, the presence of a certain class on the classpath. `@Conditional` annotations also allow for conditional creation of Spring beans if a bean of a certain type is not already present in the application context. This allows for, for example, the creation of Spring Boot starter modules that contain a set of default beans that can be replaced.
+
+We can create a custom `Condition` by implement `Condition` interface:
+
+``` java
+public class NotRunningInTestCondition implements Condition {
+  public NotRunningInTestCondition() {
+  }
+
+  public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+    Environment environment = context.getEnvironment();
+    return environment.acceptsProfiles(Profiles.of(new String[]{"!test"}));
+  }
+}
+```
