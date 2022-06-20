@@ -167,11 +167,13 @@ Individual property values defined in this application.properties file can be cu
 
 Another example is with a profile-specific properties file that contain a subset of the application properties. When the profile is activated, the properties in the profile-specific property file will override the ones in the default properties file (`application.properties`).
 
-
-
 ----------
 
 ### How do you define profile specific property files?
+
+Properties specific to a profile can, as before, be a subset of the properties of the application properties and, for instance, configure the application to run in a certain environment. Such profile specific properties can be defined in properties-files with the following name pattern:
+
+`application-{profile}.properties`
 
 ----------
 
