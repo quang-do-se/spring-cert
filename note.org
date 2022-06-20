@@ -324,7 +324,7 @@
   - It also provides support for different _webEnvironment_ modes, including the ability to start a fully running web server listening on a _defined or random port_.
 
   - _TestRestTemplate_ is used for client-side testing (wherever _RestTemplate_ is normally used in the code) and supports authentication.
-  - _RestTemplate_ is not recommended for normal use in test classes. MvcTester does not
+  - _RestTemplate_ is not recommended for normal use in test classes.
   - _MockMvc_ can be used to mock usage of HTTP endpoints and also has methods for checking the result (server-side testing). It also features a fluent API.
 
   - _HttpGraphQlTester_
