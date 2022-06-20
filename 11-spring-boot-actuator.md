@@ -93,6 +93,55 @@ info:
 
 ### How do you change logging level of a package using loggers endpoint?
 
+
+Spring Boot Actuator includes the ability to view and configure the log levels of your application at runtime. You can view either the entire list or an individual logger’s configuration, which is made up of both the explicitly configured logging level as well as the effective logging level given to it by the logging framework. These levels can be one of:
+
+- `TRACE`
+
+- `DEBUG`
+
+- `INFO`
+
+- `WARN`
+
+- `ERROR`
+
+- `FATAL`
+
+- `OFF`
+
+- `null`
+
+`null` indicates that there is no explicit configuration.
+
+To configure a given logger, POST a partial entity to the resource’s URI. 
+
+First, we will get some info about current loggers:
+
+`GET http://localhost:8080/actuator/loggers`: Get a list of all loggers
+
+`GET http://localhost:8080/actuator/loggers/ROOT`: Get the current configuration of ROOT logger. You will see something like this:
+
+``` json
+{
+  "configuredLevel": "INFO",
+  "effectiveLevel": "INFO"
+}
+```
+
+Now, we can update the loggers' configuration with POST request:
+
+`POST http://localhost:8080/actuator/loggers/<logger-id>`
+  - `POST http://localhost:8080/actuator/loggers/ROOT`
+  - `POST http://localhost:8080/actuator/loggers/com.myapp`
+
+Here is an example data body:
+``` json
+{
+  "configuredLevel": "DEBUG"
+}
+```
+
 ----------
 
 ### How do you access an endpoint using a tag?
