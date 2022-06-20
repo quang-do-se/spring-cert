@@ -114,6 +114,49 @@ management:
 
 ### Can you control logging with Spring Boot? How?
 
+Several aspects of logging can be controlled in different ways in Spring Boot applications.
+
+#### Controlling Log Levels
+
+As per default, messages written with the ERROR, WARN and INFO levels will be output in a Spring Boot application. To enable DEBUG or TRACE logging for the entire application, use the `--debug` or `--trace` flags or set the properties `debug=true` or `trace=true` in the `application.properties` file. 
+
+Log levels can be controlled at a finer granularity using the `application.properties` file.
+
+logging.level.root=WARN
+logging.level.com.myapp.spring=DEBUG
+
+The above rows show how log levels can be configured in the `application.properties` file. The first line sets the log level of the root logger to WARN and the second line sets the log level of the `com.myapp.spring` logger to DEBUG.
+
+#### Customizing the Log Pattern
+
+When using the default Logback setup in a Spring Boot application, the log patterns used to write log to the console and to file can be customized using the following properties in the `application.properties` file:
+
+| Property Name           | System Property     | Use                                                              |
+|-------------------------|---------------------|------------------------------------------------------------------|
+| logging.pattern.console | CONSOLE_LOG_PATTERN | Used to configure the pattern used to output log to the console. |
+| logging.pattern.file    | FILE_LOG_PATTERN    | Used to configure the pattern used to output log                 |
+
+#### Choosing a Logging System
+
+Spring Boot uses the **Commons Logging API** for logging. Support for the following underlying logging frameworks is available in Spring Boot:
+
+- **Logback**: This is the default used by Spring Boot.
+- **Log4J2**
+- **Java Util Logging**: The Java platform’s core logging facilities.
+
+#### Logging System Specific Configuration
+
+Logging-system specific log configuration can be supplied in one of the following files depending on which logging system has been chosen:
+
+- **logback-spring.xml**
+  - This logging configuration file allows for Logback-native configuration while also supporting the templating features of Spring Boot. Alternatively the Logback-native configuration can also be supplied in a file named logback.xml but then the Spring Boot templating features will not be available.
+  
+- **log4j2.xml** 
+  - This log configuration file allows for configuring Log4J2 logging using the XML format. It is also possible to configure Log4J2 logging using YAML or JSON and then the name of the configuration files are log4j2.yaml or log4j2.yml and log4j2.json or log4j2.jsn respectively.
+  
+- **logging.properties** 
+  - Configuration file used in conjunction with Java platform’s core logging.
+
 ----------
 
 ### Where does Spring Boot look for application.properties file by default?
