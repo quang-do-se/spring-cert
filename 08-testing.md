@@ -30,9 +30,22 @@ To disable rollback in unit tests, use `@Rollback(false)` or `@Commit`.
 
 ### How are mock frameworks such as `Mockito` or `EasyMock` used?
 
+`Mockito` and `EasyMock` allows for dynamic creation of mock objects that can be used to mock collaborators of class(es) under test that are external to the system or trusted. 
+
+A mock object is similar to a stub, in that it produces predetermined results when methods on the object are invoked. In addition, a mock object can also verify that it was used as expected, for example verifying method invocation sequence, parameters supplied to methods etc.
+
+Mock objects have the advantage over stubs in that they are created dynamically and only for the specific scenario tested. Mock objects are commonly created in a test method or in a test-class before the test methods are executed.
+
+References: 
+- https://site.mockito.org/
+- https://easymock.org/getting-started.html
+
 ----------
 
 ### How is `@ContextConfiguration` used?
+
+`@ContextConfiguration` defines class-level metadata that is used to determine how to load and configure an ApplicationContext for *Integration Tests*.
+
 
 ----------
 
