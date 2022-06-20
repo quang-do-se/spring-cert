@@ -179,13 +179,76 @@ Properties specific to a profile can, as before, be a subset of the properties o
 
 ### How do you access the properties defined in the property files?
 
+The `@Value` annotation can be used to inject property values into Spring beans and configuration classes.
+
+In addition, properties can be bound to Java bean class(es) using the `@ConfigurationProperties` annotation on the Java bean class(es) and the `@EnableConfigurationProperties` annotation on one `@Configuration` class. This allows for automatic validation of property values, since the setter methods of such bean classes only accept a certain type. A drawback of this approach is that SpEL expressions in property values are not evaluated.
+
 ----------
 
 ### What properties do you have to define in order to configure external MySQL?
 
+To connect to an external MySQL database, the following properties need to be set in the `application.properties` file:
+
+``` yaml
+spring.datasource.url=jdbc:mysql://localhost/test
+spring.datasource.username=username
+spring.datasource.password=secret
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+```
+
 ----------
 
 ### How do you configure default schema and initial data?
+
+Configure Default Schema
+
+The name of a default schema can be supplied in the datasource URL, as shown in the following example:
+
+``` 
+spring.datasource.url=jdbc:postgresql://localhost/databasename?currentSchema=<default-schema-name>
+```
+
+Note that in some databases, MySQL for example, database is equivalent to schema and the default schema is specified by the “databasename” part of the datasource URL in the example above. A datasource URL for MySQL would thus look like this:
+
+``` 
+spring.datasource.url=jdbc:mysql://localhost/<default-schema-name>
+```
+
+There are other ways of accomplishing the same for specific technologies, such as Hibernate in this example:
+
+```
+spring.jpa.properties.hibernate.default_schema=defaultschemaname
+```
+
+However, including the name of the default schema in the datasource URL is to be preferred since it does not create any coupling to the underlying JPA library – Hibernate in this example.
+
+#### Database Initialization
+
+If using JPA, then setting the vendor-independent property `spring.jpa.generate-ddl` to true will cause JPA to initialize the application’s database, creating tables etc.
+
+Using vendor-specific properties, like Hibernate’s `spring.jpa.hibernate.ddl-auto`, may allow for more control over database initialization, depending on the vendor. 
+
+If plain JDBC is used, Spring Boot will execute SQL files named according to the following naming patterns at application startup to initialize the database:
+
+``` 
+schema.sql
+schema-${platform}.sql
+```
+
+Where `platform` is the value of the property `spring.datasource.platform`.
+
+#### Supplying Initial Data
+
+When a Spring Boot application is started, Spring Boot executes SQL files named according to the following naming conventions to allow for insertion of initial data into the database:
+
+```
+data.sql
+data-${platform}.sql
+```
+
+As before, `platform` is the value of the property `spring.datasource.platform`.
+This method of supplying initial data can be used in projects that uses JPA as well as those who do not.
+
 
 ----------
 
