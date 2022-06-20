@@ -1,26 +1,26 @@
 
-### When do you want to use @SpringBootTest annotation?
+### When do you want to use `@SpringBootTest` annotation?
 
 ----------
 
-### What does @SpringBootTest auto-configure?
+### What does `@SpringBootTest` auto-configure?
 
 ----------
 
-### What dependencies does spring-boot-starter-test brings to the classpath?
+### What dependencies does `spring-boot-starter-test` brings to the classpath?
 
 ----------
 
-### How do you perform integration testing with @SpringBootTest for a web application?
+### How do you perform integration testing with `@SpringBootTest` for a web application?
 
 ----------
 
-### When do you want to use @WebMvcTest? What does it auto-configure?
+### When do you want to use `@WebMvcTest`? What does it auto-configure?
 
 ----------
 
-### What are the differences between @MockBean and @Mock?
+### What are the differences between `@MockBean` and `@Mock`?
 
 ----------
 
-### When do you want @DataJpaTest for? What does it auto-configure?
+### When do you want `@DataJpaTest` for? What does it auto-configure?
