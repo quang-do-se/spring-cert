@@ -86,9 +86,29 @@ The following is a list of the condition annotations in Spring Boot and the fact
 
 ### What is a Spring Boot starter? Why is it useful?
 
+The advantages of using `Spring Boot starter` are that all the dependencies needed to get started with a certain technology have been gathered. A developer can rest assured that there are no dependencies missing and that all the dependencies have versions that work well together
+
 ----------
 
 ### Spring Boot supports both properties and YML files. Would you recognize and understand them if you saw them?
+
+Java properties file:
+
+```
+management.endpoints.web.exposure.include: '*'
+management.endpoints.web.exposure.exclude: env,beans
+```
+
+YAML file:
+
+``` yaml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude: 'env,beans
+```
 
 ----------
 
