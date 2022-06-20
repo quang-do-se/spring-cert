@@ -20,6 +20,7 @@ Use `@ContextConfiguration` with `@Configuration`.
 The `@Transactional` annotation can be used in a test that alter some transactional resource, for example a database, that is to be restored to the state it had prior to the test being run. The annotation can be applied at method level, in which case just the annotated test method(s) will run, each in its own transaction. The annotation can also be applied at class level, in which case all the test methods in the class will be executed, each in its own transaction. A transaction in which a test-method is executed will, as default, be rolled back after the test has finished executing.
 
 By default, unit test always rollback with `@Transactional`.
+
 To disable rollback in unit tests, use `@Rollback(false)` or `@Commit`.
 
 `@Transactional` has attributes `rollbackFor`, `rollbackForClassName`, `noRollbackFor`, `noRollbackForClassName` to rollback based on thrown `Exception`.
