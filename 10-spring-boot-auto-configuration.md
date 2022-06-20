@@ -111,6 +111,27 @@ Auto Configuration use case for `spring.factories` file is probably most popular
 - `TemplateAvailabilityProvider`
 - `TestExecutionListener`
 
+
+The `spring.factories` file can be used to:
+
+- Register application event listeners regardless of how the Spring Boot application is created (configured).
+  - Implement a class that inherits from `SpringApplicationEvent` and register it in the `spring.factories` file.
+
+- Locate auto-configuration candidates in, for instance, your own starter module.
+
+- Register a filter to limit the auto-configuration classes considered. See `AutoConfigurationImportFilter`.
+
+- Activate application listeners that creates a file containing the application process id and/or creates file(s) containing the port number(s) used by the running web server (if any).
+  - These listeners, `ApplicationPidFileWriter` and `WebServerPortFileWriter`, both implement the `ApplicationListener` interface.
+  
+- Register failure analyzers.
+  - Failure analyzers implement the `FailureAnalyzer` interface and can be registered in the `spring.factories` file.
+  
+- Customize the environment or application context prior to the Spring Boot application has started up.
+  - Classes that implementing the `ApplicationListener`, `ApplicationContextListener` or the `EnvironmentPostProcessor` interfaces may be registered in the `spring.factories` file.
+  
+- Register the availability of view template providers. See the `TemplateAvailabilityProvider` interface.
+
 ----------
 
 ### How do you customize Spring Boot auto configuration?
