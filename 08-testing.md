@@ -22,7 +22,7 @@ The `@Transactional` annotation can be used in a test that alter some transactio
 By default, unit test always rollback with `@Transactional`.
 To disable rollback in unit tests, use `@Rollback(false)` or `@Commit`.
 
-`@Transactional` has attributes "rollbackFor", "rollbackForClassName", "noRollbackFor", "noRollbackForClassName" to rollback based on thrown `Exception`.
+`@Transactional` has attributes `rollbackFor`, `rollbackForClassName`, `noRollbackFor`, `noRollbackForClassName` to rollback based on thrown `Exception`.
   - These accepts `Exception` class name or object.
 
 ----------
