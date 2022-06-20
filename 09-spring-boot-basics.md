@@ -27,7 +27,7 @@ Some advantages of using Spring Boot are:
 
 - Allows for easy customization when the defaults no longer suffices. Such customization can be accomplished by setting property values in the application’s property file and/or creating Spring beans with the same name as those created by Spring Boot in order to replace the Spring bean definitions.
 
-- A Spring Boot project can produce an executable stand-alone JAR-file. Such a JAR-file can be run from the command line using the regular java -jar command and may even contain an embedded web server, for web applications, like Tomcat or Jetty.
+- A Spring Boot project can produce an executable stand-alone JAR-file. Such a JAR-file can be run from the command line using the regular `java -jar` command and may even contain an embedded web server, for web applications, like Tomcat or Jetty.
 
 - Provides a set of managed dependencies that have been verified to work together.
 
