@@ -894,7 +894,7 @@ Reference: https://docs.spring.io/spring-framework/docs/5.0.5.RELEASE/spring-fra
 
 ----------
 
-### Which type of excpetion that Spring uses?
+### Which type of Exception does Spring use?
 
 Spring prefer `Unchecked Exceptions` as it gives developers freedom of choice as to decide where to implement error handling and removes coupling related to exceptions. It also removes cluttered code as there is no requirement of try-catch blocks.
 

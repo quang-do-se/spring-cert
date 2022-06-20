@@ -161,6 +161,14 @@ Logging-system specific log configuration can be supplied in one of the followin
 
 ### Where does Spring Boot look for application.properties file by default?
 
+The default properties of a Spring Boot application are stores in the application’s JAR in a file named `application.properties`. When developing, this file is found in the `src/main/resources` directory.
+
+Individual property values defined in this application.properties file can be customized using for example command-line arguments when starting the application. The default properties can be overridden in their entirety using an external `application.properties` file or a YAML equivalent (For example, using `--spring.config.location` or `--spring.config.additional-location`).
+
+Another example is with a profile-specific properties file that contain a subset of the application properties. When the profile is activated, the properties in the profile-specific property file will override the ones in the default properties file (`application.properties`).
+
+
+
 ----------
 
 ### How do you define profile specific property files?
