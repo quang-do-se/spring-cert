@@ -56,6 +56,10 @@ The `@SpringBootApplication` is a convenience-annotation that can be applied to 
 
 ### Does Spring Boot do component scanning? Where does it look by default?
 
+Spring Boot does not do component scanning unless a configuration class, annotated with `@Configuration`, that is also annotated with the `@ComponentScan` annotation or an annotation, for instance `@SpringBootApplication`, that is annotated with the `@ComponentScan` annotation.
+
+The base package(s) which to scan for components can be specified using the `basePackages` element in the `@ComponentScan` annotation or by specifying one or more classes that are located in the base package(s) to scan for components by using the `basePackageClasses` element. If none of the above elements are used, component scanning will take place using the package in which the configuration class annotated with `@ComponentScan` as the base package.
+
 ----------
 
 ### How are DataSource and JdbcTemplate auto-configured?
