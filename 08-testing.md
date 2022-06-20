@@ -88,10 +88,10 @@ When annotating a test class that run Spring Boot based tests, the `@SpringBootT
 - Allows custom `Environment` properties to be defined using the properties attribute of the `@SpringBootTest` annotation.
 
 - Provides support for different web environment modes to create for the test using the **webEnvironment** element of the `@SpringBootTest` annotation.The following web environment modes are available: 
-  - DEFINED_PORT (creates a web application context without defining a port)
-  - MOCK (creates a web application context with a mock servlet environment or a reactive web application context)
-  - NONE (creates a regular application context)
-  - RANDOM_PORT (creates a web application context and a regular server listening on a random port).
+  - **DEFINED_PORT** (creates a web application context without defining a port)
+  - **MOCK** (creates a web application context with a mock servlet environment or a reactive web application context)
+  - **NONE** (creates a regular application context)
+  - **RANDOM_PORT** (creates a web application context and a regular server listening on a random port)
 
 - Registers a `TestRestTemplate` and/or `WebTestClient` bean for use in web tests that are using a fully running web server.
   - `TestRestTemplate` is used for client-side testing (wherever `RestTemplate` is normally used in the code) and supports authentication.
