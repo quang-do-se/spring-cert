@@ -51,6 +51,30 @@ References:
 
 ### How does Spring Boot simplify writing tests?
 
+Some of the features offered by Spring Boot that simplify writing tests are:
+
+- Spring Boot has a starter module called `spring-boot-starter-test` which adds the following test-scoped dependencies that can be useful when writing tests:
+  - JUnit 
+  - Spring Test
+  - Spring Boot Test
+  - AssertJ
+  - Hamcrest
+  - Mockito
+  - JSONassert
+  - JsonPath
+  
+- Spring Boot provides the `@MockBean` and `@SpyBean` annotations that allow for creation of `Mockito` mock and `Spy` beans and adding them to the Spring application context.
+
+- Spring Boot provide an annotation, `@SpringBootTest`, which allows for running Spring Boot based tests and that provides additional features compared to the Spring TestContext framework.
+- Spring Boot provides the `@WebMvcTest` and the corresponding `@WebFluxTest` annotation that enables creating tests that only tests Spring MVC or WebFlux components without loading the entire application context.
+  - `TestRestTemplate` is used for client-side testing (wherever `RestTemplate` is normally used in the code) and supports authentication.
+  - `RestTemplate` is not recommended for normal use in test classes. MvcTester does not
+  - `MockMvc` can be used to mock usage of HTTP endpoints and also has methods for checking the result (server-side testing). It also features a fluent API.
+
+- Provides a mock web environment, or an embedded server if so desired, when testing Spring Boot web applications. It  provides support for different `webEnvironment` modes, including the ability to start a fully running web server listening on a **defined or random port**.
+- Spring Boot has a starter module named `spring-boot-test-autoconfigure` that includes a number of annotations that for instance enables selecting which auto-configuration classes to load and which not to load when creating the application context for a test, thus avoiding to load all auto-configuration classes for a test.
+- Auto-configuration for tests related to several technologies that can be used in Spring Boot applications. Some examples are: JPA, JDBC, MongoDB, Neo4J and Redis.
+
 ----------
 
 ### What does `@SpringBootTest` do? How does it interact with `@SpringBootApplication` and `@SpringBootConfiguration`?
