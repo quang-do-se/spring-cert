@@ -122,7 +122,7 @@ First, we will get some info about current loggers:
 
 `GET http://localhost:8080/actuator/loggers/ROOT`: Get the current configuration of ROOT logger. You will see something like this:
 
-``` json
+``` javascript
 {
   "configuredLevel": "INFO",
   "effectiveLevel": "INFO"
@@ -136,7 +136,7 @@ Now, we can update the loggers' configuration with POST request:
   - `POST http://localhost:8080/actuator/loggers/com.myapp`
 
 Here is an example data body:
-``` json
+``` javascript
 {
   "configuredLevel": "DEBUG"
 }
@@ -145,6 +145,66 @@ Here is an example data body:
 ----------
 
 ### How do you access an endpoint using a tag?
+
+The `/metrics` endpoint is capable of reporting all manner of metrics produced by a running application, including metrics concerning memory, processor, garbage collection, and HTTP requests.
+
+There are so many metrics covered that it would be impossible to monitor them all. You can narrow down the results further by using the tags listed under `availableTags`.
+
+For example, you know that there have been 2,103 requests, but what’s unknown is how many of them resulted in an HTTP 200 versus an HTTP 404 or HTTP 500 response status. Using the `status` tag, you can get metrics for all requests resulting in an HTTP 404 status like this:
+
+``` 
+GET localhost:8081/actuator/metrics/http.server.requests?tag=status:404 
+```
+
+``` javascript
+{
+  "name": "http.server.requests",
+  "measurements": [
+    { "statistic": "COUNT", "value": 31 },
+    { "statistic": "TOTAL_TIME", "value": 0.522061212 },
+    { "statistic": "MAX", "value": 0 }
+  ],
+  "availableTags": [
+    { "tag": "exception", "values": [ "ResponseStatusException", "none" ] },
+    { "tag": "method", "values": [ "GET" ] },
+    { "tag": "uri", "values": [ "/actuator/metrics/{requiredMetricName}", "/**" ] }
+  ]
+}
+```
+
+
+Add any number of tag=KEY:VALUE query parameters to the end of the URL to dimensionally drill down on a meter. By specifying the tag name and value with the tag request attribute, you now see metrics specifically for requests that resulted in an HTTP 404 response.
+
+To know how many of those HTTP 404 responses were for the `/**` path? All you need to do to filter this further is to specify the uri tag in the request, like this:
+
+```
+GET localhost:8081/actuator/metrics/http.server.requests?tag=status:404&tag=uri:/**
+```
+
+``` javascript
+{
+  "name": "http.server.requests",
+  "measurements": [
+    { "statistic": "COUNT", "value": 30 },
+    { "statistic": "TOTAL_TIME", "value": 0.519791548 },
+    { "statistic": "MAX", "value": 0 } ],
+  "availableTags": [
+    { "tag": "exception", "values": [ "ResponseStatusException" ] },
+    { "tag": "method", "values": [ "GET" ] }
+  ]
+}
+```
+
+
+As you refine the request, the available tags are more limited. The tags offered are only those that match the requests captured by the displayed metrics.
+
+Common tags Common tags are generally used for dimensional drill-down on the operating environment like host, instance, region, stack, etc. Commons tags are applied to all meters and can be configured as shown in the following example.
+
+``` 
+management.metrics.tags.region=us-east-1 
+management.metrics.tags.stack=prod
+
+```
 
 ----------
 
