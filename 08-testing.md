@@ -25,6 +25,7 @@ To disable rollback in unit tests, use `@Rollback(false)` or `@Commit`.
 
 `@Transactional` has attributes `rollbackFor`, `rollbackForClassName`, `noRollbackFor`, `noRollbackForClassName` to rollback based on thrown `Exception`.
   - These accepts `Exception` class name or object.
+  - **IT DOES NOT HAVE `ROLLBACK` ATTRIBUTE.**
 
 ----------
 
