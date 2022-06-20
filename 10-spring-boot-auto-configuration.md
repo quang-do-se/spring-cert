@@ -136,6 +136,24 @@ The `spring.factories` file can be used to:
 
 ### How do you customize Spring Boot auto configuration?
 
+The simplest way to customize Spring auto-configuration is by changing any property values used by the related beans.
+
+The next option is to create a Spring bean to replace a bean created by the auto-configuration. To replace the auto-configuration bean, the new bean needs to have a matching type and/or name (depending on the `@Conditional` annotation(s) annotating the bean method in the auto-configuration).
+
+**Note** that in order to be able to override bean definitions using beans with the same name as the original bean, the following application property needs to be set to true in the Spring Boot application:
+
+``` 
+spring.main.allow-bean-definition-overriding=true
+```
+
+Another option is to disable one or more auto-configuration classes altogether. This can be accomplished either in the `@EnableAutoConfiguration` annotation, by specifying the class(es) or fully qualified class name(s), or by using the `spring.autoconfigure.exclude` property with one or more fully qualified class name(s). For example:
+
+``` java
+@SpringBootApplication(exclude={DataSourceAutoConfiguration.class}) // Alias in @EnableAutoConfiguration
+
+@EnableAutoConfiguration(exclude=SecurityAutoConfiguration.class)
+```
+
 ----------
 
 ### What are the examples of `@Conditional` annotations? How are they used?
