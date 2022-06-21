@@ -231,6 +231,47 @@ Some examples of metrics that can be found in a Spring Boot application are:
 
 ### How do you create a custom metric?
 
+The following example shows a component that registers two metrics; the first metric is without tags and the second metric has one single tag.
+
+``` java
+package com.myapp;
+
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tags;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+public class MyComponentWithMetrics {
+  protected Long mMetricsNumber = 12345L;
+  protected List<String> mFruitList = new ArrayList<>();
+
+  public MyComponentWithMetrics(final MeterRegistry inMeterRegistry) {
+    mFruitList.add("banana");
+    mFruitList.add("guava");
+    mFruitList.add("lemon");
+    mFruitList.add("orange");
+
+    /* Register a custom metrics without tags that contains a long number. */
+    inMeterRegistry.gauge("mycomponent.longnumber",
+                          Tags.empty(),
+                          mMetricsNumber);
+
+    /* Register a custom metrics with one tag that represents the size of the fruit-list. */
+    inMeterRegistry.gaugeCollectionSize("mycomponent.fruitlist.size",
+                                        Tags.of("id", "medium"),
+                                        mFruitList);
+  }
+}
+
+
+
+
+```
+
+
 ----------
 
 ### What is Health Indicator?
