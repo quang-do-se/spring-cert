@@ -212,6 +212,21 @@ management.metrics.tags.stack=prod
 
 ### What is metrics for?
 
+Metrics are measurements of, in the case of a Spring Boot application, different aspects of the application with the purpose of determining for instance the performance of the application at different points in time under different conditions.
+
+Some examples of types of metrics are:
+- Timers
+- Gauges
+- Counters
+- Distribution summaries
+- Long task timers
+
+Some examples of metrics that can be found in a Spring Boot application are:
+- Response time of HTTP requests.
+- Number of active connections in a database connection pool.
+- Memory usage (This can be for instance heap memory usage).
+- Garbage collection statistics.
+
 ----------
 
 ### How do you create a custom metric?
