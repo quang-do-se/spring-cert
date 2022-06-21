@@ -59,7 +59,7 @@ As earlier, it is possible to add custom finder methods to Spring Data repositor
 - The optional property expression selects the property of a managed entity that will be used to select the entity/entities that are to be retrieved.
   - Properties may be traversed, in which case underscore can be added to separate names of nested properties to avoid disambiguities. If the property to be examined is a string type, then `IgnoreCase` may be added after the property name in order to perform case-insensitive comparison. Multiple property expressions can be chained using `AND` or `OR`.
   
-- The optional comparison operator enables creation of finder methods that selects a range of entities. Some comparison operators available are: `LessThan`, `GreaterThan`, `Between`, `Like`.
+- The optional comparison operator enables creation of finder methods that selects a range of entities. Some comparison operators available are: `LessThan`, `GreaterThan`, `Between`, `Like`. If this is omitted, it means `Equals` or `Is`.
 
 - Finally the optional ordering operator allows for ordering a list of multiple entities on a property in the entity. This is accomplished by adding `OrderBy`+ `a Property Expression` + `Asc` or `Desc`.
 
