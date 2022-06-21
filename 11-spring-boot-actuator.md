@@ -356,14 +356,56 @@ Additional `HealthIndicators` are available but are not enabled by default:
 
 ### What is the Health Indicator status?
 
+Spring Boot Actuator health indicator status expresses the state of a component or subsystem. Health has a status which consists of a code and a description, both stored as strings.
+
 ----------
 
 ### What are the Health Indicator statuses that are provided out of the box?
+
+There are four predefined health indicator statuses in Spring Boot:
+
+| Status                | Code | Description                                                                  |
+|-----------------------|------|------------------------------------------------------------------------------|
+| Status.DOWN           | 503  | Component or subsystem is malfunctioning.                                    |
+| Status.OUT_OF_SERVICE | 503  | Component or subsystem has been taken out of service and should not be used. |
+| Status.UP             | 200  | Component or subsystem is functioning as expected.                           |
+| Status.UNKNOWN        | 200  | Status of component or subsystem is not known.                               |
 
 ----------
 
 ### How do you change the Health Indicator status severity order?
 
+The default severity order for the Health Indicator statuses is **`DOWN, OUT_OF_SERVICE, UP, UNKNOWN`**.
+
+The severity order of the status codes can be changed and new health indicator status codes can be added using the `management.health.status.order` configuration property.
+
+For example, the next snippet declares a status named `FATAL`, and maps it to HTTP status code 501. And since we've added a new status instance, we are customizing the severity order too:
+
+``` yaml
+management:
+  health:
+    status:
+      http-mapping:
+        FATAL: 501
+    order: FATAL, DOWN, OUT_OF_SERVICE, UNKNOWN, UP
+
+```
+Alternative for properties file:
+
+```
+management.health.status.order=FATAL, DOWN, OUT_OF_SERVICE, UNKNOWN, UP
+management.health.status.http-mapping.FATAL=501
+
+```
+
 ----------
 
 ### Why do you want to leverage 3rd-party external monitoring system?
+
+There are several reasons for using a third-party external monitoring system in combination with Spring Boot Actuator. Some of these reasons are:
+
+- Gather data from multiple applications in one place.
+- Retain monitoring data over time. (This gives several subsequent opportunities, some of which are listed below.)
+- Allow for querying monitoring data.Allow for visualization of monitoring data.
+- Enable alerting based on monitoring data.
+- Allow for analysis of monitoring data to find trends and to discover anomalies.
