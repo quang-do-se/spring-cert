@@ -266,9 +266,47 @@ public class MyComponentWithMetrics {
   }
 }
 
+```
 
+When viewed in a browser, the first metric, present at the URL `localhost:8080/actuator/metrics/mycomponent.longnumber`, yields the following JSON representation:
 
+``` javascript
+{
+  "name": "mycomponent.longnumber",
+  "description": null,
+  "baseUnit": null,
+  "measurements": [
+    {
+      "statistic": "VALUE",
+      "value": 12345
+    }
+  ],
+  "availableTags": []
+}
+```
 
+The second metric, present at the URL `http://localhost:8080/actuator/metrics/mycomponent.fruitlist.size`, has the following JSON representation:
+
+``` javascript
+{
+  "name": "mycomponent.fruitlist.size",
+  "description": null,
+  "baseUnit": null,
+  "measurements": [
+    {
+      "statistic": "VALUE",
+      "value": 4
+    }
+  ],
+  "availableTags":[
+    {
+      "tag": "id",
+      "values": [
+        "medium"
+      ]
+    }
+  ]
+}
 ```
 
 
