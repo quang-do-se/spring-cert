@@ -173,7 +173,7 @@ GET localhost:8081/actuator/metrics/http.server.requests?tag=status:404
 ```
 
 
-Add any number of tag=KEY:VALUE query parameters to the end of the URL to dimensionally drill down on a meter. By specifying the tag name and value with the tag request attribute, you now see metrics specifically for requests that resulted in an HTTP 404 response.
+Add any number of `tag=KEY:VALUE` query parameters to the end of the URL to dimensionally drill down on a meter. By specifying the tag name and value with the tag request attribute, you now see metrics specifically for requests that resulted in an HTTP 404 response.
 
 To know how many of those HTTP 404 responses were for the `/**` path? All you need to do to filter this further is to specify the uri tag in the request, like this:
 
@@ -198,7 +198,9 @@ GET localhost:8081/actuator/metrics/http.server.requests?tag=status:404&tag=uri:
 
 As you refine the request, the available tags are more limited. The tags offered are only those that match the requests captured by the displayed metrics.
 
-Common tags Common tags are generally used for dimensional drill-down on the operating environment like host, instance, region, stack, etc. Commons tags are applied to all meters and can be configured as shown in the following example.
+#### Common tags
+
+Common tags are generally used for dimensional drill-down on the operating environment like host, instance, region, stack, etc. Commons tags are applied to all meters and can be configured as shown in the following example.
 
 ``` 
 management.metrics.tags.region=us-east-1 
