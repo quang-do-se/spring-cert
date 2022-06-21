@@ -81,3 +81,30 @@ In the latter case, customization applied to all repository types, the proxies f
 ----------
 
 ### What is` @Query` used for?
+
+The `@Query` annotation allows for specifying a query to be used with a Spring Data JPA repository method. This allows for customizing the query used for the annotated repository method or supplying a query that is to be used for a repository method that do not adhere to the finder method naming convention described earlier.
+
+
+- Define a custom query to execute in repository
+- Can execute both JPQL and native SQL queries
+- Queries annotated to the `@Query` method take precedence over queries defined using `@NamedQuery` or named queries declared in _orm.xml_.
+- `@NamedNativeQuery` is used to define the query in native SQL but losing the database platform independence.
+- Use attribute `nativeQuery = true` to write native SQL
+- Spring Data JPA does not currently support dynamic sorting for native queries, because it would have to manipulate the actual query declared, which it cannot do reliably for native SQL. You can, however, use native queries for pagination by specifying the count query yourself, as shown in the following example:
+
+``` java
+public interface PersonRepository extends JpaRepository<Person, Long> {
+  // Native Query
+  @Query(value = "SELECT * FROM Person WHERE lastName = ?1",
+         countQuery = "SELECT count(*) FROM Person WHERE lastName = ?1",
+         nativeQuery = true)
+  Page<User> findByLastname(String lastname, Pageable pageable);
+
+  @Query("select p from Person p where p.username like %?1%")
+  Optional<Person> findByUsername(String username)
+  
+  @Query("select p from Person p where p.firstName=:fn and p.lastName=:ln")
+  Optional<Person> findByCompleteName(@Param("fn") String firstName,
+                                      @Param("ln") String lastName)
+}
+```
