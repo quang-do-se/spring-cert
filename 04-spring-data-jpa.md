@@ -1,7 +1,7 @@
 
 ### What is a Spring Data Repository interface?
 
-A repository interface, also known as a Spring Data repository, is a repository that need no implementation and that supports the basic CRUD (create, read, update and delete) operations. Such a repository is declared as an interface that typically extend the Repository interface or an interface extending the Repository interface. The Repository uses Java generics and takes two type arguments; an entity type and a type of the primary key of entities.
+A repository interface, also known as a Spring Data repository, is a repository that need no implementation and that supports the basic CRUD (create, read, update and delete) operations. Such a repository is declared as an interface that typically extend the Repository interface or an interface extending the Repository interface. The Repository uses Java generics and takes two type arguments; an entity type and a type of the primary key of entities: `Repository<T, ID extends Serializable>`.
 
 There are 4 interfaces you can extend:
 
@@ -46,9 +46,37 @@ public class AppConfig{}
 
 ### What is the naming convention for finder methods in a Spring Data Repository interface?
 
+As earlier, it is possible to add custom finder methods to Spring Data repository interfaces. If following the naming convention below, Spring Data will recognize these find methods and supply an implementation for these methods. The naming convention of these finder methods are:
+
+`find[Distinct](First|Top[count])By[PropertyExpression]+[ComparisonOperator][OrderingOperator]`
+
+- Finder method names always start with `find`.
+
+- Optionally, `First` or `Top` can be added after `find` in order to retrieve only the first found entity. 
+  - When retrieving only one single entity, the finder method will return null if no matching entity is found. Alternatively the return-type of the method can be declared to use the Java `Optional` wrapper to indicate that a result may be absent.
+  - If a count is supplied after the `First`, for example `findFirst10`, then the count number of entities first found will be the result.
+  
+- The optional property expression selects the property of a managed entity that will be used to select the entity/entities that are to be retrieved.
+  - Properties may be traversed, in which case underscore can be added to separate names of nested properties to avoid disambiguities. If the property to be examined is a string type, then `IgnoreCase` may be added after the property name in order to perform case-insensitive comparison. Multiple property expressions can be chained using `AND` or `OR`.
+  
+- The optional comparison operator enables creation of finder methods that selects a range of entities. Some comparison operators available are: `LessThan`, `GreaterThan`, `Between`, `Like`.
+
+- Finally the optional ordering operator allows for ordering a list of multiple entities on a property in the entity. This is accomplished by adding `OrderBy`+ `a Property Expression` + `Asc` or `Desc`.
+
+- Example: `findPersonByLastnameOrderBySocialsecuritynumberDesc` – find persons that have a supplied last name and order them in descending order by social security number.
+
+- `find`, `read`, `get` and `query` are aliases. They will work the same.
+  - Reference: https://github.com/spring-projects/spring-data-commons/blob/main/src/main/java/org/springframework/data/repository/query/parser/PartTree.java#L60
+
 ----------
 
 ### How are Spring Data repositories implemented by Spring at runtime?
+
+For a Spring Data repository a `JDK dynamic proxy` is created which intercepts all calls to the repository. The default behavior is to route calls to the default repository implementation, which in Spring Data JPA is the `SimpleJpaRepository` class. It is possible to customize either the implementation of one specific repository type or customize the implementation used for all repositories.
+
+In the former case, customization of one repository type, the proxy for the particular type will invoke any method(s) implemented in the custom implementation, or, if no method exist in the custom implementation, invoke the default method. 
+
+In the latter case, customization applied to all repository types, the proxies for repositories will invoke any method(s) implemented in the custom implementation, or, if no method exist in the custom implementation, invoke the default method.
 
 ----------
 
