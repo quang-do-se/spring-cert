@@ -33,7 +33,7 @@ To change which endpoints are exposed, use the following technology-specific inc
 | management.endpoints.web.exposure.exclude |         |
 | management.endpoints.web.exposure.include | health  |
 
-**NOTE**: By default, after adding the dependency without any additional configuration (e.g. `management.endpoints.web.exposure.include=<...>`),  `/health` and `/info` are available over HTTP.
+**NOTE**: By default, after adding the dependency without any additional configuration,  `/health` and `/info` are available over HTTP.
 
 ----------
 
