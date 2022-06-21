@@ -33,6 +33,8 @@ To change which endpoints are exposed, use the following technology-specific inc
 | management.endpoints.web.exposure.exclude |         |
 | management.endpoints.web.exposure.include | health  |
 
+By default, after adding the dependency without any additional configuration (e.g. `management.endpoints.web.exposure.include=<...>`),  `/health` and `/info` are available over HTTP.
+
 ----------
 
 ### What are the actuator endpoints that are provided out of the box?
