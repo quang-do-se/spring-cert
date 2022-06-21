@@ -88,6 +88,54 @@ Four different types of web environments can be specified using the `webEnvironm
 
 ### When do you want to use `@WebMvcTest`? What does it auto-configure?
 
+The `@WebMvcTest` annotation is intended to be used in tests which aim are to test only Spring MVC components, disabling full `auto-configuration` and only applying configuration relevant to testing of MVC components. Thus this annotation is not suitable for integration tests.
+
+The `@WebMvcTest` annotation auto-configures the following:
+
+- `Spring Security`
+
+- `MockMvc`
+
+- `Caching`
+
+- `Message source`
+  - Support for resolving messages typically found in resource bundles, including parameterization and internationalization.
+
+- Groovy templates
+
+- `Gson`
+  - A library to create JSON representation from Java objects and vice versa.
+
+- Hypermedia
+  - Spring HATEOAS.
+
+- HTTP message converters
+
+- `Jackson`
+  - Another library to create JSON representation from Java objects and vice versa.
+
+- `JSON-B `
+  - Another library to create JSON representation from Java objects and vice versa.
+
+- `Mustache`
+  - Another templating engine.
+
+- `Thymeleaf`
+  - Another templating engine.
+
+- `FreeMarker`
+  - A templating engine.
+
+- JSR-303 bean validation
+
+- Web MVC
+
+- Web MVC error rendering
+
+- WebClient mock MVC integration
+
+- Selenium WebDriver mock MVC integration
+
 ----------
 
 ### What are the differences between `@MockBean` and `@Mock`?
