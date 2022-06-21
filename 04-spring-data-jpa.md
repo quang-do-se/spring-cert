@@ -100,9 +100,11 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
          nativeQuery = true)
   Page<User> findByLastname(String lastname, Pageable pageable);
 
+  // JPQL
   @Query("select p from Person p where p.username like %?1%")
   Optional<Person> findByUsername(String username)
-  
+
+  // JPQL
   @Query("select p from Person p where p.firstName=:fn and p.lastName=:ln")
   Optional<Person> findByCompleteName(@Param("fn") String firstName,
                                       @Param("ln") String lastName)
