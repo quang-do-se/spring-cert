@@ -96,6 +96,6 @@ When annotating a test class that run Spring Boot based tests, the `@SpringBootT
 
 - Registers a `TestRestTemplate` and/or `WebTestClient` bean for use in web tests that are using a fully running web server.
   - `TestRestTemplate` is used for client-side testing (wherever `RestTemplate` is normally used in the code) and supports authentication.
-  - `RestTemplate` is not recommended for normal use in test classes. MvcTester does not
+  - `RestTemplate` is not recommended for normal use in test classes.
   - `MockMvc` can be used to mock usage of HTTP endpoints and also has methods for checking the result (server-side testing). It also features a fluent API.
 

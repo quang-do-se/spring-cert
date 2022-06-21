@@ -17,7 +17,7 @@ When annotating a test class that run Spring Boot based tests, the `@SpringBootT
 
 - Registers a `TestRestTemplate` and/or `WebTestClient` bean for use in web tests that are using a fully running web server.
   - `TestRestTemplate` is used for client-side testing (wherever `RestTemplate` is normally used in the code) and supports authentication.
-  - `RestTemplate` is not recommended for normal use in test classes. MvcTester does not
+  - `RestTemplate` is not recommended for normal use in test classes.
   - `MockMvc` can be used to mock usage of HTTP endpoints and also has methods for checking the result (server-side testing). It also features a fluent API.
 
 ----------
@@ -63,9 +63,26 @@ The `spring-boot-starter-test` starter adds the following test-scoped dependenci
   
 - `JsonPath`
   - A Java DSL for reading JSON documents.
+  
 ----------
 
 ### How do you perform integration testing with `@SpringBootTest` for a web application?
+
+Four different types of web environments can be specified using the `webEnvironment` attribute of the `@SpringBootTest` annotation:
+
+- `MOCK`
+  - Loads a web `ApplicationContext` and provides a mock web environment. Does not start a web server.
+  
+- `RANDOM_PORT`
+  - Loads a `WebServerApplicationContext`, provides a real web environment and starts an embedded web server listening on a random port. The port allocated can be obtained using the `@LocalServerPort` annotation or `@Value("${local.server.port}")`. Web server runs in a separate thread and server-side transactions will not be rolled back in transactional tests.
+  
+- `DEFINED_PORT`
+  - Loads a `WebServerApplicationContext`, provides a real web environment and starts an embedded web server listening on the port configured in the application properties, or port 8080 if no such configuration exists. Web server runs in a separate thread and server-side transactions will not be rolled back in transactional tests.
+  
+- `NONE`
+  - Loads an `ApplicationContext` without providing any web environment.
+  
+  In the test class, annotated with `@SpringBootTest`, a `TestRestTemplate` and/or `WebTestClient` can be injected and used to send requests either to the mock web environment or to the embedded web server.
 
 ----------
 
