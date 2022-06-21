@@ -74,6 +74,11 @@ If your application is a web application (Spring MVC, Spring WebFlux, or Jersey)
 | `logfile`    | Returns the contents of the logfile (if the `logging.file.name` or the `logging.file.path` property has been set). Supports the use of the HTTP `Range` header to retrieve part of the log file’s content. |
 | `prometheus` | Exposes metrics in a format that can be scraped by a Prometheus server. Requires a dependency on `micrometer-registry-prometheus`.                                                                         |
 
+#### Custom Actuator endpoint
+
+- `@EndPoint` for both JMX and HTTP
+- `@JmxEndpoint` for JMX
+- `@WebEndpoint` for HTTP
 
 ----------
 
@@ -226,6 +231,10 @@ Some examples of metrics that can be found in a Spring Boot application are:
 - Number of active connections in a database connection pool.
 - Memory usage (This can be for instance heap memory usage).
 - Garbage collection statistics.
+- JVM Metrics
+- System/OS Metrics
+- Application Level Metrics (e.g. start time, uptime, cpu usage, files open...)
+- Logger Metrics
 
 ----------
 
@@ -410,3 +419,46 @@ There are several reasons for using a third-party external monitoring system in 
 - Allow for querying monitoring data.Allow for visualization of monitoring data.
 - Enable alerting based on monitoring data.
 - Allow for analysis of monitoring data to find trends and to discover anomalies.
+
+
+----------
+
+# Extra
+
+### Customize base path (default `actuator`)
+
+Sometimes, it is useful to customize the prefix for the management endpoints. For example, your application might already use /actuator for another purpose. You can use the management.endpoints.web.base-path property to change the prefix for your management endpoint, as the following example shows:
+
+``` yaml
+management:
+  endpoints:
+    web:
+      base-path: "/manage"
+```
+
+```
+management.endpoints.web.base-path=/manage
+```
+
+----------
+
+### Customize endpoint path
+
+If you want to map endpoints to a different path, you can use the `management.endpoints.web.path-mapping` property.
+
+The following example remaps `/actuator/health` to `/healthcheck`:
+
+``` yaml
+management:
+  endpoints:
+    web:
+      base-path: "/"
+      path-mapping:
+        health: "healthcheck"
+```
+
+```
+management.endpoints.web.base-path=/
+management.endpoints.web.path-mapping.health=healthcheck
+```
+
