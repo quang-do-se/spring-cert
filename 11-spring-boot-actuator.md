@@ -39,29 +39,29 @@ To change which endpoints are exposed, use the following technology-specific inc
 
 The following technology-agnostic built-in Spring boot Actuator endpoints are available:
 
-| ID               | Description                                                                                                                                                   |
-|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| auditevents      | Exposes audit events information for the current application. Requires an `AuditEventRepository` bean.                                                        |
-| beans            | Displays a complete list of all the Spring beans in your application.                                                                                         |
-| caches           | Exposes available caches.                                                                                                                                     |
-| conditions       | Shows the conditions that were evaluated on configuration and auto-configuration classes and the reasons why they did or did not match.                       |
-| configprops      | Displays a collated list of all `@ConfigurationProperties`.                                                                                                   |
-| env              | Exposes properties from Spring’s `ConfigurableEnvironment`.                                                                                                   |
-| flyway           | Shows any Flyway database migrations that have been applied. Requires one or more `Flyway` beans.                                                             |
-| health           | Shows application health information.                                                                                                                         |
-| httptrace        | Displays HTTP trace information (by default, the last 100 HTTP request-response exchanges). Requires an `HttpTraceRepository` bean.                           |
-| info             | Displays arbitrary application info.                                                                                                                          |
-| integrationgraph | Shows the Spring Integration graph. Requires a dependency on `spring-integration-core`.                                                                       |
-| loggers          | Shows and modifies the configuration of loggers in the application.                                                                                           |
-| liquibase        | Shows any Liquibase database migrations that have been applied. Requires one or more `Liquibase` beans.                                                       |
-| metrics          | Shows “metrics” information for the current application.                                                                                                      |
-| mappings         | Displays a collated list of all `@RequestMapping` paths.                                                                                                      |
-| quartz           | Shows information about Quartz Scheduler jobs.                                                                                                                |
-| scheduledtasks   | Displays the scheduled tasks in your application.                                                                                                             |
-| sessions         | Allows retrieval and deletion of user sessions from a Spring Session-backed session store. Requires a servlet-based web application that uses Spring Session. |
-| shutdown         | Lets the application be gracefully shutdown. **DISABLED BY DEFAULT**.                                                                                         |
-| startup          | Shows the startup steps data collected by the `ApplicationStartup`. Requires the `SpringApplication` to be configured with a `BufferingApplicationStartup`.   |
-| threaddump       | Performs a thread dump.                                                                                                                                       |
+| ID                 | Description                                                                                                                                                   |
+|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `auditevents`      | Exposes audit events information for the current application. Requires an `AuditEventRepository` bean.                                                        |
+| `beans`            | Displays a complete list of all the Spring beans in your application.                                                                                         |
+| `caches`           | Exposes available caches.                                                                                                                                     |
+| `conditions`       | Shows the conditions that were evaluated on configuration and auto-configuration classes and the reasons why they did or did not match.                       |
+| `configprops`      | Displays a collated list of all `@ConfigurationProperties`.                                                                                                   |
+| `env`              | Exposes properties from Spring’s `ConfigurableEnvironment`.                                                                                                   |
+| `flyway`           | Shows any Flyway database migrations that have been applied. Requires one or more `Flyway` beans.                                                             |
+| `health`           | Shows application health information.                                                                                                                         |
+| `httptrace`        | Displays HTTP trace information (by default, the last 100 HTTP request-response exchanges). Requires an `HttpTraceRepository` bean.                           |
+| `info`             | Displays arbitrary application info.                                                                                                                          |
+| `integrationgraph` | Shows the Spring Integration graph. Requires a dependency on `spring-integration-core`.                                                                       |
+| `loggers`          | Shows and modifies the configuration of loggers in the application.                                                                                           |
+| `liquibase`        | Shows any Liquibase database migrations that have been applied. Requires one or more `Liquibase` beans.                                                       |
+| `metrics`          | Shows “metrics” information for the current application.                                                                                                      |
+| `mappings`         | Displays a collated list of all `@RequestMapping` paths.                                                                                                      |
+| `quartz`             | Shows information about Quartz Scheduler jobs.                                                                                                                |
+| `scheduledtasks`     | Displays the scheduled tasks in your application.                                                                                                             |
+| `sessions`           | Allows retrieval and deletion of user sessions from a Spring Session-backed session store. Requires a servlet-based web application that uses Spring Session. |
+| `shutdown`           | Lets the application be gracefully shutdown. **DISABLED BY DEFAULT**.                                                                                         |
+| `startup`            | Shows the startup steps data collected by the `ApplicationStartup`. Requires the `SpringApplication` to be configured with a `BufferingApplicationStartup`.   |
+| `threaddump`         | Performs a thread dump.                                                                                                                                       |
 
 
 
