@@ -22,7 +22,7 @@ When annotating a test class that run Spring Boot based tests, the `@SpringBootT
     - The `MockMvcBuilders` class is part of the `spring-test` module and provides a series of builder instances that simulate a call to web specialized beans called controllers. The `standaloneSetup(..)` method returns a builder of type `StandaloneMockMvcBuilder` to register one or more **controller** beans and configure the Spring MVC infrastructure programmatically. It can accept a `WebApplicationContext` as well:
 
 ``` java
-MockMvc mockMvc = MockMvcBuilders.standaloneSetup(new MultiplePersonController(...)).build();
+MockMvc mockMvc = MockMvcBuilders.standaloneSetup(new PersonController(...)).build();
 ```
 
 ``` java
