@@ -1189,7 +1189,7 @@
    - _FilterChainProxy_ is a special Filter provided by Spring Security that allows delegating to many Filter instances through _SecurityFilterChain_.
 
    - _SecurityFilterChain_ associates a request URL pattern with a list of filters.
-     - Filters under SecurityFilterChain are GenericFilterBeans, which are Spring Filters. These are also Servlet Filters, but have Spring implementation.
+     - Filters under `SecurityFilterChain` are `GenericFilterBeans`, which are Spring `Filters`. These are also `Servlet Filters`, but have Spring implementation.
 
 ** Security Taglibs (https://docs.spring.io/spring-security/site/docs/5.0.7.RELEASE/reference/html/taglibs.html#taglibs-authorize)
 
