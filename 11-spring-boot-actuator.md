@@ -314,9 +314,43 @@ The second metric, present at the URL `http://localhost:8080/actuator/metrics/my
 
 ### What is Health Indicator?
 
+A Spring Boot Actuator health indicator provides an indication of health of a certain component or subsystem, such as a database, a message broker etc. A health indicator contains the logic to perform health checks and store the result of the health check in the health indicator, from which it can be retrieved.
+
+If you are running your app, you can go to `http://localhost:8080/actuator/health`
+
 ----------
 
 ### What are the Health Indicators that are provided out of the box?
+
+| Key           | Name                             | Description                                               |
+|---------------|----------------------------------|-----------------------------------------------------------|
+| cassandra     | CassandraDriverHealthIndicator   | Checks that a Cassandra database is up.                   |
+| couchbase     | CouchbaseHealthIndicator         | Checks that a Couchbase cluster is up.                    |
+| db            | DataSourceHealthIndicator        | Checks that a connection to `DataSource` can be obtained. |
+| diskspace     | DiskSpaceHealthIndicator         | Checks for low disk space.                                |
+| elasticsearch | ElasticsearchRestHealthIndicator | Checks that an Elasticsearch cluster is up.               |
+| hazelcast     | HazelcastHealthIndicator         | Checks that a Hazelcast server is up.                     |
+| influxdb      | InfluxDbHealthIndicator          | Checks that an InfluxDB server is up.                     |
+| jms           | JmsHealthIndicator               | Checks that a JMS broker is up.                           |
+| ldap          | LdapHealthIndicator              | Checks that an LDAP server is up.                         |
+| mail          | MailHealthIndicator              | Checks that a mail server is up.                          |
+| mongo         | MongoHealthIndicator             | Checks that a Mongo database is up.                       |
+| neo4j         | Neo4jHealthIndicator             | Checks that a Neo4j database is up.                       |
+| ping          | PingHealthIndicator              | Always responds with `UP`.                                |
+| rabbit        | RabbitHealthIndicator            | Checks that a Rabbit server is up.                        |
+| redis         | RedisHealthIndicator             | Checks that a Redis server is up.                         |
+| solr          | SolrHealthIndicator              | Checks that a Solr server is up.                          |
+
+
+Additional `HealthIndicators` are available but are not enabled by default:
+
+| Key            | Name                          | Description                                             |
+|----------------|-------------------------------|---------------------------------------------------------|
+| livenessstate  | LivenessStateHealthIndicator  | Exposes the “Liveness” application availability state.  |
+| readinessstate | ReadinessStateHealthIndicator | Exposes the “Readiness” application availability state. |
+
+
+**NOTE**: You can disable them all by setting the `management.health.defaults.enabled` property. 
 
 ----------
 
