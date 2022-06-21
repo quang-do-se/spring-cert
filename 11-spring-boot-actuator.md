@@ -472,11 +472,11 @@ management.endpoints.web.path-mapping.health=healthcheck
 
 The information exposed by the health endpoint depends on the `management.endpoint.health.show-details` and `management.endpoint.health.show-components` properties, which can be configured with one of the following values:
 
-| Name            | Description                                                                                                                 |
-|-----------------|-----------------------------------------------------------------------------------------------------------------------------|
-| never           | Details are never shown.                                                                                                    |
-| when-authorized | Details are shown only to authorized users. Authorized roles can be configured by using `management.endpoint.health.roles`. |
-| always          | Details are shown to all users.                                                                                             |
+| Name              | Description                                                                                                                 |
+|-------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| `never`           | Details are never shown.                                                                                                    |
+| `when-authorized` | Details are shown only to authorized users. Authorized roles can be configured by using `management.endpoint.health.roles`. |
+| `always`          | Details are shown to all users.                                                                                             |
 
 ``` yaml
 management:
