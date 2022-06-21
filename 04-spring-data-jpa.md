@@ -48,7 +48,7 @@ public class AppConfig{}
 
 As earlier, it is possible to add custom finder methods to Spring Data repository interfaces. If following the naming convention below, Spring Data will recognize these find methods and supply an implementation for these methods. The naming convention of these finder methods are:
 
-**`find[Distinct](First|Top[count])By[PropertyExpression]+[ComparisonOperator][OrderingOperator]`**
+**`find[Distinct](First|Top[count])By[PropertyExpression]+[ComparisonOperator:=][OrderingOperator]`**
 
 - Finder method names always start with `find`.
 
@@ -63,10 +63,12 @@ As earlier, it is possible to add custom finder methods to Spring Data repositor
 
 - Finally the optional ordering operator allows for ordering a list of multiple entities on a property in the entity. This is accomplished by adding `OrderBy`+ `a Property Expression` + `Asc` or `Desc`.
 
-- Example: **`findPersonByLastnameOrderBySocialsecuritynumberDesc`** – find persons that have a supplied last name and order them in descending order by social security number.
+- Example: **`findPersonByLastnameOrderBySocialSecurityNumberDesc`** – find persons that have a supplied last name and order them in descending order by social security number.
 
 - `find`, `read`, `get` and `query` are aliases. They will work the same.
   - Reference: https://github.com/spring-projects/spring-data-commons/blob/main/src/main/java/org/springframework/data/repository/query/parser/PartTree.java#L60
+
+Reference: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation
 
 ----------
 
