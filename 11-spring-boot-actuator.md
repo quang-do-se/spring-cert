@@ -56,23 +56,23 @@ The following technology-agnostic built-in Spring boot Actuator endpoints are av
 | `liquibase`        | Shows any Liquibase database migrations that have been applied. Requires one or more `Liquibase` beans.                                                       |
 | `metrics`          | Shows “metrics” information for the current application.                                                                                                      |
 | `mappings`         | Displays a collated list of all `@RequestMapping` paths.                                                                                                      |
-| `quartz`             | Shows information about Quartz Scheduler jobs.                                                                                                                |
-| `scheduledtasks`     | Displays the scheduled tasks in your application.                                                                                                             |
-| `sessions`           | Allows retrieval and deletion of user sessions from a Spring Session-backed session store. Requires a servlet-based web application that uses Spring Session. |
-| `shutdown`           | Lets the application be gracefully shutdown. **DISABLED BY DEFAULT**.                                                                                         |
-| `startup`            | Shows the startup steps data collected by the `ApplicationStartup`. Requires the `SpringApplication` to be configured with a `BufferingApplicationStartup`.   |
-| `threaddump`         | Performs a thread dump.                                                                                                                                       |
+| `quartz`           | Shows information about Quartz Scheduler jobs.                                                                                                                |
+| `scheduledtasks`   | Displays the scheduled tasks in your application.                                                                                                             |
+| `sessions`         | Allows retrieval and deletion of user sessions from a Spring Session-backed session store. Requires a servlet-based web application that uses Spring Session. |
+| `shutdown`         | Lets the application be gracefully shutdown. **DISABLED BY DEFAULT**.                                                                                         |
+| `startup`          | Shows the startup steps data collected by the `ApplicationStartup`. Requires the `SpringApplication` to be configured with a `BufferingApplicationStartup`.   |
+| `threaddump`       | Performs a thread dump.                                                                                                                                       |
 
 
 
 If your application is a web application (Spring MVC, Spring WebFlux, or Jersey), you can use the following additional endpoints:
 
-| ID         | Description                                                                                                                                                                                                |
-|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| heapdump   | Returns a heap dump file. On a HotSpot JVM, an `HPROF`-format file is returned. On an OpenJ9 JVM, a `PHD`-format file is returned.                                                                         |
-| jolokia    | Exposes JMX beans over HTTP when Jolokia is on the classpath (not available for WebFlux). Requires a dependency on `jolokia-core`.                                                                         |
-| logfile    | Returns the contents of the logfile (if the `logging.file.name` or the `logging.file.path` property has been set). Supports the use of the HTTP `Range` header to retrieve part of the log file’s content. |
-| prometheus | Exposes metrics in a format that can be scraped by a Prometheus server. Requires a dependency on `micrometer-registry-prometheus`.                                                                         |
+| ID           | Description                                                                                                                                                                                                |
+|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `heapdump`   | Returns a heap dump file. On a HotSpot JVM, an `HPROF`-format file is returned. On an OpenJ9 JVM, a `PHD`-format file is returned.                                                                         |
+| `jolokia`    | Exposes JMX beans over HTTP when Jolokia is on the classpath (not available for WebFlux). Requires a dependency on `jolokia-core`.                                                                         |
+| `logfile`    | Returns the contents of the logfile (if the `logging.file.name` or the `logging.file.path` property has been set). Supports the use of the HTTP `Range` header to retrieve part of the log file’s content. |
+| `prometheus` | Exposes metrics in a format that can be scraped by a Prometheus server. Requires a dependency on `micrometer-registry-prometheus`.                                                                         |
 
 
 ----------
@@ -322,32 +322,32 @@ If you are running your app, you can go to `http://localhost:8080/actuator/healt
 
 ### What are the Health Indicators that are provided out of the box?
 
-| Key           | Name                             | Description                                               |
-|---------------|----------------------------------|-----------------------------------------------------------|
-| cassandra     | CassandraDriverHealthIndicator   | Checks that a Cassandra database is up.                   |
-| couchbase     | CouchbaseHealthIndicator         | Checks that a Couchbase cluster is up.                    |
-| db            | DataSourceHealthIndicator        | Checks that a connection to `DataSource` can be obtained. |
-| diskspace     | DiskSpaceHealthIndicator         | Checks for low disk space.                                |
-| elasticsearch | ElasticsearchRestHealthIndicator | Checks that an Elasticsearch cluster is up.               |
-| hazelcast     | HazelcastHealthIndicator         | Checks that a Hazelcast server is up.                     |
-| influxdb      | InfluxDbHealthIndicator          | Checks that an InfluxDB server is up.                     |
-| jms           | JmsHealthIndicator               | Checks that a JMS broker is up.                           |
-| ldap          | LdapHealthIndicator              | Checks that an LDAP server is up.                         |
-| mail          | MailHealthIndicator              | Checks that a mail server is up.                          |
-| mongo         | MongoHealthIndicator             | Checks that a Mongo database is up.                       |
-| neo4j         | Neo4jHealthIndicator             | Checks that a Neo4j database is up.                       |
-| ping          | PingHealthIndicator              | Always responds with `UP`.                                |
-| rabbit        | RabbitHealthIndicator            | Checks that a Rabbit server is up.                        |
-| redis         | RedisHealthIndicator             | Checks that a Redis server is up.                         |
-| solr          | SolrHealthIndicator              | Checks that a Solr server is up.                          |
+| Key             | Name                             | Description                                               |
+|-----------------|----------------------------------|-----------------------------------------------------------|
+| `cassandra`     | CassandraDriverHealthIndicator   | Checks that a Cassandra database is up.                   |
+| `couchbase`     | CouchbaseHealthIndicator         | Checks that a Couchbase cluster is up.                    |
+| `db`            | DataSourceHealthIndicator        | Checks that a connection to `DataSource` can be obtained. |
+| `diskspace`     | DiskSpaceHealthIndicator         | Checks for low disk space.                                |
+| `elasticsearch` | ElasticsearchRestHealthIndicator | Checks that an Elasticsearch cluster is up.               |
+| `hazelcast`     | HazelcastHealthIndicator         | Checks that a Hazelcast server is up.                     |
+| `influxdb`      | InfluxDbHealthIndicator          | Checks that an InfluxDB server is up.                     |
+| `jms`           | JmsHealthIndicator               | Checks that a JMS broker is up.                           |
+| `ldap`          | LdapHealthIndicator              | Checks that an LDAP server is up.                         |
+| `mail`          | MailHealthIndicator              | Checks that a mail server is up.                          |
+| `mongo`         | MongoHealthIndicator             | Checks that a Mongo database is up.                       |
+| `neo4j`         | Neo4jHealthIndicator             | Checks that a Neo4j database is up.                       |
+| `ping`          | PingHealthIndicator              | Always responds with `UP`.                                |
+| `rabbit`        | RabbitHealthIndicator            | Checks that a Rabbit server is up.                        |
+| `redis`         | RedisHealthIndicator             | Checks that a Redis server is up.                         |
+| `solr`          | SolrHealthIndicator              | Checks that a Solr server is up.                          |
 
 
 Additional `HealthIndicators` are available but are not enabled by default:
 
-| Key            | Name                          | Description                                             |
-|----------------|-------------------------------|---------------------------------------------------------|
-| livenessstate  | LivenessStateHealthIndicator  | Exposes the “Liveness” application availability state.  |
-| readinessstate | ReadinessStateHealthIndicator | Exposes the “Readiness” application availability state. |
+| Key              | Name                          | Description                                             |
+|------------------|-------------------------------|---------------------------------------------------------|
+| `livenessstate`  | LivenessStateHealthIndicator  | Exposes the “Liveness” application availability state.  |
+| `readinessstate` | ReadinessStateHealthIndicator | Exposes the “Readiness” application availability state. |
 
 
 **NOTE**: You can disable them all by setting the `management.health.defaults.enabled` property. 
@@ -364,12 +364,12 @@ Spring Boot Actuator health indicator status expresses the state of a component 
 
 There are four predefined health indicator statuses in Spring Boot:
 
-| Status                | Code | Description                                                                  |
-|-----------------------|------|------------------------------------------------------------------------------|
-| Status.DOWN           | 503  | Component or subsystem is malfunctioning.                                    |
-| Status.OUT_OF_SERVICE | 503  | Component or subsystem has been taken out of service and should not be used. |
-| Status.UP             | 200  | Component or subsystem is functioning as expected.                           |
-| Status.UNKNOWN        | 200  | Status of component or subsystem is not known.                               |
+| Status                  | Code | Description                                                                  |
+|-------------------------|------|------------------------------------------------------------------------------|
+| `Status.DOWN`           | 503  | Component or subsystem is malfunctioning.                                    |
+| `Status.OUT_OF_SERVICE` | 503  | Component or subsystem has been taken out of service and should not be used. |
+| `Status.UP`             | 200  | Component or subsystem is functioning as expected.                           |
+| `Status.UNKNOWN`        | 200  | Status of component or subsystem is not known.                               |
 
 ----------
 
@@ -405,7 +405,8 @@ management.health.status.http-mapping.FATAL=501
 There are several reasons for using a third-party external monitoring system in combination with Spring Boot Actuator. Some of these reasons are:
 
 - Gather data from multiple applications in one place.
-- Retain monitoring data over time. (This gives several subsequent opportunities, some of which are listed below.)
+- Retain monitoring data over time.
+  - This gives several subsequent opportunities, some of which are listed below.
 - Allow for querying monitoring data.Allow for visualization of monitoring data.
 - Enable alerting based on monitoring data.
 - Allow for analysis of monitoring data to find trends and to discover anomalies.
