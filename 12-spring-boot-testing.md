@@ -140,6 +140,46 @@ The `@WebMvcTest` annotation auto-configures the following:
 
 ### What are the differences between `@MockBean` and `@Mock`?
 
+Both the `@MockBean` and `@Mock` annotation can be used to create Mockito mocks but there are some differences between the two annotations:
+
+- `@Mock` can only be applied to fields and parameters while `@MockBean` can only be applied to classes and fields.
+
+- `@Mock` can be used to mock any Java class or interface while `@MockBean` only allows for mocking of Spring beans or creation of mock Spring beans.
+
+- `@MockBean` can be used to mock existing beans but also to create new beans that will belong to the Spring application context.
+
+- To be able to use the `@MockBean` annotation, the Spring runner `@RunWith(SpringRunner.class)` or `@ExtendWith(SpringExtension.class)` has to be used to run the associated test.
+
+- `@MockBean` can be used to create custom annotations for specific, reoccurring, needs.
+
 ----------
 
 ### When do you want `@DataJpaTest` for? What does it auto-configure?
+
+The `@DataJpaTest` annotation is used to annotate test-classes that contain tests of only JPA components.
+
+The `@DataJpaTest` annotation auto-configures the following:
+
+- Caching
+
+- Spring Data JPA repositories
+
+- A DataSource
+  - The data-source will, as default, use an embedded in-memory database (test database).
+
+- Data source transaction manager
+  - A transaction manager for a single `DataSource`.
+
+- A `JdbcTemplate`
+
+- `Flyway` database migration tool
+
+- `Liquibase` database migration tool
+
+- JPA base configuration for Hibernate
+
+- Spring transaction
+
+- A test database
+
+- A JPA entity manager for tests
