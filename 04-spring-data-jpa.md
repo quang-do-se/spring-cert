@@ -56,12 +56,12 @@ As earlier, it is possible to add custom finder methods to Spring Data repositor
   - When retrieving only one single entity, the finder method will return null if no matching entity is found. Alternatively the return-type of the method can be declared to use the Java `Optional` wrapper to indicate that a result may be absent.
   - If a count is supplied after the `First`, for example `findFirst10`, then the count number of entities first found will be the result.
   
-- The optional property expression selects the property of a managed entity that will be used to select the entity/entities that are to be retrieved.
+- The optional `PropertyExpression` selects the property of a managed entity that will be used to select the entity/entities that are to be retrieved.
   - Properties may be traversed, in which case underscore can be added to separate names of nested properties to avoid disambiguities. If the property to be examined is a string type, then `IgnoreCase` may be added after the property name in order to perform case-insensitive comparison. Multiple property expressions can be chained using `AND` or `OR`.
   
-- The optional comparison operator enables creation of finder methods that selects a range of entities. Some comparison operators available are: `LessThan`, `GreaterThan`, `Between`, `Like`. If this is omitted, it means `Equals` or `Is`.
+- The optional `ComparisonOperator` enables creation of finder methods that selects a range of entities. Some comparison operators available are: `LessThan`, `GreaterThan`, `Between`, `Like`. If this is omitted, it means `Equals` or `Is`.
 
-- Finally the optional ordering operator allows for ordering a list of multiple entities on a property in the entity. This is accomplished by adding `OrderBy`+ `a Property Expression` + `Asc` or `Desc`.
+- Finally the optional `OrderingOperator` allows for ordering a list of multiple entities on a property in the entity. This is accomplished by adding `OrderBy`+ `a Property Expression` + `Asc` or `Desc`.
 
 - Example: **`findPersonByLastnameOrderBySocialSecurityNumberDesc`** – find persons that have a supplied last name and order them in descending order by social security number.
 
