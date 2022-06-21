@@ -9,7 +9,7 @@ Spring Boot Actuator provides the following features which can be automatically 
 - Auditing
 
 
-With a Spring Boot application in which Spring Boot Actuator is enabled and with the following two properties set to the values shown, the available Actuator endpoints can be listed by sending a HTTP GET request, for example in a browser, to the http://localhost:8080/actuator/ URL.
+With a Spring Boot application in which Spring Boot Actuator is enabled and with the following two properties set to the values shown, the available Actuator endpoints can be listed by sending a HTTP GET request, for example in a browser, to the `http://localhost:8080/actuator/` URL.
 
 ``` 
 management.endpoints.enabled-by-default=true
