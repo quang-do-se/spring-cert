@@ -64,6 +64,8 @@ The following technology-agnostic built-in Spring boot Actuator endpoints are av
 | `threaddump`       | Performs a thread dump.                                                                                                                                       |
 
 
+**NOTE**: `/info` and `/health` are default endpoints (`/actuator` or self is not an endpoint).
+
 
 If your application is a web application (Spring MVC, Spring WebFlux, or Jersey), you can use the following additional endpoints:
 
@@ -460,5 +462,59 @@ management:
 ```
 management.endpoints.web.base-path=/
 management.endpoints.web.path-mapping.health=healthcheck
+```
+
+----------
+
+### Customize `health` endpoint
+
+The information exposed by the health endpoint depends on the `management.endpoint.health.show-details` and `management.endpoint.health.show-components` properties, which can be configured with one of the following values:
+
+| Name            | Description                                                                                                                 |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------|
+| never           | Details are never shown.                                                                                                    |
+| when-authorized | Details are shown only to authorized users. Authorized roles can be configured by using `management.endpoint.health.roles`. |
+| always          | Details are shown to all users.                                                                                             |
+
+``` yaml
+management:
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+```
+
+----------
+
+### Enabling Endpoints
+
+By default, all endpoints except for `shutdown` are enabled. To configure the enablement of an endpoint, use its `management.endpoint.<id>.enabled` property. The following example enables the `shutdown` endpoint:
+
+``` yaml
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+```
+
+```
+management.endpoint.shutdown.enabled=true
+```
+
+
+If you prefer endpoint enablement to be opt-in rather than opt-out, set the `management.endpoints.enabled-by-default` property to `false` and use individual endpoint `enabled` properties to opt back in. The following example enables the `info` endpoint and disables all other endpoints:
+
+``` yaml
+management:
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    info:
+      enabled: true
+```
+
+```
+management.endpoints.enabled-by-default=false
+management.endpoint.info.enabled=true
 ```
 
