@@ -322,13 +322,23 @@ There are seven different options available when setting the propagation in a `@
 
 |               | reuse the existing transaction           | create a new transaction | require transaction |
 |---------------|------------------------------------------|--------------------------|---------------------|
-| REQUIRED      | yes                                      | yes                      | yes                 |
-| NESTED        | yes - create a nested one                | yes                      | yes                 |
-| MANDATORY     | yes - throw and exception if none exists | no                       | yes                 |
-| REQUIRES_NEW  | no  - suspend the current one            | yes                      | yes                 |
-| SUPPORTS      | yes                                      | no                       | no                  |
-| NOT_SUPPORTED | no  - suspend the current one            | no                       | no                  |
-| NEVER         | no  - throw an exception if one exists   | no                       | no                  |
+| REQUIRED      | Yes                                      | Yes                      | Yes                 |
+| NESTED        | Yes - create a nested one                | Yes                      | Yes                 |
+| MANDATORY     | Yes - throw and exception if none exists | No                       | Yes                 |
+| REQUIRES_NEW  | No  - suspend the current one            | Yes                      | Yes                 |
+| SUPPORTS      | Yes                                      | No                       | No                  |
+| NOT_SUPPORTED | No  - suspend the current one            | No                       | No                  |
+| NEVER         | No  - throw an exception if one exists   | No                       | No                  |
+
+
+#### Transaction Isolation
+
+|                  | dirty reads | non-repeatable reads | phantom reads |
+|------------------|-------------|----------------------|---------------|
+| READ_UNCOMMITTED | Yes         | Yes                  | Yes           |
+| READ_COMMITTED   | No          | Yes                  | Yes           |
+| REPEATABLE_READ  | No          | No                   | Yes           |
+| SERIALIZABLE     | No          | No                   | No            |
 
 ----------
 
@@ -464,10 +474,6 @@ public class Person {
     @Id
     protected Long id;
 }
-
-
-
-
 ```
 
 #### How does Spring Boot make this easier?
