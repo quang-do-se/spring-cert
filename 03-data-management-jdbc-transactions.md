@@ -81,6 +81,10 @@ spring.datasource.jndi-name=java:comp/env/jdbc/MyDatabase
 
 ### What is the Template design pattern and what is the JDBC template?
 
+#### What is the Template design pattern?
+
+Template design pattern is a behavioral design pattern that allows you to defines a skeleton of an algorithm in a base class and let subclasses override the steps without changing the overall algorithm’s structure.
+
 #### What is the JDBC template?
 
 The Spring `JdbcTemplate` class is a Spring class that simplifies the use of JDBC by implementing common workflows for querying, updating, statement execution etc. Some benefits of using the `JdbcTemplate` class are:
