@@ -11,7 +11,7 @@ When annotating a test class that run Spring Boot based tests, the `@SpringBootT
 
 - Provides support for different web environment modes to create for the test using the **webEnvironment** element of the `@SpringBootTest` annotation.The following web environment modes are available: 
   - **DEFINED_PORT** (creates a web application context without defining a port)
-  - **MOCK** (creates a web application context with a mock servlet environment or a reactive web application context)
+  - **MOCK (DEFAULT)** (creates a web application context with a mock servlet environment or a reactive web application context)
   - **NONE** (creates a regular application context)
   - **RANDOM_PORT** (creates a web application context and a regular server listening on a random port)
 
@@ -83,7 +83,7 @@ The `spring-boot-starter-test` starter adds the following test-scoped dependenci
 
 Four different types of web environments can be specified using the `webEnvironment` attribute of the `@SpringBootTest` annotation:
 
-- `MOCK`
+- `MOCK` **(DEFAULT)**
   - Loads a web `ApplicationContext` and provides a mock web environment. Does not start a web server.
   
 - `RANDOM_PORT`
