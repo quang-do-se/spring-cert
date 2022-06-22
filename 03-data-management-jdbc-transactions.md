@@ -274,7 +274,22 @@ Yes, the `JdbcTemplate` is able to participate in existing transactions both whe
 
 The `@EnableTransactionManagement` annotation is to annotate exactly one configuration class in an application in order to enable annotation-driven transaction management using the `@Transactional` annotation.
 
-Components registered when the @EnableTransactionManagement annotation is used are:A TransactionInterceptor.Intercepts calls to @Transactional methods creating new transactions as necessary etc.A JDK Proxy or AspectJ advice.This advice intercepts methods annotated with @Transactional (or methods that are located in a class annotated with @Transactional).The @EnableTransactionmanagement annotation have the following three optional elements:modeAllows for selecting the type of advice that should be used with transactions. Possible values are AdviceMode.ASPECTJ and AdviceMode.PROXY with the latter being the default.orderPrecedence of the transaction advice when more than one advice is applied to a join-point. Default value is Ordered.LOWEST_PRECEDENCE.proxyTargetClassTrue if CGLIB proxies are to be used, false if JDK interface-based proxies are to be used in the application (affects proxies for all Spring managed beans in the application!). Applicable only if the mode element is AdviceMode.PROXY.
+Components registered when the `@EnableTransactionManagement` annotation is used are:
+- A `TransactionInterceptor`.
+  - Intercepts calls to `@Transactional` methods creating new transactions as necessary etc.
+- A `JDK Proxy` or `AspectJ` advice.
+  - This advice intercepts methods annotated with `@Transactional` (or methods that are located in a class annotated with `@Transactional`).
+  
+The `@EnableTransactionmanagement` annotation have the following three optional elements:
+
+- mode
+  - Allows for selecting the type of advice that should be used with transactions. Possible values are `AdviceMode.ASPECTJ` and `AdviceMode.PROXY` (DEFAULT) with the latter being the default.
+  
+- order
+  - Precedence of the transaction advice when more than one advice is applied to a join-point. Default value is `Ordered.LOWEST_PRECEDENCE`.
+  
+- proxyTargetClass
+  - True if CGLIB proxies are to be used, false if JDK interface-based proxies are to be used in the application (affects proxies for all Spring managed beans in the application!). Applicable only if the mode element is `AdviceMode.PROXY`.
 
 ----------
 
