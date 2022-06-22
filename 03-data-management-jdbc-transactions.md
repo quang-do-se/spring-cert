@@ -143,7 +143,7 @@ The following methods accept one or more SQL strings as parameters. Note that th
 
 - `query(...)` for SELECT
 - `update(...)` for INSERT, UPDATE, DELETE
-- `.execute(...)` for Data Definition Language. It can execute any arbitrary SQL.
+- `execute(...)` for Data Definition Language. It can execute any arbitrary SQL.
 
 - `batchUpdate`
 - `queryForList`
@@ -155,13 +155,54 @@ The following methods accept one or more SQL strings as parameters. Note that th
 
 ### When does the JDBC template acquire (and release) a connection, for every method called or once per template? Why?
 
+`JdbcTemplate` acquire and release a database connection for every method called. That is, a connection is acquired immediately before executing the operation at hand and released immediately after the operation has completed, be it successfully or with an exception thrown.
+
+The reason for this is to avoid holding on to resources (database connections) longer than necessary and creating as few database connections as possible, since creating connections can be a potentially expensive operation. When database connection pooling is used connections are returned to the pool for others to use.
+
 ----------
 
 ### How does the JdbcTemplate support queries? How does it return objects and lists/maps of objects?
 
+Jdbc Template supports generic queries with following methods:
+
+- `queryForObject` - returns single object, expects query to return only one record, if this requirement is not matched `IncorrectResultSizeDataAccessException` will be thrown.
+
+- `queryForList` - returns a list of objects of the declared type, expects the query to return results with only one column, otherwise, `IncorrectResultSetColumnCountException` will be thrown.
+  - It can also return `List<Map<String,Object>>` if there is no declared return type. It return a List that contains a Map per row.
+
+- `queryForMap` - returns map for a single row with keys representing column names and values representing database record value, expects query to return only one record, if this requirement is not matched `IncorrectResultSizeDataAccessException` will be thrown.
+
+Reference: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html
+
 ----------
 
 ### What is a transaction? What is the difference between a local and a global transaction?
+
+#### What is a transaction?
+
+A transaction is an operation that consists of a number of tasks that takes place as a single unit - either all tasks are performed or no tasks are performed. If a task that is part of a transaction do not complete successfully, the other tasks in the transaction will either not be performed or, for tasks that have already been performed, be reverted.
+
+A reliable transaction system enforces the ACID principle:
+
+- Atomicity
+  - The changes within a transaction are either all applied or none applied. **All or nothing**.
+  
+- Consistency
+  - Any integrity constraints, for instance of a database, are not violated.
+  
+- Isolation
+  - Transactions are isolated from each other and do not affect each other.
+  
+- Durability
+  - Changes applied as the result of a successfully completed transaction are durable.
+
+#### What is the difference between a local and a global transaction?
+
+**Global transactions** allow for transactions to span multiple transactional resources. As an example consider a global transaction that spans a database update operation and the posting of a message to the queue of a message broker. If the database operation succeeds but the posting to the queue fails then the database operation will be rolled back (undone). Similarly if posting to the queue succeeds but the database operation fails, the message posted to the queue will be rolled back and will thus not appear on the queue. Not until both operations succeed will the database update come into effect and a message be made available for consumption on the queue. 
+
+Note that a transaction that is to span operations on two different databases needs to be a global transaction.
+
+**Local transactions** are transactions associated with one single resource, such as one single database or a queue of a message broker, but not both in one and the same transaction
 
 ----------
 
