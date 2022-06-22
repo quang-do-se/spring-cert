@@ -344,7 +344,7 @@ If Spring transaction management is used with AspectJ, then any transaction-conf
 
 The `@Transactional` annotation can be used on class and method level both in classes and interfaces. When using Spring AOP proxies, only `@Transactional` annotations on public methods will have any effect – applying the` @Transactional` annotation to protected or private methods or methods with package visibility will not cause errors but will not give the desired transaction management.
 
-
+TODO: 
 
 ----------
 
@@ -382,6 +382,56 @@ If the Spring application is to be deployed to a JavaEE server, then `JtaTransac
 
 ### Which `PlatformTransactionManager(s)` can you use with JPA?
 
+First, any `JtaTransactionManager` can be used with JPA since JTA transactions are global transactions, that is they can span multiple resources such as databases, queues etc. Thus JPA persistence becomes just another of these resources that can be involved in a transaction.
+
+When using JPA with one single entity manager factory, the Spring Framework `JpaTransactionManager` is the recommended choice. This is also the only transaction manager that is JPA entity manager factory aware.
+
+If the application has multiple JPA entity manager factories that are to be transactional, then a JTA transaction manager is required.
+
 ----------
 
 ### What do you have to configure to use JPA with Spring? How does Spring Boot make this easier?
+
+#### What do you have to configure to use JPA with Spring?
+
+- Declare appropriate dependencies
+
+- `@Entity` classes
+
+- `EntityManagerFactory` bean
+
+- `DataSource` bean
+
+- `TransactionManager` bean
+
+- Implement `Repository` interfaces
+
+``` java
+@Bean
+public PlatformTransactionManager transactionManager() {
+  return new JpaTransactionManager(entityManagerFactory());
+}
+
+@Bean
+public EntityManagerFactory entityManagerFactory() {
+  LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+  factoryBean.setPackagesToScan("com.apress.cems.dao");
+  factoryBean.setDataSource(dataSource());
+  factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+  factoryBean.setJpaProperties(hibernateProperties());
+  factoryBean.afterPropertiesSet();
+  return factoryBean.getNativeEntityManagerFactory();
+}
+```
+
+#### How does Spring Boot make this easier?
+
+Spring Boot provides a starter module that:
+
+- Provides a default set of dependencies needed for using JPA in a Spring application.
+
+- Provides all the Spring beans needed to use JPA.
+  - These beans can be easily customized by declaring bean(s) with the same name(s) in the application, as is standard in Spring applications.
+  
+- Provides a number of default properties related to persistence and JPA.
+  - These properties can be easily customized by declaring one or more properties in the application properties-file supplying new values.
