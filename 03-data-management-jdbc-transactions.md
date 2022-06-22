@@ -372,6 +372,12 @@ The rollback policy of a test can be changed using the `@Rollback(false)` or `@C
 
 ### Are you able to participate in a given transaction in Spring while working with JPA?
 
+The short answer is: Yes.
+
+The Spring `JpaTransactionManager` supports direct DataSource access within one and the same transaction allowing for mixing plain JDBC code that is unaware of JPA with code that use JPA.
+
+If the Spring application is to be deployed to a JavaEE server, then `JtaTransactionManager` can be used in the Spring application. `JtaTransactionManager` will delegate to the JavaEE server’s transaction coordinator
+
 ----------
 
 ### Which `PlatformTransactionManager(s)` can you use with JPA?
