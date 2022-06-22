@@ -81,6 +81,30 @@ spring.datasource.jndi-name=java:comp/env/jdbc/MyDatabase
 
 ### What is the Template design pattern and what is the JDBC template?
 
+#### What is the JDBC template?
+
+The Spring `JdbcTemplate` class is a Spring class that simplifies the use of JDBC by implementing common workflows for querying, updating, statement execution etc. Some benefits of using the `JdbcTemplate` class are:
+
+- Simplification
+  - Reduces the amount of (boilerplate) code necessary to perform JDBC operations.
+
+- Handles exceptions
+  - Exceptions are properly handled ensuring that resources are closed or released.
+
+- Translates exceptions
+  - Exceptions are translated to the appropriate exception in the `DataAccessException` hierarchy (unchecked exceptions) which are also vendor-agnostic.
+
+- Avoids common mistakes
+  - For example, ensures that statements are property closed and connections are released after having performed JDBC operations.
+
+- Allows for customization of core functionality.
+  - An example is exception translation. See the above section on the template design pattern.
+
+- Allows for customization of per-use functionality.
+  - An example is mapping of rows in a result set to a Java object. This is accomplished using callbacks. Please refer to the next section for further details.
+  
+Instances of `JdbcTemplate` are thread-safe after they have been created and configured.
+
 ----------
 
 ### What is a callback? What are the JdbcTemplate callback interfaces that can be used with queries? What is each used for? (You would not have to remember the interface names in the exam, but you should know what they do if you see them in a code sample).
