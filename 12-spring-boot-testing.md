@@ -30,9 +30,6 @@ MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).buil
 
 ```
 
-
-
-
 ----------
 
 ### What does `@SpringBootTest` auto-configure?
