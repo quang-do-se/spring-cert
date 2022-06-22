@@ -410,26 +410,64 @@ If the application has multiple JPA entity manager factories that are to be tran
 
 - `DataSource` bean
 
-- `TransactionManager` bean
+- `TransactionManager` bean (Typically `JpaTransactionManager` from the Spring Framework)
 
-- Implement `Repository` interfaces
+- Extends `Repository` interfaces
 
 ``` java
 @Bean
-public PlatformTransactionManager transactionManager() {
-  return new JpaTransactionManager(entityManagerFactory());
+public DataSource dataSource() {
+    HikariConfig hikariConfig = new HikariConfig();
+    hikariConfig.setDriverClassName(driverClassName);
+    hikariConfig.setJdbcUrl(url);
+    hikariConfig.setUsername(username);
+    hikariConfig.setPassword(password);
+
+    hikariConfig.setMaximumPoolSize(5);
+    hikariConfig.setConnectionTestQuery("SELECT 1");
+    hikariConfig.setPoolName("cemsPool");
+    return new HikariDataSource(hikariConfig);
+}
+
+@Bean
+public Properties hibernateProperties() {
+    Properties hibernateProp = new Properties();
+    hibernateProp.put("hibernate.dialect", dialect);
+    hibernateProp.put("hibernate.hbm2ddl.auto", hbm2ddl);
+
+    hibernateProp.put("hibernate.format_sql", true);
+    hibernateProp.put("hibernate.use_sql_comments", true);
+    hibernateProp.put("hibernate.show_sql", true);
+    return hibernateProp;
 }
 
 @Bean
 public EntityManagerFactory entityManagerFactory() {
-  LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-  factoryBean.setPackagesToScan("com.apress.cems.dao");
-  factoryBean.setDataSource(dataSource());
-  factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-  factoryBean.setJpaProperties(hibernateProperties());
-  factoryBean.afterPropertiesSet();
-  return factoryBean.getNativeEntityManagerFactory();
+    LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+    factoryBean.setPackagesToScan("com.apress.cems.dao");
+    factoryBean.setDataSource(dataSource());
+    factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+    factoryBean.setJpaProperties(hibernateProperties());
+    factoryBean.afterPropertiesSet();
+    return factoryBean.getNativeEntityManagerFactory();
 }
+
+@Bean
+public PlatformTransactionManager transactionManager() {
+    return new JpaTransactionManager(entityManagerFactory());
+}
+
+public interface PersonRepo extends JpaRepository<Person, Long> {}
+
+@Entity
+public class Person {
+    @Id
+    protected Long id;
+}
+
+
+
+
 ```
 
 #### How does Spring Boot make this easier?
