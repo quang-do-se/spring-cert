@@ -24,7 +24,58 @@ The purpose of the data access exception hierarchy is isolate application develo
 
 ### How do you configure a DataSource in Spring?
 
+The `javax.sql.DataSource` interface is the interface from which all data-source classes related to SQL stem. The core Spring Framework contain the following root data-source classes and interfaces that all implement this interface:
+- DelegatingDataSource
+- AbstractDataSource
+- SmartDataSource
+- EmbeddedDatabase
 
+#### How do you configure a DataSource in Spring?
+
+Obtaining a `DataSource` in a Spring application depends on whether the application is deployed to an application or web server, for example GlassFish or Apache Tomcat, or if the application is a standalone application.
+
+#### `DataSource` in standalone application
+
+After having chosen the appropriate `DataSource` implementation class, a data-source bean is created like any other bean. The following example creates a data-source that retrieves data from a HSQL database using the Apache Commons *DBCP BasicDataSource* data-source:    
+
+``` java
+@Bean
+public DataSource dataSource() {
+  final BasicDataSource theDataSource = new BasicDataSource();
+  theDataSource.setDriverClassName("org.hsqldb.jdbcDriver");
+  theDataSource.setUrl("jdbc:hsqldb:hsql://localhost:1234/mydatabase");
+  theDataSource.setUsername("ivan");
+  theDataSource.setPassword("secret");
+  return theDataSource;
+}
+```
+
+If the application uses Spring Boot, then it is not necessary to create a DataSource bean. Setting the values of a few properties are sufficient:
+
+``` java
+spring.datasource.url=jdbc:hsqldb:hsql://localhost:1234/mydatabase
+spring.datasource.username=ivan
+spring.datasource.password=secret
+```
+
+#### DataSource in an application deployed to a server
+
+If the application is deployed to an application server then a way to obtain a data-source is by performing a JNDI lookup like in this example:
+
+``` java
+@Bean
+public DataSource dataSource() {
+  final JndiDataSourceLookup theDataSourceLookup = new JndiDataSourceLookup();
+  final DataSource theDataSource = theDataSourceLookup.getDataSource("java:comp/env/jdbc/MyDatabase");
+  return theDataSource;
+}
+```
+
+Spring Boot applications need only to rely on setting one single property:
+
+``` java
+spring.datasource.jndi-name=java:comp/env/jdbc/MyDatabase
+```
 
 ----------
 
