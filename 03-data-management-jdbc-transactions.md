@@ -344,7 +344,15 @@ If Spring transaction management is used with AspectJ, then any transaction-conf
 
 The `@Transactional` annotation can be used on class and method level both in classes and interfaces. When using Spring AOP proxies, only `@Transactional` annotations on public methods will have any effect – applying the` @Transactional` annotation to protected or private methods or methods with package visibility will not cause errors but will not give the desired transaction management.
 
-TODO: 
+The recommendation is to apply the `@Transactional` annotation only to methods with **public** visibility, this way, regardless of the type of proxy created, you’ll always get the transactional behavior where you expect it. Also, keep in mind local calls within the same class cannot be intercepted.
+
+The `@Transactional` annotation can be used at the class level. In this case, all the public methods inherit the transactional behavior defined by the annotation on the class, but `@Transactional` annotations used at the method level, can override any transactional settings inherited from the class. Therefore, the most derived location takes precedence when evaluating the transactional settings for a method.
+
+It is recommended and practical to annotate only **concrete** classes (and methods of **concrete** classes) with the `@Transactional` annotation.
+
+The `@Transactional` annotation can be used on an interface (or an interface method), this requires you to use interface-based proxies; otherwise, if class-based proxies are used, the annotations are not inherited from the interface.
+
+`@Transactional` can also be used on abstract classes as well, and in this case, whether the transactional behavior is applied depends on the type of proxy created.
 
 ----------
 
