@@ -270,7 +270,7 @@ Yes, the `JdbcTemplate` is able to participate in existing transactions both whe
 
 ----------
 
-### What is @EnableTransactionManagement for?
+### What is `@EnableTransactionManagement` for?
 
 The `@EnableTransactionManagement` annotation is to annotate exactly one configuration class in an application in order to enable annotation-driven transaction management using the `@Transactional` annotation.
 
