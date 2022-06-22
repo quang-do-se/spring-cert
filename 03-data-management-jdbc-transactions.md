@@ -202,15 +202,52 @@ A reliable transaction system enforces the ACID principle:
 
 Note that a transaction that is to span operations on two different databases needs to be a global transaction.
 
-**Local transactions** are transactions associated with one single resource, such as one single database or a queue of a message broker, but not both in one and the same transaction
+**Local transactions** are transactions associated with one single resource, such as one single database or a queue of a message broker, but not both in one and the same transaction.
 
 ----------
 
 ### Is a transaction a cross cutting concern? How is it implemented by Spring?
 
+Transaction management is a cross-cutting concern. 
+
+In the Spring framework declarative transaction management is implemented using Spring AOP.
+
 ----------
 
 ### How are you going to define a transaction in Spring?
+
+The following two steps are all required to use Spring transaction management in a Spring application:
+
+- Declare a `PlatformTransactionManager` bean.
+  - Choose a class implementing this interface that supplies transaction management for the transactional resource(s) that are to be used. Some examples are `JmsTransactionManager` (for a single JMS connection factory), `JpaTransactionManager` (for a single JPA entity manager factory), `JtaTransactionManager` ( when working with multiple databases and entity managers. Furthermore, it can be suitable when working with more than one transactional resource).
+  
+- If using annotation-driven transaction management, then apply the `@EnableTransactionManagement` annotation to exactly one `@Configuration` class in the application.
+
+- Declare transaction boundaries in the application code. This can be accomplished using one or more of the following:
+  - `@Transactional` annotation.
+  - Spring XML configuration (not in the scope of this book).
+  - Programmatic transaction management with `TransactionTemplate` class. Explicitly setting the transaction name is something that can only be done programmatically. For example:
+
+``` java
+@Autowired
+EntityManager entityManager;
+
+public void savePayment(Long amount) {
+
+  TransactionTemplate txTemplate = new TransactionTemplate(transactionManager);
+
+  return txTemplate.execute(transactionStatus -> {
+      Payment payment = new Payment(amount);
+
+      try {
+        entityManager.persist(payment);
+      } catch(Exception e) {
+        transactionStatus.setRollbackOnly();
+      }
+    });
+}
+
+```
 
 ----------
 
