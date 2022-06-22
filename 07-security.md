@@ -33,6 +33,12 @@
 
 ### Why do you need method security? What type of object is typically secured at the method level (think of its purpose not its Java type).
 
+`@Secured` annotation is both method-level and class-level annotation.
+
+- To enable Method Security, add `@EnableGlobalMethodSecurity(secureEnabled = true)` on a Configuration class and add `@Secured("<ROLE>")` on the target method.
+  - It causes the class containing the method to be wrapped in a secure proxy (AOP) to restrict access only to users with certain `<ROLE>`
+  - `@Secured` is usually used in Service class.
+
 ----------
 
 ### What do @PreAuthorized and @RolesAllowed do? What is the difference between them?
