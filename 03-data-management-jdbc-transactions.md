@@ -137,10 +137,23 @@ A callback is code or reference to a piece of code that is passed as an argument
 
 ### Can you execute a plain SQL statement with the JDBC template?
 
+Plain SQL statements can be executed using the `JdbcTemplate` class. 
+
+The following methods accept one or more SQL strings as parameters. Note that there may be multiple versions of a method that take different parameters:
+
+- `query(...)` for SELECT
+- `update(...)` for INSERT, UPDATE, DELETE
+- `.execute(...)` for Data Definition Language. It can execute any arbitrary SQL.
+
+- `batchUpdate`
+- `queryForList`
+- `queryForMap`
+- `queryForObject`
+- `queryForRowSet`
+
 ----------
 
-### When does the JDBC template acquire (and release) a connection, for every method called or once per
-template? Why?
+### When does the JDBC template acquire (and release) a connection, for every method called or once per template? Why?
 
 ----------
 

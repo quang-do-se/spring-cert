@@ -224,7 +224,7 @@ It's a special `JoinPoint` used by `@Around` advice.
 
 `@Around` advice runs "around" a matched method’s execution. It has the opportunity to do work both before and after the method runs and to determine when, how, and even if the method actually gets to run at all.
 
-The first parameter of the `@Around` advice method must be of type `ProceedingJoinPoint`. Within the body of the advice, calling `proceed()` on the `ProceedingJoinPoint` causes the underlying method to execute. The proceed method may also be called passing in an `Object[]` - the values in the array will be used as the arguments to the method execution when it proceeds.
+The first parameter of the `@Around` advice method **MUST** be of type `ProceedingJoinPoint`. Within the body of the advice, calling `proceed()` on the `ProceedingJoinPoint` causes the underlying method to execute. The proceed method may also be called passing in an `Object[]` - the values in the array will be used as the arguments to the method execution when it proceeds.
 
 Note that proceed may be invoked once, many times, or not at all within the body of the around advice, all of these are quite legal.
 
