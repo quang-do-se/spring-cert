@@ -735,7 +735,17 @@ The `@Value` annotation can be applied to:
 
 The Spring Expression Language (SpEL for short) is a powerful expression language that supports querying and manipulating an object graph at runtime.
 
-Reference: https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions-language-ref
+The compiler is not turned on by default. The compiler can operate in one of three modes, which are captured in the org.springframework.expression.spel.SpelCompilerMode enum. The modes are as follows:
+
+- `OFF` **(DEFAULT)**: The compiler is switched off.
+
+- `IMMEDIATE`: In immediate mode, the expressions are compiled as soon as possible. This is typically after the first interpreted evaluation. If the compiled expression fails (typically due to a type changing, as described earlier), the caller of the expression evaluation receives an exception.
+
+- `MIXED`: In mixed mode, the expressions silently switch between interpreted and compiled mode over time. After some number of interpreted runs, they switch to compiled form and, if something goes wrong with the compiled form (such as a type changing, as described earlier), the expression automatically switches back to interpreted form again. Sometime later, it may generate another compiled form and switch to it. Basically, the exception that the user gets in IMMEDIATE mode is instead handled internally.
+
+References: 
+- https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions-language-ref
+- https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions-compiler-configuration
 
 ----------
 
