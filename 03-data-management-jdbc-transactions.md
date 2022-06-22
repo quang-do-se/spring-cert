@@ -295,25 +295,78 @@ The `@EnableTransactionmanagement` annotation have the following three optional 
 
 ### How does transaction propagation work?
 
+Transaction propagation determines the way an existing transaction is used, depending on the transaction propagation configured in the `@Transactional` annotation on the method, when the method is invoked.
+
+There are seven different options available when setting the propagation in a `@Transactional` annotation, all defined in the Propagation enumeration:
+
+- MANDATORY
+  - There must be an existing transaction when the method is invoked, or an exception will be thrown.
+
+- NESTED
+  - Executes in a nested transaction if a transaction exists, otherwise a new transaction will be created. This transaction propagation mode is not implemented in all transaction managers.
+
+- NEVER
+  - Method is executed outside of a transaction. Throws exception if a transaction exists.
+
+- NOT_SUPPORTED
+  - Method is executed outside of a transaction. Suspends any existing transaction.
+
+- REQUIRED
+  - Method will be executed in the current transaction. If no transaction exists, one will be created.
+
+- REQUIRES_NEW
+  - Creates a new transaction in which the method will be executed. Suspends any existing transaction.
+
+- SUPPORTS
+  - Method will be executed in the current transaction, if one exists, or outside of a transaction if one does not exist.
+
+|               | reuse the existing transaction           | create a new transaction | require transaction |
+|---------------|------------------------------------------|--------------------------|---------------------|
+| REQUIRED      | yes                                      | yes                      | yes                 |
+| NESTED        | yes - create a nested one                | yes                      | yes                 |
+| MANDATORY     | yes - throw and exception if none exists | no                       | yes                 |
+| REQUIRES_NEW  | no  - suspend the current one            | yes                      | yes                 |
+| SUPPORTS      | yes                                      | no                       | no                  |
+| NOT_SUPPORTED | no  - suspend the current one            | no                       | no                  |
+| NEVER         | no  - throw an exception if one exists   | no                       | no                  |
+
 ----------
 
 ### What happens if one `@Transactional` annotated method is calling another `@Transactional` annotated method inside a same object instance?
+
+A self-invocation of a proxied Spring bean effectively bypasses the proxy and thus also any transaction interceptor managing transactions. Thus the second method, the method being invoked from another method in the bean, will execute in the same transaction context as the first. Any configuration in a `@Transactional` annotation on the second method will not come into effect.
+
+If Spring transaction management is used with AspectJ, then any transaction-configuration using `@Transactional` on non-public methods will be honored.
 
 ----------
 
 ### Where can the `@Transactional` annotation be used? What is a typical usage if you put it at class level?
 
+The `@Transactional` annotation can be used on class and method level both in classes and interfaces. When using Spring AOP proxies, only `@Transactional` annotations on public methods will have any effect – applying the` @Transactional` annotation to protected or private methods or methods with package visibility will not cause errors but will not give the desired transaction management.
+
+
+
 ----------
 
 ### What does declarative transaction management mean?
+
+Declarative transaction management means that the methods which need to be executed in the context of a transaction and the transaction properties for these methods are declared, as opposed to implemented. This is accomplished using annotations (e.g. `@Transactional`) or Spring XML configuration.
 
 ----------
 
 ### What is the default rollback policy? How can you override it?
 
+The default rollback policy of Spring transaction management is that automatic rollback only takes place in the case of an unchecked exception being thrown.
+
+The types of exceptions that are to cause a rollback can be configured using the `rollbackFor` element of the `@Transactional` annotation. In addition, the types of exceptions that not are to cause rollbacks can also be configured using the `noRollbackFor` element.
+
 ----------
 
 ### What is the default rollback policy in a JUnit test, when you use the `@RunWith(SpringJUnit4ClassRunner.class)` in JUnit 4 or `@ExtendWith(SpringExtension. class)` in JUnit 5, and annotate your `@Test` annotated method with `@Transactional`?
+
+If a test-method annotated with `@Test` is also annotated with `@Transactional`, then the test-method will be executed in a transaction. Such a transaction will automatically be rolled back after the completion of the test-method. The reason for this is so that test-methods should be able to either modify the state of any database themselves or invoke methods that modifies the state of the database and have such changes reverted after the completion of the test method.
+
+The rollback policy of a test can be changed using the `@Rollback(false)` or `@Commit`.
 
 ----------
 
@@ -325,4 +378,4 @@ The `@EnableTransactionmanagement` annotation have the following three optional 
 
 ----------
 
-### What do you have to configure to use JPA with Spring? How does Spring Boot make this easier
+### What do you have to configure to use JPA with Spring? How does Spring Boot make this easier?
