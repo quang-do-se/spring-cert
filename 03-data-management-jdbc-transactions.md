@@ -295,6 +295,8 @@ The `@EnableTransactionmanagement` annotation have the following three optional 
 
 ### How does transaction propagation work?
 
+#### Transaction Propagation
+
 Transaction propagation determines the way an existing transaction is used, depending on the transaction propagation configured in the `@Transactional` annotation on the method, when the method is invoked.
 
 There are seven different options available when setting the propagation in a `@Transactional` annotation, all defined in the Propagation enumeration:
@@ -333,12 +335,23 @@ There are seven different options available when setting the propagation in a `@
 
 #### Transaction Isolation
 
+Transaction isolation in database systems determine how the changes within a transaction are visible to other users and systems accessing the database prior to the transaction being committed. A higher isolation level reduces, or even eliminates, the chance for the problems described below that may appear when the database is updated and accessed concurrently. The drawback of higher isolation levels is a reduction of the ability of multiple users and systems concurrently accessing the database as well as increased use of system resources on the database server.
+
 |                  | dirty reads | non-repeatable reads | phantom reads |
 |------------------|-------------|----------------------|---------------|
 | READ_UNCOMMITTED | Yes         | Yes                  | Yes           |
 | READ_COMMITTED   | No          | Yes                  | Yes           |
 | REPEATABLE_READ  | No          | No                   | Yes           |
 | SERIALIZABLE     | No          | No                   | No            |
+
+
+Level of Read phenomana (from worse to better):
+
+- `Dirty reads`: A dirty read (aka uncommitted dependency) occurs when a transaction is allowed to read data from a row that has been modified by another running transaction and not yet committed.
+
+- `Non-repeatable reads`: A non-repeatable read occurs when, during the course of a transaction, a row is retrieved twice and the values within the row differ between reads.
+
+- `Phantom reads`: A phantom read occurs when, in the course of a transaction, new rows are added or removed by another transaction to the records being read.
 
 ----------
 
