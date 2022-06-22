@@ -224,7 +224,9 @@ The following two steps are all required to use Spring transaction management in
 - If using annotation-driven transaction management, then apply the `@EnableTransactionManagement` annotation to exactly one `@Configuration` class in the application.
 
 - Declare transaction boundaries in the application code. This can be accomplished using one or more of the following:
-  - `@Transactional` annotation.
+  - `@Transactional` annotation
+    - It is a declarative transaction management and can be applied on methods and classes.
+    - Spring allows for using the JPA `javax.transaction.Transactional` annotation as a replacement for the Spring `@Transactional` annotation.
   - Spring XML configuration (not in the scope of this book).
   - Programmatic transaction management with `TransactionTemplate` class. Explicitly setting the transaction name is something that can only be done programmatically. For example:
 
