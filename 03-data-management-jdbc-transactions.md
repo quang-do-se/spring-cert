@@ -419,6 +419,15 @@ When using JPA with one single entity manager factory, the Spring Framework `Jpa
 
 If the application has multiple JPA entity manager factories that are to be transactional, then a JTA transaction manager is required.
 
+Note: 
+- The `DataSourceTransactionManager` class is a `PlatformTransactionManager` implementation for single JDBC datasources. 
+- `HibernateTransactionManager` is a `PlatformTransactionManager` implementation for a `Hibernate SessionFactory`.
+
+Usually, there is one TransactionManager implementation per persistence type: JDBC, Hibernate, JPA... 
+`JtaTransactionManager` is an exception that can work with JPA as well.
+
+Reference: https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#orm-jpa-jta
+
 ----------
 
 ### What do you have to configure to use JPA with Spring? How does Spring Boot make this easier?
