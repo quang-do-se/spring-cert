@@ -113,6 +113,26 @@ Instances of `JdbcTemplate` are thread-safe after they have been created and con
 
 ### What is a callback? What are the JdbcTemplate callback interfaces that can be used with queries? What is each used for? (You would not have to remember the interface names in the exam, but you should know what they do if you see them in a code sample).
 
+A callback is code or reference to a piece of code that is passed as an argument to a method that, at some point during the execution of the methods, will call the code passed as an argument.In Java a callback can be a reference to a Java object that implements a certain interface or, starting with Java 8, a lambda expression.
+
+- `RowMapper<T>`
+  - When each row of the ResultSet maps to a domain object.
+  - Stateless and reusable.
+  - Per-row basis.
+  - **Note** that the `mapRow(...)` method in this interface returns *a Java object*.
+
+- `RowCallbackHandler`
+  - When no value should be returned.
+  - Typically stateful.
+  - Per-row basis.
+  - **Note** that the `processRow(...)` method in this interface has *a void return type*.
+
+- `ResultSetExtractor<T>`
+  - When multiple rows, or multiple records from different tables returned in a ResultSet map to a single object.
+  - Typically stateless and reusable.
+  - Can access the whole ResultSet.
+  - **Note** that the `extractData(...)` method in this interface returns *a Java object*.
+  
 ----------
 
 ### Can you execute a plain SQL statement with the JDBC template?
