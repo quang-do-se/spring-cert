@@ -1,9 +1,30 @@
 
 ### What is the difference between checked and unchecked exceptions?
 
+Checked exceptions are exceptions that the Java compiler requires to be declared in the signature of methods that throw this type of exceptions. If a method calls another method that declares one or more checked exceptions in its method signature, the calling method must either catch these exceptions or declare the exceptions in its method signature.
+
+The class `java.lang.Exception` and its subclasses, except for `java.lang.RuntimeException` and any subclass of `RuntimeException`, are checked exceptions.
+
+Unchecked exceptions are exceptions that the Java compiler does not require to be declared in the signature of methods or to be caught in methods invoking other methods that may throw unchecked exceptions.
+
+#### Why does Spring prefer unchecked exceptions?
+
+Checked exceptions forces developers to either implement error handling in the form of try-catch blocks or to declare exceptions thrown by underlying methods in the method signature.
+This can result in cluttered code and/or unnecessary coupling to the underlying methods.
+
+Unchecked exceptions gives developers the freedom of choice as to decide where to implement error handling and removes any coupling related to exceptions.
+
+#### What is the data access exception hierarchy?
+
+The data access exception hierarchy is the `DataAccessException` class and all of its subclasses in the Spring Framework. All the exceptions in this exception hierarchy are unchecked.
+
+The purpose of the data access exception hierarchy is isolate application developers from the particulars of JDBC data access APIs, for instance database drivers from different vendors. This in turn enables easier switching between different JDBC data access APIs.
+
 ----------
 
 ### How do you configure a DataSource in Spring?
+
+
 
 ----------
 
