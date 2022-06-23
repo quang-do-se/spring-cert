@@ -34,6 +34,12 @@ When a request is issued to the application:
 
 ### What is the difference between `@RequestMapping` and `@GetMapping`?
 
+The `@RequestMapping` annotation will cause requests using the HTTP method(s) specified in the optional method element of the annotation to be mapped to the annotated controller method.
+
+If no method element specified in the `@RequestMapping` annotation, then requests using any HTTP method will be mapped to the annotated method.
+
+The `@GetMapping` annotation is a specialization of the `@RequestMapping` annotation with `method = RequestMethod.GET`. Thus only requests using the HTTP GET method will be mapped to the method annotated by `@GetMapping`.
+
 ----------
 
 ### What is `@RequestParam` used for?
