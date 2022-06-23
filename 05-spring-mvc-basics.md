@@ -44,14 +44,80 @@ The `@GetMapping` annotation is a specialization of the `@RequestMapping` annota
 
 ### What is `@RequestParam` used for?
 
+The `@RequestParam` annotation is used to annotate parameters to handler methods in order to bind request parameters to method parameters.
+Assume there is a controller method with the following signature and annotations:
+
+``` java
+@RequestMapping("/greeting")
+public String greeting(@RequestParam(name="name", required=false) String inName) {
+  //...
+}
+```
+
+If then a request is sent to the URL http://localhost:8080/greeting?name=Ivan then the inName method parameter will contain the string "Ivan".
+The first request parameter in an URL is preceded with a question mark. Subsequent request parameters are preceded with an ampersand. 
+Example:
+
+``` java
+http://localhost:8080/greeting?firstName=Ivan&amp;lastName=Krizsan
+```
+
 ----------
 
 ### What are the differences between `@RequestParam` and `@PathVariable`?
+
+#### Request Parameters
+
+As in the previous section, the following example shows an URL with two request parameters:
+
+``` java
+http://localhost:8080/greeting?firstName=Ivan&amp;lastName=Krizsan
+```
+
+The first request parameters has the name firstName and the value Ivan, the second request parameter has the name lastName and the value Krizsan.
+
+#### Path Variables
+
+The following shows an URL from which one could extract two path variables:
+
+``` java
+http://localhost:8080/firstname/Ivan/lastname/Krizsan
+```
+
+The following handler method signature is a handler method that will map the "Ivan" part of the above URL to a method parameter named `inFirstName` and the "Krizsan" part of the above URL to another method parameter named `inLastName`:
+
+``` java
+@RequestMapping("/firstname/{firstName}/lastname/{lastName}")
+public String greetWithFirstAndLastName(@PathVariable("firstName") final String inFirstName,
+                                        @PathVariable("lastName") final String inLastName) {}
+```
+
+Note that:
+- The part of the URL in the `@RequestMapping` annotation contains template variables.
+- In the above examples these are firstName and lastName and they are surrounded by curly brackets.
+- The values in the `@PathVariable` annotations match the name of the template variables in the value of the `@RequestMapping` annotation. This is not necessary if the method parameters have the same names as the template variables.
+- In the Spring literature firstName and lastName are also called URI template variables.
+
+#### Difference
+
+The difference between the `@RequestParam` annotation and the `@PathVariable` annotation is that they map different parts of request URLs to handler method arguments.
+
+`@RequestParam` maps query string parameters to handler method arguments.
+`@PathVariable` maps a part of the URL to handler method arguments.
 
 ----------
 
 ### What are the ready-to-use argument types you can use in a controller method?
 
+https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/web.html#mvc-ann-arguments
+
+https://teletype.in/@andrewgolovko/yfTmAy9hxrZ
+https://teletype.in/@andrewgolovko/A5gmxjZWJHd
+
 ----------
 
 ### What are some of the valid return types of a controller method?
+
+https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/web.html#mvc-ann-return-types
+
+https://teletype.in/@andrewgolovko/hoDLxjiuVxf
