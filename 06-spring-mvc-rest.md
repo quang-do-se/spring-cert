@@ -62,6 +62,25 @@ The following elements of the REST architectural style increases interoperabilit
 
 ### What is an HttpMessageConverter?
 
+The `HttpMessageConverter` interface specifies the properties of a converter that can perform the following conversions:
+  - Convert a `HttpInputMessage` to an object of specified type.
+  - Convert an object to a `HttpOutputMessage`.
+  
+There are many implementations of this interface that performs specific conversions. A few examples are:
+
+- `StringHttpMessageConverter`: text/plain
+
+- `AtomFeedHttpMessageConverter`: Converts to/from Atom feeds.
+
+- `ByteArrayHttpMessageConverter`: Converts to/from byte arrays.
+- `FormHttpMessageConverter`: Converts to/from HTML forms.
+
+- `Jaxb2RootElementHttpMessageConverter`: Reads classes annotated with the JAXB2 annotations `@XmlRootElement` and `@XmlType` and writes classes annotated with `@XmlRootElement`.
+
+- `MappingJackson2HttpMessageConverter`: Converts to/from JSON using Jackson 2.x.
+
+A `HttpMessageConverter` converts a `HttpInputMessage` created from the request to the parameter type of the controller method that is to process the request. When the controller method has finished, a `HttpMessageConverter` converts the object returned from the controller method to a `HttpOutputMessage`.
+
 ----------
 
 ### Is `@Controller` a stereotype? Is `@RestController` a stereotype?
