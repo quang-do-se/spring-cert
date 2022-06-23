@@ -137,6 +137,40 @@ Reference: https://docs.spring.io/spring-security/site/docs/3.2.5.RELEASE/refere
   <img src="img/security-context.png" alt="Security Context" width="80%"/>
 </p>
 
+A Security context is an object implementing the `SecurityContext` interface is stored in an instance of the `SecurityContextHolder`. The `SecurityContextHolder` class not only keeps a reference to a security context, but it also allows for specifying the strategy used to store the security context:
+- Thread local
+  - A security context is stored in a thread-local variable and available only to one single thread of execution.
+  
+- Inheritable thread local
+  - As thread local, but with the addition that child threads created by a thread containing a thread-local variable containing a reference to a security context will also have a thread-local variable containing a reference to the same security context.
+  
+- Global
+  - A security context is available throughout the application, from any thread.
+
+Taking a look at the `SecurityContext` interface, which defines the minimum security information associated with a thread of execution, there are two methods; one for setting and one for retrieving an object that implements the `Authentication` interface.
+
+The `Authentication` interface defines the properties of an object that represents a security token for:
+
+- An authentication request
+  - This is the case prior to a user having been authenticated, when a user tries to log in.
+  
+- An authenticated principal
+  - After a user has been authenticated by an authentication manager. 
+  
+The basic properties contained in an object implementing the `Authentication` interface are:
+
+- A collection of the authorities granted to the principal.
+
+- The credentials used to authenticate a user.
+  - This can be a login name and a password that has been verified to match.
+  
+- Details
+  - Additional information, may be application specific or null if not used.
+  
+- Principal
+
+- Authenticated flag
+  - A boolean indicating whether the principal has been successfully authenticated.
 
 ----------
 
