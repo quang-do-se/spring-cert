@@ -85,7 +85,7 @@ Reference: https://docs.spring.io/spring-security/reference/servlet/architecture
   
 - The security filter chain implements the `SecurityFilterChain` interface and the only implementation provided by Spring Security is the `DefaultSecurityFilterChain` class.
 
-There are two parts to a security filter chain; the **request matcher** and the **filters**. The **request matcher** determines whether the filters in the chain are to be applied to a request or not. The order in which security filter chains are declared is significant, since the first filter chain which has a request URL pattern which matches the current request will be used. 
+There are two parts to a security filter chain; the `request matcher` and the `filters`. The `request matcher` determines whether the filters in the chain are to be applied to a request or not. The order in which security filter chains are declared is significant, since the first filter chain which has a request URL pattern which matches the current request will be used. 
 
 Thus a security filter chain with a more specific URL pattern should be declared before a security filter chain with a more general URL pattern.
 
@@ -115,6 +115,8 @@ The order of the filters in a security filter chain is important – filters mus
 - `AnonymousAuthenticationFilter`
 - `ExceptionTranslationFilter`
 - `FilterSecurityInterceptor`
+
+Reference: https://docs.spring.io/spring-security/site/docs/3.2.5.RELEASE/reference/htmlsingle/#filter-ordering
 
 ----------
 
