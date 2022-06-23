@@ -106,10 +106,10 @@ It will **load only**:
 
 - `@Controller` 
 - `@ControllerAdvice`
+- `@JsonComponent`
 - `WebMvcConfigurer`
 - `Converter`
 - `Generic Converter`
-- `@JsonComponent`
 - `Filter`
 - `HandlerInterceptor`
 - `HandlerMethodArgumentResolver` components
