@@ -226,12 +226,59 @@ Method security is an additional level of security in web applications but can a
 
 ----------
 
-### What do @PreAuthorized and @RolesAllowed do? What is the difference between them?
+### What do `@PreAuthorized` and `@RolesAllowed` do? What is the difference between them?
+
+The `@PreAuthorize` and `@RolesAllowed` annotations are annotations with which method security can be configured either on individual methods or on class level. In the latter case the security constraints will be applied to all methods in the class.
+
+#### `@PreAuthorize` 
+
+The `@PreAuthorize` annotation allows for specifying access constraints to a method using the Spring Expression Language (SpEL). These constraints are evaluated prior to the method being executed and may result in execution of the method being denied if the constraints are not fulfilled.
+
+The `@PreAuthorize` annotation is part of the Spring Security framework. It is recommended in new applications.
+
+In order to be able to use `@PreAuthorize`, the `prePostEnabled` attribute in the `@EnableGlobalMethodSecurity` annotation needs to be set to true.
+
+``` java
+@EnableGlobalMethodSecurity(prePostEnabled=true)
+```
+
+#### `@RolesAllowed`
+
+The `@RolesAllowed` annotation has its origin in the JSR-250 Java security standard. This annotation is more limited than the `@PreAuthorize` annotation in that it only supports role-based security.
+
+In order to use the `@RolesAllowed` annotation the library containing this annotation needs to be on the classpath, as it is not part of Spring Security. In addition, the `jsr250Enabled` attribute of the `@EnableGlobalMethodSecurity` annotation need to be set to true.
+
+``` java
+@EnableGlobalMethodSecurity(jsr250Enabled=true)
+```
+
+#### `@Secured`
+
+The `@Secured` annotation is a legacy Spring Security 2 annotation that can be used to configured method security. It supports more than only role-based security, but does not support using Spring Expression Language (SpEL) to specify security constraints. It is recommended to use the `@PreAuthorize` annotation in new applications over this annotation.
+
+Support for the @Secured annotation needs to be explicitly enabled in the `@EnableGlobalMethodSecurity` annotation using the `securedEnabled` attribute.
+
+``` java
+@EnableGlobalMethodSecurity(securedEnabled=true)
+```
 
 ----------
 
 ### How are these annotations implemented?
 
+Method-level security is accomplished using Spring AOP proxies.
+
 ----------
 
 ### In which security annotation, are you allowed to use SpEL?
+
+| Security Annotation | Has SpEL support? |
+|---------------------|-------------------|
+| @PreAuthorize       | Yes               |
+| @PostAuthorize      | Yes               |
+| @Prefilter          | Yes               |
+| @PostFilter         | Yes               |
+| @Secured            | No                |
+| @RolesAllowed       | No                |
+
+
