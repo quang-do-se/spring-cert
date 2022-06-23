@@ -65,8 +65,9 @@ As earlier, it is possible to add custom finder methods to Spring Data repositor
 
 - Example: **`findPersonByLastnameOrderBySocialSecurityNumberDesc`** – find persons that have a supplied last name and order them in descending order by social security number.
 
-- `find`, `read`, `get` and `query` are aliases. They will work the same.
+- `find`, `read`, `get`, `query`, `search`  are aliases. They will work the same.
   - Reference: https://github.com/spring-projects/spring-data-commons/blob/main/src/main/java/org/springframework/data/repository/query/parser/PartTree.java#L60
+  - There is `count` as well.
 
 Reference: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation
 
