@@ -106,12 +106,17 @@ It will **load only**:
 
 - `@Controller` 
 - `@ControllerAdvice`
-- Classes implementing `WebMvcConfigurer`
+- `WebMvcConfigurer`
+- `Converter`
+- `Generic Converter`
 - `@JsonComponent`
 - `Filter`
+- `HandlerInterceptor`
 - `HandlerMethodArgumentResolver` components
 
-Other Spring beans (annotated with `@Component`, `@Service`, `@Repository`, etc.) will NOT be scanned when using this annotation.
+**`@Component`, `@Service`, `@Repository`, `@ConfigurationProperties` will NOT be scanned when using this annotation.** `@EnableConfigurationProperties` can be used to include `@ConfigurationProperties` beans.
+
+Reference: https://docs.spring.io/spring-boot/docs/2.3.x/reference/htmlsingle/#boot-features-testing-spring-boot-applications-testing-autoconfigured-mvc-tests
 
 The `@WebMvcTest` annotation also auto-configures the following:
 
@@ -179,9 +184,11 @@ Both the `@MockBean` and `@Mock` annotation can be used to create Mockito mocks 
 
 ### When do you want `@DataJpaTest` for? What does it auto-configure?
 
-The `@DataJpaTest` annotation is used to annotate test-classes that contain tests of only JPA components.
+The `@DataJpaTest` annotation is used to annotate test-classes that contain tests of only JPA components (repositories, etc...).
 
-The `@DataJpaTest` allows you to test the persistence layer components and JPA repositories, **doesn’t load other Spring beans** (`@Components`, `@Controller`, `@Service`, and annotated beans) into ApplicationContext.
+**`@Component`, `@Service`, `@Repository`, `@ConfigurationProperties` will NOT be scanned when using this annotation.** `@EnableConfigurationProperties` can be used to include `@ConfigurationProperties` beans.
+
+Reference: https://docs.spring.io/spring-boot/docs/2.3.x/reference/htmlsingle/#boot-features-testing-spring-boot-applications-testing-autoconfigured-jpa-test
 
 Enable transactions by applying Spring’s `@Transactional` annotation to the test class.
 
@@ -216,3 +223,13 @@ The `@DataJpaTest` also annotation auto-configures the following:
 - A test database
 
 - A JPA entity manager for tests
+
+----------
+
+# Extra
+
+### Which annotations can be used in integration tests to test if object serialization and deserialization works as expected?
+
+`@JsonTest`.
+
+Reference: https://docs.spring.io/spring-boot/docs/2.3.x/reference/htmlsingle/#boot-features-testing-spring-boot-applications-testing-autoconfigured-json-tests
