@@ -31,9 +31,32 @@ While security, such as basic authentication, will make a REST service unavailab
 
 ### Is REST scalable and/or interoperable?
 
+The short answer is yes, REST web services are both scalable and interoperable.
+
+#### Scalability
+
+The statelessness, the cacheability and the layered system constraints of the REST architectural style allows for scaling a REST web service.Statelessness ensures that requests can be processed by any node in a cluster of services without having to consider server-side state.Cacheability allows for creating responses from cached information without the request having to proceed to the actual service, which improves network efficiency and reduces the load on the service.
+
+A layered system allows for introducing intermediaries such as a load balancer without clients having to modify their behavior as far as sending requests to the service is concerned. The load balancer can then distribute the requests between multiple instances of the service in order to increase the request-processing capacity of the service. 
+
+#### Interoperability
+
+The following elements of the REST architectural style increases interoperability:
+
+- A REST service can support different formats for the resource representation transferred to clients and allow for clients to specify which format it wants to receive data in.
+  - Common formats are XML, JSON, HTML which are all formats that facilitate interoperability.
+  
+- REST resources are commonly identified using URIs, which do not depend on any particular language or implementation.
+
+- The REST architectural style allows for a fixed set of operations on resources.
+
 ----------
 
 ### Which HTTP methods does REST use?
+
+- HTTP verbs are used as actions to execute on the resources (GET, PUT, PATCH, POST, DELETE, HEAD, and OPTIONS).
+- GET is safe and idempotent  (read-only). PUT and DELETE are not safe but generally idempotent.
+- POST is neither safe nor idempotent.
 
 ----------
 
