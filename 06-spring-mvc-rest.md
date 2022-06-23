@@ -106,7 +106,7 @@ A `HttpMessageConverter` converts a `HttpInputMessage` created from the request 
 >
 > --- <cite>Iuliana</cite>
 
-Other sources may disagree:
+Other sources may DISAGREE:
 - https://github.com/spring-projects/spring-framework/wiki/Spring-Annotation-Programming-Model#stereotype-annotations
 - https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started.first-application.code.mvc-annotations
 
@@ -128,13 +128,42 @@ Other Spring projects does provide additional stereotype annotations.
 
 `@RestController` is different because it is a composed annotation that is meta-annotated with `@Controller` and `@ResponseBody`.
 
+When applied at class level, the `@ResponseBody` annotation applies to all the methods in the controller that handles web requests.
+
 ----------
 
 ### When do you need to use `@ResponseBody`?
 
+The `@ResponseBody` annotation can be applied to either a controller class or a controller handler method. It causes the response to be created from the serialized result of the controller method result processed by a `HttpMessageConverter`. This is useful when you want the web response body to contain the result produced by the controller method, as is the case when implementing a backend service, for example a REST service. The `@ResponseBody` annotation is not needed if the controller class is annotated with `@RestController`.
+
 ----------
 
 ### What are the HTTP status return codes for a successful GET, POST, PUT or DELETE operation?
+
+HTTP response status codes are three-digit integer codes where the first digit determines the class of the response. There are five different classes of HTTP response codes:
+
+- 1xx
+  - Informational. The request has been received and processing of it continues.
+  
+- 2xx
+  - Successful. The request has been successfully received, understood and accepted.
+  
+- 3xx
+  - Redirection. Further action is needed to complete the request.
+  
+- 4xx
+  - Client error. The request is incorrect or cannot be processed.
+  
+- 5xx
+  - Server error. The server failed to process what appears to be a valid request.
+  
+The following HTTP response status codes are of the successful class:
+
+| HTTP Status | Https Status constant | Oservation                                                                                                                                                                                                                                                |
+|-------------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 200         | OK                    | Successful GET with returned content                                                                                                                                                                                                                      |
+| 201         | CREATED               | Successful PUT or POST (when PUT introduces data that was not recorded previously in the database, PUT can be implemented to behave as a POST), should return a location header that contains the URI of new resource or response containing new resource |
+| 204         | NO_CONTENT            | Empty response, after successful PUT or DELETE                                                                                                                                                                                                            |
 
 ----------
 
