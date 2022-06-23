@@ -56,11 +56,11 @@ Spring Security is implemented in the following two ways depending on what is to
   - Filters under `SecurityFilterChain` are `GenericFilterBeans`, which are Spring `Filters`. These are also `Servlet Filters`, but have Spring implementation.
 
 <p align="center">
-  <img src="img/security-infrastructure.png" alt="Security Infrastructure" width="50%"/>
+  <img src="img/security-infrastructure.png" alt="Security Infrastructure" width="70%"/>
 </p>
 
 <p align="center">
-  <img src="img/security.png" alt="Security" width="50%"/>
+  <img src="img/security.png" alt="Security" width="70%"/>
 </p>
 
 ----------
@@ -75,8 +75,19 @@ Spring Security is implemented in the following two ways depending on what is to
 
 ### What is a security context?
 
+#### Spring Security Core Components
+
+| Component Type          | Function                                                                                                                                                                                                                                                                 |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `SecurityContextHolder` | Contains and provides access to the SecurityContext of the application. Default behavior is to associate the SecurityContext with the current thread.                                                                                                                    |
+| `SecurityContext`       | Default and only implementation in Spring Security holds an Authentication object. May also hold additional request-specific information.                                                                                                                                |
+| `Authentication`        | Represents token for authentication request or authenticated principal after the request has been granted. Also contains the authorities in the application that an authenticated principal has been granted.                                                            |
+| `GrantedAuthority`      | Represents an authority granted to an authenticated principal.                                                                                                                                                                                                           |
+| `UserDetails`           | Holds user information, such as user-name, password and authorities of the user. This information is used to create an `Authentication` object on successful authentication. May be extended to contain application-specific user information.                           |
+| `UserDetailsService`    | Given a user-name this service retrieves information about the user in a `UserDetails` object. Depending on the implementation of the user details service used, the information may be stored in a database, in memory or elsewhere if a custom implementation is used. |
+
 <p align="center">
-  <img src="img/security-context.png" alt="Security Context" width="50%"/>
+  <img src="img/security-context.png" alt="Security Context" width="80%"/>
 </p>
 
 
