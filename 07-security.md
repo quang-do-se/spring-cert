@@ -216,12 +216,7 @@ The reason for salting is to avoid always having the same hash-value for a certa
 
 ### Why do you need method security? What type of object is typically secured at the method level (think of its purpose not its Java type).
 
-Method security is an additional level of security in web applications but can also be the only layer of security in applications that do not expose a web interface.
-
-`@Secured` annotation is both method-level and class-level annotation.
-
-- To enable Method Security, add `@EnableGlobalMethodSecurity(secureEnabled = true)` on a Configuration class and add `@Secured("<ROLE>")` on the target method.
-  - It causes the class containing the method to be wrapped in a secure proxy (AOP) to restrict access only to users with certain `<ROLE>`
+Method security is an additional level of security in web applications but can also be the only layer of security in applications that do not expose a web interface. It causes the class containing the secured method to be wrapped in a secure proxy (AOP).
 
 Method Security is usually used in **Service** classes in the service layer of an application.
 
