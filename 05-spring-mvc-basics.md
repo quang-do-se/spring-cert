@@ -9,10 +9,17 @@ The `@Controller` annotation is a specialization of the `@Component` annotation.
 
 To enable requests to be mapped to one or more methods in a controller class the following steps are taken:
 
+- Create a web application context and register a `DispatcherServlet`.
+  - A class implementing the `WebApplicationInitializer` can be used to create a Spring application context. The following classes implement the `WebApplicationInitializer` interface:
+    - `AbstractContextLoaderInitializer`: Abstract base class that registers a `ContextLoaderListerer` in the servlet context.
+    - `AbstractDispatcherServletInitializer`: Abstract base class that registers a `DispatcherServlet` in the servlet context.
+    - `AbstractAnnotationConfigDispatcherServletInitializer`: Abstract base class that registers a `DispatcherServlet` in the servlet context and uses Java-based Spring configuration.
+    - `AbstractReactiveWebInitializer`: Creates a Spring application context that uses Java-based Spring configuration. Creates a Spring reactive web application in the servlet container.
+
 - Enable component scanning.
   - This enables auto-detection of classes annotated with the `@Controller` annotation. In Spring Boot applications, the `@SpringBootApplication` annotation is an annotation that itself is annotated with a number of meta-annotation one of which is the `@ComponentScan` annotation.
   
-- Annotate one of the configuration-classes in the application with the `@EnableWebMvc` annotation.
+- Annotate one of the configuration-classes in the application with the `@EnableWebMvc` annotation and implement the `WebMvcConfigurer` interface.
   - In Spring Boot applications, it is sufficient to have one configuration-class in the application implement the `WebMvcConfigurer` interface.
 
 - Implement a controller class that is annotated with the `@Controller` annotation.
