@@ -46,9 +46,9 @@ Spring Security is implemented in the following two ways depending on what is to
 - **All** the requests are handled by `DelegatingFilterProxy` and it sends the request to `FilterChainProxy` for handling further Authentication flow.
 
 - `DelegatingFitlerProxy` is a bridge between Servlet container's life cycle and Spring's ApplicationContext
-  - D`elegatingFilterProxy` is a Servlet Filter. `Servlet Filters` are executed just before the servlets are executed. So any security mechanism like authentication are implemented using filters, so that a valid user is accessing the secured resource.
+  - `DelegatingFilterProxy` is a Servlet Filter. `Servlet Filters` are executed just before the servlets are executed. So any security mechanism like authentication are implemented using filters, so that a valid user is accessing the secured resource.
 
-- `DelegatingFilterProxy` can be registered via standard Servlet container mechanisms, but delegate all the work to a Spring Bean that implements Filter (`FilterChainProxy`).
+- `DelegatingFilterProxy` can be registered via standard Servlet container mechanisms, but delegate all the work to a Spring Bean that implements `javax.servlet.Filter interface` (`FilterChainProxy`).
 
 - `FilterChainProxy` is a special Filter provided by Spring Security that allows delegating to many Filter instances through `SecurityFilterChain`.
 
@@ -79,8 +79,8 @@ Spring Security is implemented in the following two ways depending on what is to
 
 | Component Type          | Function                                                                                                                                                                                                                                                                 |
 |-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `SecurityContextHolder` | Contains and provides access to the SecurityContext of the application. Default behavior is to associate the SecurityContext with the current thread.                                                                                                                    |
-| `SecurityContext`       | Default and only implementation in Spring Security holds an Authentication object. May also hold additional request-specific information.                                                                                                                                |
+| `SecurityContextHolder` | Contains and provides access to the `SecurityContext` of the application. Default behavior is to associate the `SecurityContext` with the current thread.                                                                                                                    |
+| `SecurityContext`       | Default and only implementation in Spring Security holds an `Authentication` object. May also hold additional request-specific information.                                                                                                                                |
 | `Authentication`        | Represents token for authentication request or authenticated principal after the request has been granted. Also contains the authorities in the application that an authenticated principal has been granted.                                                            |
 | `GrantedAuthority`      | Represents an authority granted to an authenticated principal.                                                                                                                                                                                                           |
 | `UserDetails`           | Holds user information, such as user-name, password and authorities of the user. This information is used to create an `Authentication` object on successful authentication. May be extended to contain application-specific user information.                           |
