@@ -13,6 +13,10 @@ REST is an architectural style, thus there's no restrictions in regards on which
 
 ### What is a resource?
 
+Any information that can be named can be a resource: a document or image, a temporal service (e.g. "today's weather in Los Angeles"), a collection of other resources, a non-virtual object (e.g. a person), and so on. In other words, any concept that might be the target of an author's hypertext reference must fit within the definition of a resource. A resource is a conceptual mapping to a set of entities, not the entity that corresponds to the mapping at any particular point in time.
+
+In REST, URIs identify resources.
+
 ----------
 
 ### Is REST secure? What can you do to secure it?
