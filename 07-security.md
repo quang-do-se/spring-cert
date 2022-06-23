@@ -176,6 +176,20 @@ The basic properties contained in an object implementing the `Authentication` in
 
 ### What does the `**` pattern in an antMatcher or mvcMatcher do?
 
+There are 3 wildcards that can be used in URL patterns:
+
+- `*`
+  - Matches any path on the level at which the wildcard occur. 
+  - Example: `/services/*` matches `/services/users` and `/services/orders` but not `/services/orders/123/items`.
+  
+- `**`
+  - Matches any path on the level at the wildcard occurs and all levels below. If only `/**` or `**` then will match any request. 
+  - Example: `/services/**` matches `/services`, `/services/`, `/services/users` and `/services/orders` and also `/services/orders/123/items`, etc.
+  
+- `?`
+  - Match any sinlge character
+  - Example: `/?ea` will match `/tea`, `/pea` or `/sea`.
+
 ----------
 
 ### Why is the usage of mvcMatcher recommended over antMatcher?
