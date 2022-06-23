@@ -785,43 +785,43 @@ The Spring `ApplicationContext` interface extends the `EnvironmentCapable` inter
 | Management server                                | N/A                        |
 
 
-Spring Boot uses a very particular `PropertySource` order that is designed to allow sensible overriding of values. Properties are considered in the following order (with values from lower items overriding earlier ones):
+**NOTE**: Below is for  Spring Boot version 2.3.x.
 
-- Default properties (specified by setting Spring`Application.setDefaultProperties`).
+Spring Boot uses a very particular PropertySource order that is designed to allow sensible overriding of values. Properties are considered in the following order (with values from upper items overriding lower ones):
 
-- `@PropertySource` annotations on your `@Configuration` classes. Please note that such property sources are not added to the `Environment` until the application context is being refreshed. This is too late to configure certain properties such as `logging.*` and `spring.main.*` which are read before refresh begins.
-
-- Config data (such as `application.properties` files). Config data files are considered in the following order:
-
-  1. Application properties packaged inside your jar (`application.properties` and YAML variants).
-
-  2. Profile-specific application properties packaged inside your jar (`application-{profile}.properties` and YAML variants).
-
-  3. Application properties outside of your packaged jar (`application.properties` and YAML variants).
-
-  4. Profile-specific application properties outside of your packaged jar (`application-{profile}.properties` and YAML variants).
-
-- A `RandomValuePropertySource` that has properties only in `random.*`.
-
-- OS environment variables.
-
-- Java System properties (`System.getProperties()`).
-
-- JNDI attributes from `java:comp/env`.
-
-- `ServletContext` init parameters.
-
-- `ServletConfig` init parameters.
-
-- Properties from `SPRING_APPLICATION_JSON` (inline JSON embedded in an environment variable or system property).
-
-- Command line arguments.
-
-- `properties` attribute on your tests. Available on `@SpringBootTest` and the test annotations for testing a particular slice of your application.
+- Devtools global settings properties in the `$HOME/.config/spring-boot` directory when devtools is active.
 
 - `@TestPropertySource` annotations on your tests.
 
-- Devtools global settings properties in the `$HOME/.config/spring-boot` directory when devtools is active.
+- `properties` attribute on your tests. Available on `@SpringBoot`Test and the test annotations for testing a particular slice of your application.
+
+- Command line arguments.
+
+- Properties from `SPRING_APPLICATION_JSON` (inline JSON embedded in an environment variable or system property).
+
+- `ServletConfig` init parameters.
+
+- `ServletContext` init parameters.
+
+- JNDI attributes from `java:comp/env`.
+
+- Java System properties (`System.getProperties()`).
+
+- OS environment variables.
+
+- A `RandomValuePropertySource` that has properties only in `random.*`.
+
+- Profile-specific application properties outside of your packaged jar (`application-{profile}.properties` and YAML variants).
+
+- Profile-specific application properties packaged inside your jar (`application-{profile}.properties` and YAML variants).
+
+- Application properties outside of your packaged jar (`application.properties` and YAML variants).
+
+- Application properties packaged inside your jar (`application.properties` and YAML variants).
+
+- `@PropertySource` annotations on your `@Configuration` classes. Please note that such property sources are not added to the `Environment` until the application context is being refreshed. This is too late to configure certain properties such as `logging.*` and `spring.main.*` which are read before refresh begins.
+
+- Default properties (specified by setting `SpringApplication.setDefaultProperties`).
 
 
 Note: It is recommended to stick with one format for your entire application. If you have configuration files with both `.properties` and `.yml` format in the same location, `.properties` takes precedence.
