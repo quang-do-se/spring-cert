@@ -45,7 +45,7 @@ Spring Security is implemented in the following two ways depending on what is to
 
 - **All** the requests are handled by `DelegatingFilterProxy` and it sends the request to `FilterChainProxy` for handling further Authentication flow.
 
-- `DelegatingFitlerProxy` is a bridge between Servlet container's life cycle and Spring's ApplicationContext
+- `DelegatingFitlerProxy` is a bridge between Servlet container's life cycle and Spring's ApplicationContext.
   - `DelegatingFilterProxy` is a Servlet Filter. `Servlet Filters` are executed just before the servlets are executed. So any security mechanism like authentication are implemented using filters, so that a valid user is accessing the secured resource.
 
 - `DelegatingFilterProxy` can be registered via standard Servlet container mechanisms, but delegate all the work to a Spring Bean that implements `javax.servlet.Filter interface` (`FilterChainProxy`).
@@ -67,9 +67,54 @@ Spring Security is implemented in the following two ways depending on what is to
 
 ### What is the delegating filter proxy?
 
+- `DelegatingFitlerProxy` is a bridge between Servlet container's life cycle and Spring's ApplicationContext.
+  - The Servlet container allows registering Filters using its own standards, but it is not aware of Spring defined Beans. 
+  
+  - `DelegatingFilterProxy` is a Servlet Filter. `Servlet Filters` are executed just before the servlets are executed. So any security mechanism like authentication are implemented using filters, so that a valid user is accessing the secured resource.
+
+- `DelegatingFilterProxy` can be registered via standard Servlet container mechanisms, but delegate all the work to a Spring Bean that implements `javax.servlet.Filter interface` (`FilterChainProxy`).
+
+Reference: https://docs.spring.io/spring-security/reference/servlet/architecture.html
+
 ----------
 
 ### What is the security filter chain?
+
+- `SecurityFilterChain` associates a request URL pattern with a list of filters.
+  - Filters under `SecurityFilterChain` are `GenericFilterBeans`, which are Spring `Filters`. These are also `Servlet Filters`, but have Spring implementation.
+  
+- The security filter chain implements the `SecurityFilterChain` interface and the only implementation provided by Spring Security is the `DefaultSecurityFilterChain` class.
+
+There are two parts to a security filter chain; the **request matcher** and the **filters**. The **request matcher** determines whether the filters in the chain are to be applied to a request or not. The order in which security filter chains are declared is significant, since the first filter chain which has a request URL pattern which matches the current request will be used. 
+
+Thus a security filter chain with a more specific URL pattern should be declared before a security filter chain with a more general URL pattern.
+
+<p align="center">
+  <img src="img/multi-security-filter-chain.png" alt="multi-security-filter-chain" width="70%"/>
+</p>
+
+
+#### Request Matcher
+
+There are a number of different request matchers which all implement the `RequestMatcher` interface with perhaps the two most common ones being `MvcRequestMatcher` and `AntPathRequestMatcher`. The `MvcRequestMatcher` is configured with the URL pattern `/**`, which will match requests to the application with any URL. For example, `http://localhost:8080/myapp/index.html` will be matched and so will `http://localhost:8080/myapp/services/userservice/`, assuming the root application URL is `http://localhost:8080/myapp`.
+
+#### Filters
+
+The constructor of the `DefaultSecurityFilterChain` class takes a variable number of parameters, the first always being a request matcher. The remaining parameters are all filters which implements the `javax.servlet.Filter` interface.
+
+The order of the filters in a security filter chain is important – filters must be declared in the following order (filters may be omitted if not needed):
+
+- `ChannelProcessingFilter`
+- `SecurityContextPersistenceFilter`
+- `ConcurrentSessionFilter`
+- Any authentication filter.
+  - Such as `UsernamePasswordAuthenticationFilter`, `CasAuthenticationFilter`, `BasicAuthenticationFilter`.
+- `SecurityContextHolderAwareRequestFilter`
+- `JaasApiIntegrationFilter`
+- `RememberMeAuthenticationFilter`
+- `AnonymousAuthenticationFilter`
+- `ExceptionTranslationFilter`
+- `FilterSecurityInterceptor`
 
 ----------
 
