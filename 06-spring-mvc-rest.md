@@ -209,7 +209,7 @@ In addition, the `@ResponseStatus` annotation can be applied to controller handl
 
 `@ResponseBody` annotation is an annotation that can be applied to controller classes or controller handler methods. It is used when the web response body is to contain the result produced by the controller method(s).
 
-`@RequestBody` annotation can only be applied to parameters of methods. More specific, parameters of controller handler methods. It is used when the web request body is to be bound to a parameter of the controller handler method. That is, the annotated method parameter will contain the web request body when there is a request to be handled by the controller handler method with the annotated parameter.
+`@RequestBody` annotation can only be applied to parameters of methods. More specific, parameters of controller handler methods. It is used when the web request body is to be bound to a parameter of the controller handler method. That is, the annotated method parameter will contain the web request body when there is a request to be handled by the controller handler method with the annotated parameter. It can be optional by setting attribute `required = false`.
 
 ----------
 
