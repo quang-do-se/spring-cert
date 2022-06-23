@@ -222,7 +222,8 @@ Method security is an additional level of security in web applications but can a
 
 - To enable Method Security, add `@EnableGlobalMethodSecurity(secureEnabled = true)` on a Configuration class and add `@Secured("<ROLE>")` on the target method.
   - It causes the class containing the method to be wrapped in a secure proxy (AOP) to restrict access only to users with certain `<ROLE>`
-  - `@Secured` is usually used in **Service** classes in the service layer of an application.
+
+Method Security is usually used in **Service** classes in the service layer of an application.
 
 ----------
 
@@ -272,13 +273,15 @@ Method-level security is accomplished using Spring AOP proxies.
 
 ### In which security annotation, are you allowed to use SpEL?
 
-| Security Annotation | Has SpEL support? |
-|---------------------|-------------------|
-| @PreAuthorize       | Yes               |
-| @PostAuthorize      | Yes               |
-| @Prefilter          | Yes               |
-| @PostFilter         | Yes               |
-| @Secured            | No                |
-| @RolesAllowed       | No                |
+| Security Annotation | Has SpEL support? | Level           |
+|---------------------|-------------------|-----------------|
+| @PreAuthorize       | Yes               | Class or Method |
+| @PostAuthorize      | Yes               | Class or Method |
+| @Prefilter          | Yes               | Class or Method |
+| @PostFilter         | Yes               | Class or Method |
+| @Secured            | No                | Class or Method |
+| @RolesAllowed       | No                | Class or Method |
+
+
 
 
