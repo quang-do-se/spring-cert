@@ -53,6 +53,7 @@ The `@GetMapping` annotation is a specialization of the `@RequestMapping` annota
 ### What is `@RequestParam` used for?
 
 The `@RequestParam` annotation is used to annotate parameters to handler methods in order to bind request parameters to method parameters.
+
 Assume there is a controller method with the following signature and annotations:
 
 ``` java
@@ -112,6 +113,8 @@ The difference between the `@RequestParam` annotation and the `@PathVariable` an
 
 `@RequestParam` maps query string parameters to handler method arguments.
 `@PathVariable` maps a part of the URL to handler method arguments.
+
+Both could be optional by setting attribute `required = false`.
 
 ----------
 
