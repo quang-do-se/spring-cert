@@ -1,6 +1,14 @@
 
 ### What does REST stand for?
 
+REST stands for REpresentational State Transfer and is an architectural style which allows clients to access and manipulate textual representations of web resources given a set of constraints.
+
+If the application does observe the constraints, certain benefits are gained. Examples of such benefits are *scalability*, *simplicity*, *portability* and *reliability*.
+
+REST supports a lot of different formats, although JSON is the most commonly use. REST can use XML or HTML as well.
+
+REST is an architectural style, thus there's no restrictions in regards on which communication protocal will be used. HTTP is the most commonly used one.
+
 ----------
 
 ### What is a resource?
