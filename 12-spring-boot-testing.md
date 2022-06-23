@@ -54,7 +54,7 @@ MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).buil
 
 The `spring-boot-starter-test` starter adds the following test-scoped dependencies to the classpath:
 
-- `JUnit`
+- `JUnit 5`
   - Unit-testing framework.
 
 - Spring Test and Spring Boot Test

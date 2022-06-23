@@ -467,7 +467,7 @@ Precedence from highest to lowest:
 
 - Type (class, abstract, interface...)
 - If there are multiple beans of the same type, then:
-  - `@Qualifier` at Injection Point (`@Autowire`)
+  - `@Qualifier` at Injection Point (`@Autowired`)
   - `@Primary`
   - Bean name or alias - `@Bean({"myBean", "myAlias"})`, `@Component("myBean")`, `@Named("myBean")`
 
@@ -509,6 +509,14 @@ public void setMovieCatalogs(Map<String, MovieCatalog> movieCatalogs) {
     this.movieCatalogs = movieCatalogs;
 }
 ```
+
+
+**NOTE**: `@Resource` and `@Inject` can also be used for dependency injection.
+
+ - `@Resource(name="beanName")` = `@Autowired` + `@Qualifier`
+   - It is from JSR-250
+   - It tries to resolve dependency first by name, then by type and finally by a qualifier.
+ - `@Inject` is from JSR-330
 
 ----------
 
