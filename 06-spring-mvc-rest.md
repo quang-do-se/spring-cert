@@ -219,6 +219,51 @@ In addition, the `@ResponseStatus` annotation can be applied to controller handl
 
 ### What Spring Boot starter would you use for a Spring REST application?
 
+`spring-boot-starter-web`
+
 ----------
 
 ### If you saw an example using RestTemplate, would you understand what it is doing?
+
+ RestTemplate is thread-safe so it can access any number of services in different parts of an application.
+
+Use `restTemplate.exchange(...)` to test the response status code. It returns `ResponseEntity` object.
+
+`restTemplate.put(...)` and `restTemplate.delete(...)` return void.
+
+`*ForEntity` methods return `ResponseEntity` objects. These contain the response status code as well as the object in the payload.
+
+`*ForObject` methods do not return the HTTP status code.
+
+`ObjectFactory` is NOT used as an argument in any method of RestTemplate.
+
+
+Supported methods:
+
+- GET
+  - `getForObject`: Retrieves a representation via GET.
+  - `getForEntity`: Retrieves a `ResponseEntity` (that is, status, headers, and body) by using GET.
+
+- HEAD
+  - `headForHeaders`: Retrieves all headers for a resource by using HEAD.
+
+- POST
+  - `postForLocation`: Creates a new resource by using POST and returns the Location header from the response.
+  - `postForObject`: Creates a new resource by using POST and returns the representation from the response.
+  - `postForEntity`: Creates a new resource by using POST and returns the representation from the response.
+
+- PUT
+  - `put`: Creates or updates a resource by using PUT.
+
+- PATCH
+  - `patchForObject`: Updates a resource by using PATCH and returns the representation from the response. Note that the JDK HttpURLConnection does not support PATCH, but Apache HttpComponents and others do.
+
+- DELETE
+  - `delete`: Deletes the resources at the specified URI by using DELETE.
+
+- OPTIONS
+  - `optionsForAllow`: Retrieves allowed HTTP methods for a resource by using ALLOW.
+
+- Others (everything can be handled by these)
+  - `exchange`: More generalized (and less opinionated) version of the preceding methods that provides extra flexibility when needed. It accepts a `RequestEntity` (including HTTP method, URL, headers, and body as input) and returns a `ResponseEntity`. These methods allow the use of `ParameterizedTypeReference` instead of `Class` to specify a response type with generics.
+  - `execute`: The most generalized way to perform a request, with full control over request preparation and response extraction through callback interfaces.
