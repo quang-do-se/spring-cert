@@ -215,6 +215,8 @@ In addition, the `@ResponseStatus` annotation can be applied to controller handl
 
 ### If you saw example Controller code, would you understand what it is doing? Could you tell if it was annotated correctly?
 
+Maybe.
+
 ----------
 
 ### What Spring Boot starter would you use for a Spring REST application?
