@@ -21,6 +21,12 @@ In REST, URIs identify resources.
 
 ### Is REST secure? What can you do to secure it?
 
+The REST architectural style in itself does not stipulate any particular security solution but suggests using a layered system style using one or more intermediaries. Security may be a responsibility of one type of intermediary.
+
+This maps very well to what Spring has to offer when it comes to developing REST web services: A REST web service can be developed using Spring without having to consider security at all. Security can later be added to the REST web service using Spring Security, as described in the previous chapter.
+
+While security, such as basic authentication, will make a REST service unavailable to everyone except those who know the login information, the messages passed between clients and the service will still be readable by anyone able to intercept them. To protect the messages in transit, encryption can be used such as with the HTTPS protocol.
+
 ----------
 
 ### Is REST scalable and/or interoperable?

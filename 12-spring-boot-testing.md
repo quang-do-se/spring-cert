@@ -238,4 +238,8 @@ Reference: https://docs.spring.io/spring-boot/docs/2.3.x/reference/htmlsingle/#b
 
 ### Other Spring Boot tests
 
-- `@RestClientTest`: This annotation will disable full auto-configuration and instead apply only configuration relevant to rest client tests.
+`@RestClientTest`: This annotation will disable full auto-configuration and instead apply only configuration relevant to rest client tests.
+
+**`@Component`, `@Service`, `@Repository`, `@ConfigurationProperties` will NOT be scanned when using this annotation.** `@EnableConfigurationProperties` can be used to include `@ConfigurationProperties` beans.
+
+Reference: https://docs.spring.io/spring-boot/docs/2.3.x/reference/htmlsingle/#boot-features-testing-spring-boot-applications-testing-autoconfigured-rest-client
