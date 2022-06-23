@@ -89,7 +89,7 @@ Four different types of web environments can be specified using the `webEnvironm
 - `DEFINED_PORT`
   - Loads a `WebServerApplicationContext`, provides a real web environment and starts an embedded web server listening on the port configured in the application properties, or port 8080 if no such configuration exists. Web server runs in a separate thread and server-side transactions will not be rolled back in transactional tests.
   
-- `NONE`
+- `NONE` **(DEFAULT) if web environment is NOT on your classpath**
   - Loads an `ApplicationContext` without providing any web environment.
   
   In the test class, annotated with `@SpringBootTest`, a `TestRestTemplate` and/or `WebTestClient` can be injected and used to send requests either to the mock web environment or to the embedded web server.
