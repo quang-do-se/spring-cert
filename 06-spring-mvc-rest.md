@@ -54,7 +54,37 @@ The following elements of the REST architectural style increases interoperabilit
 
 ### Which HTTP methods does REST use?
 
-- HTTP verbs are used as actions to execute on the resources (GET, PUT, PATCH, POST, DELETE, HEAD, and OPTIONS).
+- In REST, HTTP verbs are used as actions to execute on the resources.
+
+  - GET
+    - Requests a representation of the specified resource. Requests using GET should only be used to request data (they shouldn't include data).
+    - idempotent
+    - safe
+  - PUT
+    - Creates a new resource or replaces a representation of the target resource with the request payload.
+    - idempotent
+    - not-safe
+  - PATCH
+    - Applies partial modifications to a resource.
+    - not-idempotent
+    - not-safe
+  - POST
+    - Sends data to the server, usually leading to changes or resource creation.
+    - not-idempotent
+    - not-safe
+  - DELETE
+    - Deletes the specified resource.
+    - idempotent
+    - not-safe
+  - HEAD
+    - Requests the headers that would be returned if the HEAD request's URL was instead requested with the HTTP GET method.
+    - idempotent
+    - safe
+  - OPTIONS
+    - Requests permitted communication options for a given URL or server.
+    - idempotent
+    - safe
+  
 - GET is safe and idempotent  (read-only). PUT and DELETE are not safe but generally idempotent.
 - POST is neither safe nor idempotent.
 
@@ -169,9 +199,15 @@ The following HTTP response status codes are of the successful class:
 
 ### When do you need to use `@ResponseStatus`?
 
+The `@ResponseStatus` annotation can also be used to annotate exception classes in order to specify the HTTP response status and reason that are to be returned, instead of the default Server Internal Error (500), when an exception of the type is thrown during the processing of a request in a controller handler method.
+
+In addition, the `@ResponseStatus` annotation can be applied to controller handler methods in order to override the original response status information. In the annotation a HTTP response status code and a reason string can be specified. The `@ResponseStatus` annotation can also be applied at class level in controller classes, in which case it will apply to all the controller handler methods in the class.
+
 ----------
 
 ### Where do you need to use `@ResponseBody`? What about `@RequestBody`?
+
+
 
 ----------
 
