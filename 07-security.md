@@ -37,9 +37,9 @@ Yes.
 
 Spring Security is implemented in the following two ways depending on what is to be secured:
 
-- Using a Spring AOP proxy that inherits from the `AbstractSecurityInterceptor` class. Applied to **method** invocation authorization on objects secured with Spring Security.
+- **Method Security**: Using a Spring AOP proxy that inherits from the `AbstractSecurityInterceptor` class. Applied to **method** invocation authorization on objects secured with Spring Security.
 
-- Spring Security’s web infrastructure is based entirely on Servlet Filters.
+- **Web Layer Security**: Spring Security’s web infrastructure is based entirely on Servlet Filters.
 
 #### Spring Security Web Infrastructure
 
@@ -194,19 +194,35 @@ There are 3 wildcards that can be used in URL patterns:
 
 ### Why is the usage of mvcMatcher recommended over antMatcher?
 
+As an example `antMatchers("/services")` only matches the exact `/services` URL while `mvcMatchers("/services")` matches `/services` but also `/services/`, `/services.html` and `/services.abc`. Thus the `mvcMatcher` matches more than the `antMatcher` and is more forgiving as far as configuration mistakes are concerned. In addition, the `mvcMatchers` API uses the same matching rules as used by the `@RequestMapping` annotation. Finally, the `mvcMatchers` API is newer than the `antMatchers` API.
+
 ----------
 
 ### Does Spring Security support password encoding?
+
+#### Password Hashing
+
+Password hashing is the process of calculating a hash-value for a password. The hash-value is stored, for instance in a database, instead of storing the password itself. Later when a user attempts to log in, a hash-value is calculated for the password supplied by the user and compared to the stored hash-value. If the hash-values does not match, the user has not supplied the correct password.
+
+In Spring Security, this process is referred to as password encoding and is implemented using the `PasswordEncoder` interface.
+
+#### Salting
+
+A salt used when calculating the hash-value for a password is a sequence of random bytes that are used in combination with the cleartext password to calculate a hash-value. The salt is stored in cleartext alongside the password hash-value and can later be used when calculating hash-values for user-supplied passwords at login.
+
+The reason for salting is to avoid always having the same hash-value for a certain word, which would make it easier to guess passwords using a dictionary of hash-values and their corresponding passwords.
 
 ----------
 
 ### Why do you need method security? What type of object is typically secured at the method level (think of its purpose not its Java type).
 
+Method security is an additional level of security in web applications but can also be the only layer of security in applications that do not expose a web interface.
+
 `@Secured` annotation is both method-level and class-level annotation.
 
 - To enable Method Security, add `@EnableGlobalMethodSecurity(secureEnabled = true)` on a Configuration class and add `@Secured("<ROLE>")` on the target method.
   - It causes the class containing the method to be wrapped in a secure proxy (AOP) to restrict access only to users with certain `<ROLE>`
-  - `@Secured` is usually used in Service class.
+  - `@Secured` is usually used in **Service** classes in the service layer of an application.
 
 ----------
 
