@@ -100,9 +100,20 @@ Four different types of web environments can be specified using the `webEnvironm
 
 The `@WebMvcTest` annotation is intended to be used in tests which aim are to test only Spring MVC components, disabling full `auto-configuration` and only applying configuration relevant to testing of MVC components. Thus this annotation is not suitable for integration tests.
 
-This annotation is the one to use when a test focuses only on Spring MVC components because it has the effect of **DISABLING** full autoconfiguration and registers configurations only relevant to MVC components; classes annotated with `@Controller` or `@ControllerAdvice` and classes implementing `WebMvcConfigurer`, but not `@Service`, `@Repository`, `@Component` and so forth.
+This annotation is the one to use when a test focuses only on Spring MVC components because it has the effect of **DISABLING** full autoconfiguration and registers configurations only relevant to MVC components.
 
-The `@WebMvcTest` annotation auto-configures the following:
+It will **load only**:
+
+- `@Controller` 
+- `@ControllerAdvice`
+- Classes implementing `WebMvcConfigurer`
+- `@JsonComponent`
+- `Filter`
+- `HandlerMethodArgumentResolver` components
+
+Other Spring beans (annotated with `@Component`, `@Service`, `@Repository`, etc.) will NOT be scanned when using this annotation.
+
+The `@WebMvcTest` annotation also auto-configures the following:
 
 - `Spring Security`
 
@@ -170,7 +181,17 @@ Both the `@MockBean` and `@Mock` annotation can be used to create Mockito mocks 
 
 The `@DataJpaTest` annotation is used to annotate test-classes that contain tests of only JPA components.
 
-The `@DataJpaTest` annotation auto-configures the following:
+The `@DataJpaTest` allows you to test the persistence layer components and JPA repositories, **doesn’t load other Spring beans** (`@Components`, `@Controller`, `@Service`, and annotated beans) into ApplicationContext.
+
+Enable transactions by applying Spring’s `@Transactional` annotation to the test class.
+
+Enable caching on the test class, defaulting to a NoOp cache instance.
+
+Autoconfigure an embedded test database in place of a real one.
+
+Create a `TestEntityManager` bean and add it to the application context.
+
+The `@DataJpaTest` also annotation auto-configures the following:
 
 - Caching
 
