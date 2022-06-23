@@ -155,6 +155,7 @@ public class WebConfig implements WebApplicationInitializer {
     }
 }
 ```
+
 Reference: https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-servlet
 
 #### `AbstractAnnotationConfigDispatcherServletInitializer`
@@ -199,6 +200,7 @@ class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitialize
     }
 }
 ```
+
 Reference: https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-servlet-context-hierarchy
 
 
@@ -475,7 +477,7 @@ If both the `@Qualifier` and `@Primary` annotations are present, then the `@Qual
 
 `@Qualifier` at Injection Point (`@Autowired`) can match bean names or existing `@Qualifier("...")` definitions.
 
-However, `@Qualifier` at bean definition (`@Bean` or `@Component`) does NOT add a new bean name or an alias. It only adds an additional metadata to it. It can only match against an `@Qualifier` at Injection Point (`@Autowired`).
+However, `@Qualifier` at bean definition (`@Bean` or `@Component`) does NOT add or modifiy bean names or aliases. It only adds an additional metadata to it. It can only match against an `@Qualifier` at Injection Point (`@Autowired`).
 
 If there is only one instance of the bean type, it does not really matter the bean name.
 
@@ -952,4 +954,3 @@ public class Calculator {
 }
 
 ```
-

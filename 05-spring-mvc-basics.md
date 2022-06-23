@@ -13,8 +13,8 @@ To enable requests to be mapped to one or more methods in a controller class the
   - This enables auto-detection of classes annotated with the `@Controller` annotation. In Spring Boot applications, the `@SpringBootApplication` annotation is an annotation that itself is annotated with a number of meta-annotation one of which is the `@ComponentScan` annotation.
   
 - Annotate one of the configuration-classes in the application with the `@EnableWebMvc` annotation.
-  - In Spring Boot applications, it is sufficient to have one configuration-class in the application implement the WebMvcConfigurer interface.
-  
+  - In Spring Boot applications, it is sufficient to have one configuration-class in the application implement the `WebMvcConfigurer` interface.
+
 - Implement a controller class that is annotated with the `@Controller` annotation.
   - Controller classes can also be annotated with the `@RequestMapping` annotation, in which case it will add a part to the URL which will map to controller method(s).
   - Example: Controller class is annotated with `@RequestMapping("/c2")` and a method in the controller class is annotate with `@RequestMapping("/greeting")`. A request to http://localhost:8080/c2/greeting will be mapped to the to the method in the controller class in the example.
