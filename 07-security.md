@@ -21,11 +21,12 @@ In Spring Security, the authentication process consists of the following steps q
 - The security context is established by calling `SecurityContextHolder.getContext().setAuthentication(…)`, passing in the returned authentication object.
 
 #### Authorization
-The short explanation of authorization is the process of determining that a user of a computer system is permitted to do something that the user is attempting to do.Authorization is the process of specifying access rights to resources. For instance, the only type of users that can create and delete users in a computer system is users is users in the administrator role. Thus the only users that have access to the create and delete functions of the application are users in the administrator role. 
+
+The short explanation of authorization is the process of determining that a user of a computer system is permitted to do something that the user is attempting to do. Authorization is the process of specifying access rights to resources. For instance, the only type of users that can create and delete users in a computer system is users is users in the administrator role. Thus the only users that have access to the create and delete functions of the application are users in the administrator role. 
 
 #### Which must come first?
 
-Unless there is some type of authorization that specifies what resources and/or functions that can be accessed by anonymous users, authentication must always come before authorization.This in order to be able to establish the identity of the user before being able to verify what the user is allowed to do.
+Unless there is some type of authorization that specifies what resources and/or functions that can be accessed by anonymous users, authentication must always come before authorization. This in order to be able to establish the identity of the user before being able to verify what the user is allowed to do.
 
 ----------
 
