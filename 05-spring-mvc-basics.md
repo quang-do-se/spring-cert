@@ -21,6 +21,7 @@ To enable requests to be mapped to one or more methods in a controller class the
   
 - Annotate one of the configuration-classes in the application with the `@EnableWebMvc` annotation and implement the `WebMvcConfigurer` interface.
   - In Spring Boot applications, it is sufficient to have one configuration-class in the application implement the `WebMvcConfigurer` interface.
+  - `WebMvcConfigurer` interface allows a developer to customize the Java-based configuration for Spring MVC enabled via `@EnabledWebMvc`.
 
 - Implement a controller class that is annotated with the `@Controller` annotation.
   - Controller classes can also be annotated with the `@RequestMapping` annotation, in which case it will add a part to the URL which will map to controller method(s).
