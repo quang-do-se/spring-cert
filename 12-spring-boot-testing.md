@@ -100,6 +100,8 @@ Four different types of web environments can be specified using the `webEnvironm
 
 The `@WebMvcTest` annotation is intended to be used in tests which aim are to test only Spring MVC components, disabling full `auto-configuration` and only applying configuration relevant to testing of MVC components. Thus this annotation is not suitable for integration tests.
 
+This annotation is the one to use when a test focuses only on Spring MVC components because it has the effect of **DISABLING** full autoconfiguration and registers configurations only relevant to MVC components; classes annotated with `@Controller` or `@ControllerAdvice` and classes implementing `WebMvcConfigurer`, but not `@Service`, `@Repository`, `@Component` and so forth.
+
 The `@WebMvcTest` annotation auto-configures the following:
 
 - `Spring Security`
