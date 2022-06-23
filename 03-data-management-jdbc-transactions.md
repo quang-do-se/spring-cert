@@ -313,7 +313,7 @@ There are seven different options available when setting the propagation in a `@
 - NOT_SUPPORTED
   - Method is executed outside of a transaction. Suspends any existing transaction.
 
-- REQUIRED
+- REQUIRED (**DEFAULT**)
   - Method will be executed in the current transaction. If no transaction exists, one will be created.
 
 - REQUIRES_NEW
