@@ -13,7 +13,8 @@ Two of the most important parts of Spring Boot are the **starter** and the **aut
 - One or more `@Configuration` class(es) that creates a set of Spring beans for the technology in question with a default configuration.Typically such a configuration class is conditional and require some class or interface from the technology in question to be on the classpath in order for the beans in the configuration to be created when the Spring context is created.
 
 - A `@ConfigurationProperties` class.Allows for the use of a set of properties related to the technology in question to be used in the application’s properties-file. Properties of a auto-configuration module will have a common prefix, for instance “spring.thymeleaf” for the Thymeleaf module.
-In the `@ConfigurationProperties` class default values for the different properties may have been assigned as to allow users of the module to get started with a minimum of effort but still be able to do some customization by only setting property values
+  - In the `@ConfigurationProperties` class default values for the different properties may have been assigned as to allow users of the module to get started with a minimum of effort but still be able to do some customization by only setting property values
+  - We must add `@ConfigurationPropertiesScan` on top of our `@SpringBootApplication` class or manually register each `@ConfigurationProperties` class with  `@EnableConfigurationProperties(CustomConfig.class)`
 
 ----------
 
