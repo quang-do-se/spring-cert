@@ -83,7 +83,13 @@ After having Auto Configuration enabled by default in Spring Boot, configured pr
 
 ### What is `spring.factories` file for?
 
-`spring.factories` file, located in `META-INF/spring.factories` location on the classpath, is used by **Auto Configuration** mechanism to locate **Auto Configuration Classes**. Each module that provides Auto Configuration Class needs to have `METAINF/spring.factories` file with `org.springframework.boot.autoconfigure.EnableAutoConfiguration` entry that will point Auto Configuration Classes.
+`spring.factories` file, located in `META-INF/spring.factories` location on the classpath, is used by **Auto Configuration** mechanism to locate **Auto Configuration Classes**.
+
+**NOTE: Each module, that provides Auto-Configuration classes, needs to have `METAINF/spring.factories` file with `org.springframework.boot.autoconfigure.EnableAutoConfiguration` entry that will point to Auto-Configuration classes. Each Auto-Configuration class must be annotated with `@Configuration`.**
+
+Reference:
+- https://github.com/spring-cloud/spring-cloud-commons/blob/main/spring-cloud-context/src/main/resources/META-INF/spring.factories
+- https://github.com/spring-cloud/spring-cloud-commons/blob/087b94a905c5428c89e4db22a6a284999d5d0a7d/spring-cloud-context/src/main/java/org/springframework/cloud/autoconfigure/LifecycleMvcEndpointAutoConfiguration.java
 
 `META-INF/spring.factories` file is consumed by `SpringFactoriesLoader` class, which is used by `AutoConfigurationImportSelector` enabled by `@EnableAutoConfiguration` annotation used by default in `@SpringBootApplication` annotation.
 
