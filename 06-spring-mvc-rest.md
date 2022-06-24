@@ -203,6 +203,8 @@ The `@ResponseStatus` annotation can also be used to annotate exception classes 
 
 In addition, the `@ResponseStatus` annotation can be applied to controller handler methods in order to override the original response status information. In the annotation a HTTP response status code and a reason string can be specified. The `@ResponseStatus` annotation can also be applied at class level in controller classes, in which case it will apply to all the controller handler methods in the class.
 
+**NOTE**: The `reason` properpy is used to specify the reason in case of an error. When setting the "reason" attribute of this annotation, the `HttpServletResponse.sendError` method will be used.
+
 ----------
 
 ### Where do you need to use `@ResponseBody`? What about `@RequestBody`?
