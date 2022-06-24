@@ -411,7 +411,7 @@ Reference: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/
 
     - `postProcessBeforeInitialization`: post-processors that populate beans via marker interfaces or the like will implement this. This is applied **before** any bean initialization callbacks (like `InitializingBean's afterPropertiesSet` or a custom `init-method`).
 
-    - `postProcessAfterInitialization`: post-processors that wrap beans with proxies will normally implement this.
+    - `postProcessAfterInitialization`: post-processors that wrap beans with proxies will normally implement this. This is applied **after** any bean initialization callbacks (like `InitializingBean's afterPropertiesSet` or a custom `init-method`).
 
 
 - `BeanFactoryPostProcessor`: Factory hook that allows for custom modification of an application context's **bean definitions**, adapting the bean property values of the context's underlying bean factory.
