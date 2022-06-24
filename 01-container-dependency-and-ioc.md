@@ -954,3 +954,15 @@ public class Calculator {
 }
 
 ```
+
+----------
+
+#### `@PostConstruct`, `initMethod` property of `@Bean` property, `@PreDestroy`, `destroyMethod` property of `@Bean` property
+
+- These methods MUST return `void`.
+- These methods MUST NOT have any parameters.
+- These methods MUST NOT be static.
+- These methods MAY have ANY access modifier (public, protected, package private or private).
+  - Spring uses reflection to find and call them.
+  - Some developers recommend that you make it PRIVATE so that it cannot be called from outside the bean, to make sure that Spring has total control over it, and so that it calls it only one time during the bean lifecycle.
+- These methods MAY be FINAL.
