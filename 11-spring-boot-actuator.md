@@ -98,6 +98,8 @@ info:
     version: 1.0-SNAPSHOT
 ```
 
+Custom data may also be supplied by implementing the `InfoContribute` interface. The method `contribute` will need to be overrided using the `builder` argument of type `Info.Builder`.
+
 ----------
 
 ### How do you change logging level of a package using loggers endpoint?
