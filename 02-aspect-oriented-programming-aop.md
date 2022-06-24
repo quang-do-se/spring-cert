@@ -103,6 +103,7 @@
 
 - Benefits of `JDK Dynamic Proxies` are:
   - Programming to interface is recommended.
+  - JDK Dynamic Proxy can proxy **final** classes and **public final** methods.
 
 -----------
 
