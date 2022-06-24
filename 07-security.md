@@ -279,5 +279,11 @@ Method-level security is accomplished using Spring AOP proxies.
 | @RolesAllowed       | No                | Class or Method |
 
 
+----------
 
+# Extra
+
+### `@EnableWebSecurity`
+
+`@EnableWebSecurity` annotation should be added to an `@Configuration` class to have the Spring Security configuration defined.
 
