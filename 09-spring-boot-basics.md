@@ -12,7 +12,7 @@ Two of the most important parts of Spring Boot are the **starter** and the **aut
 
 - One or more `@Configuration` class(es) that creates a set of Spring beans for the technology in question with a default configuration.Typically such a configuration class is conditional and require some class or interface from the technology in question to be on the classpath in order for the beans in the configuration to be created when the Spring context is created.
 
-- A `@ConfigurationProperties` class.Allows for the use of a set of properties related to the technology in question to be used in the application’s properties-file. Properties of a auto-configuration module will have a common prefix, for instance “spring.thymeleaf” for the Thymeleaf module.
+- A `@ConfigurationProperties` class.Allows for the use of a set of properties related to the technology in question to be used in the application’s properties-file. Properties of a auto-configuration module will have a common prefix, for instance "spring.thymeleaf" for the Thymeleaf module.
   - In the `@ConfigurationProperties` class default values for the different properties may have been assigned as to allow users of the module to get started with a minimum of effort but still be able to do some customization by only setting property values
   - We must add `@ConfigurationPropertiesScan` on top of our `@SpringBootApplication` class or manually register each `@ConfigurationProperties` class with  `@EnableConfigurationProperties(CustomConfig.class)`
 
@@ -22,7 +22,7 @@ Two of the most important parts of Spring Boot are the **starter** and the **aut
 
 Some advantages of using Spring Boot are:
 
-- Automatic configuration of “sensible defaults” reducing boilerplate configuration. Configuration adapted to dependencies on the classpath so that, for example, if a HSQLDB dependency is available on the class path, then a data-source bean connecting to an in-memory HSQLDB database is created.
+- Automatic configuration of "sensible defaults" reducing boilerplate configuration. Configuration adapted to dependencies on the classpath so that, for example, if a HSQLDB dependency is available on the class path, then a data-source bean connecting to an in-memory HSQLDB database is created.
 
 - Enabling getting started quickly developing an application. This is related to the previous step.
 
@@ -209,7 +209,7 @@ The name of a default schema can be supplied in the datasource URL, as shown in 
 spring.datasource.url=jdbc:postgresql://localhost/databasename?currentSchema=<default-schema-name>
 ```
 
-Note that in some databases, MySQL for example, database is equivalent to schema and the default schema is specified by the “databasename” part of the datasource URL in the example above. A datasource URL for MySQL would thus look like this:
+Note that in some databases, MySQL for example, database is equivalent to schema and the default schema is specified by the "databasename" part of the datasource URL in the example above. A datasource URL for MySQL would thus look like this:
 
 ``` 
 spring.datasource.url=jdbc:mysql://localhost/<default-schema-name>
