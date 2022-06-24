@@ -48,7 +48,7 @@ public class AppConfig{}
 
 As earlier, it is possible to add custom finder methods to Spring Data repository interfaces. If following the naming convention below, Spring Data will recognize these find methods and supply an implementation for these methods. The naming convention of these finder methods are:
 
-**`find[Distinct](First|Top[count])By[PropertyExpression]+[ComparisonOperator:=][OrderingOperator]`**
+**`find[Distinct](First|Top[count])By[PropertyExpression][ComparisonOperator:=][OrderingOperator]`**
 
 - Finder method names always start with `find`.
 
