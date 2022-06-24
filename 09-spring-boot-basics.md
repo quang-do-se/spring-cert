@@ -249,6 +249,14 @@ data-${platform}.sql
 
 As before, `platform` is the value of the property `spring.datasource.platform`. This method of supplying initial data can be used in projects that uses JPA as well as those who do not.
 
+#### Embedded databases
+
+Embedded databases are HSQLDB, H2 and DERBY.
+  - `spring.jpa.hibernate.ddl-auto` defaults to `none` for non-embedded databases such as Oracle, MySQL, Postgres...
+  - It defaults to `create-drop` for HSQLDB, H2 and DERBY.
+  
+Spring Boot will automatically intialize only embedded database. If you want to initialize regular database as well, you need to set property `spring.datasource.initialization-mode` to `always`.
+
 ----------
 
 ### What is a fat jar? How is it different from the original jar?
