@@ -966,3 +966,4 @@ public class Calculator {
   - Spring uses reflection to find and call them.
   - Some developers recommend that you make it PRIVATE so that it cannot be called from outside the bean, to make sure that Spring has total control over it, and so that it calls it only one time during the bean lifecycle.
 - These methods MAY be FINAL.
+- Only one method should be annotated with `@PostConstruct` or `@PreDestroy`.
