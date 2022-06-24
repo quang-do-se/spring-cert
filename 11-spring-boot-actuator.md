@@ -56,7 +56,7 @@ The following technology-agnostic built-in Spring boot Actuator endpoints are av
 | `integrationgraph` | Shows the Spring Integration graph. Requires a dependency on `spring-integration-core`.                                                                       |
 | `loggers`          | Shows and modifies the configuration of loggers in the application.                                                                                           |
 | `liquibase`        | Shows any Liquibase database migrations that have been applied. Requires one or more `Liquibase` beans.                                                       |
-| `metrics`          | Shows “metrics” information for the current application.                                                                                                      |
+| `metrics`          | Shows "metrics" information for the current application.                                                                                                      |
 | `mappings`         | Displays a collated list of all `@RequestMapping` paths.                                                                                                      |
 | `quartz`           | Shows information about Quartz Scheduler jobs.                                                                                                                |
 | `scheduledtasks`   | Displays the scheduled tasks in your application.                                                                                                             |
@@ -361,8 +361,8 @@ Additional `HealthIndicators` are available but are not enabled by default:
 
 | Key              | Name                          | Description                                             |
 |------------------|-------------------------------|---------------------------------------------------------|
-| `livenessstate`  | LivenessStateHealthIndicator  | Exposes the “Liveness” application availability state.  |
-| `readinessstate` | ReadinessStateHealthIndicator | Exposes the “Readiness” application availability state. |
+| `livenessstate`  | LivenessStateHealthIndicator  | Exposes the "Liveness" application availability state.  |
+| `readinessstate` | ReadinessStateHealthIndicator | Exposes the "Readiness" application availability state. |
 
 
 **NOTE**: You can disable them all by setting the `management.health.defaults.enabled` property. 
