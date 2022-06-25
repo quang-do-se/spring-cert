@@ -499,6 +499,8 @@ There should be only one and only one `@Autowired` constructor in a class
 
 `@Autowired` can be used on fields with any access modifiers. Spring uses Java Reflection API, to inject values for fields annotated with it, so the access modifier is irrelevant.
 
+Contructor and Setter injection are achieved using the proxy.
+
 `@Autowired` attribute `required` can only be used with setters, NOT constructor. Constructor injection is always **mandatory**.
   - `@Required` is alternative for `required` attribute but deprecated.
 
