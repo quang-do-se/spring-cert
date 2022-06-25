@@ -175,7 +175,7 @@ The basic properties contained in an object implementing the `Authentication` in
 
 ----------
 
-### What does the `**` pattern in an antMatcher or mvcMatcher do?
+### What does the `**` pattern in an `antMatcher` or `mvcMatcher` do?
 
 There are 3 wildcards that can be used in URL patterns:
 
@@ -193,7 +193,7 @@ There are 3 wildcards that can be used in URL patterns:
 
 ----------
 
-### Why is the usage of mvcMatcher recommended over antMatcher?
+### Why is the usage of `mvcMatcher` recommended over `antMatcher`?
 
 As an example `antMatchers("/services")` only matches the exact `/services` URL while `mvcMatchers("/services")` matches `/services` but also `/services/`, `/services.html` and `/services.abc`. Thus the `mvcMatcher` matches more than the `antMatcher` and is more forgiving as far as configuration mistakes are concerned. In addition, the `mvcMatchers` API uses the same matching rules as used by the `@RequestMapping` annotation. Finally, the `mvcMatchers` API is newer than the `antMatchers` API.
 
