@@ -691,7 +691,15 @@ The `@Profile` annotation may be used in any of the following ways:
 
 `@Profile({"p1", "p2"})`, that class will not be registered or processed unless at least profile `p1` OR `p2` has been activated.
 
-Source: https://docs.spring.io/spring-framework/docs/4.3.12.RELEASE/javadoc-api/org/springframework/context/annotation/Profile.html
+The following operators are supported in profile expressions:
+
+  - `!`: A logical NOT of the profile or profile expression
+  - `&`: A logical AND of the profiles or profile expressions
+  - `|`: A logical OR of the profiles or profile expressions
+
+References:
+  - https://docs.spring.io/spring-framework/docs/4.3.12.RELEASE/javadoc-api/org/springframework/context/annotation/Profile.html
+  - https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/env/Profiles.html#of-java.lang.String...-
 
 
 One or more profiles can be activated using one of the following options:
