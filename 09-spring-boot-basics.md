@@ -123,8 +123,10 @@ As per default, messages written with the ERROR, WARN and INFO levels will be ou
 
 Log levels can be controlled at a finer granularity using the `application.properties` file.
 
+```
 logging.level.root=WARN
 logging.level.com.myapp.spring=DEBUG
+```
 
 The above rows show how log levels can be configured in the `application.properties` file. The first line sets the log level of the root logger to WARN and the second line sets the log level of the `com.myapp.spring` logger to DEBUG.
 
