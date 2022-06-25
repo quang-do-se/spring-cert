@@ -98,7 +98,7 @@ info:
     version: 1.0-SNAPSHOT
 ```
 
-Custom data may also be supplied by implementing the `InfoContribute` interface. The method `contribute` will need to be overrided using the `builder` argument of type `Info.Builder`.
+Custom data may also be supplied by implementing the `InfoContributer` interface. The method `contribute` will need to be overrided using the `builder` argument of type `Info.Builder`.
 
 ----------
 
