@@ -83,7 +83,7 @@ In the latter case, customization applied to all repository types, the proxies f
 
 ----------
 
-### What is` @Query` used for?
+### What is `@Query` used for?
 
 The `@Query` annotation allows for specifying a query to be used with a Spring Data JPA repository method. This allows for customizing the query used for the annotated repository method or supplying a query that is to be used for a repository method that do not adhere to the finder method naming convention described earlier.
 
