@@ -216,7 +216,7 @@ The lifecycle of a Spring bean looks like this:
 - For each bean in the container:
   - An instance of the bean is created using the bean metadata.
   - Properties and dependencies of the bean are set.
-  - Any instances of `BeanPostProcessor` are given a change to process the new bean instance before and after initialization.
+  - Any instances of `BeanPostProcessor` are given a chance to process the new bean instance before and after initialization.
 - Any methods in the bean implementation class annotated with `@PostConstruct` are invoked. 
   - This processing is performed by a `BeanPostProcessor`.
 - Any `afterPropertiesSet` method in a bean implementation class implementing the `InitializingBean` interface is invoked.
