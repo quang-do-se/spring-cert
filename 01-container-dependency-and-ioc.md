@@ -739,6 +739,7 @@ public class MyBeanClass {
 
     @Value("#{ T(java.lang.Math).random() * 50.0 }")
 }
+```
 
 The `@Value` annotation can be applied to:
 
@@ -748,8 +749,6 @@ The `@Value` annotation can be applied to:
   - Including constructor parameters. Note that when annotating a parameter in a method other than a constructor, automatic dependency injection will not occur. If automatic injection of the value is desired, the `@Value` annotation should be moved to the method instead.
 - Definition of annotations
   - In order to create a custom annotation.
-
-```
 
 ----------
 
