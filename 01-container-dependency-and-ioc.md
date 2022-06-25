@@ -764,7 +764,7 @@ The `@Value` annotation can be applied to:
 
 The Spring Expression Language (SpEL for short) is a powerful expression language that supports querying and manipulating an object graph at runtime.
 
-The compiler is not turned on by default. The compiler can operate in one of three modes, which are captured in the org.springframework.expression.spel.SpelCompilerMode enum. The modes are as follows:
+The compiler is not turned on by default. The compiler can operate in one of three modes, which are captured in the `org.springframework.expression.spel.SpelCompilerMode` enum. The modes are as follows:
 
 - `OFF` **(DEFAULT)**: The compiler is switched off.
 
