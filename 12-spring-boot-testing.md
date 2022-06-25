@@ -5,7 +5,7 @@ When annotating a test class that run Spring Boot based tests, the `@SpringBootT
 
 - Uses `SpringBootContextLoader` as the default `ContextLoader`. Provided that no other `ContextLoader` is specified using the `@ContextConfiguration` annotation.
 
-- Searches for a `@SpringBootConfiguration` if no nested `@Configuration` present in the test-class, and no explicit `@Configuration` classes specified in the @SpringBootTest annotation.
+- Searches for a `@SpringBootConfiguration` if no nested `@Configuration` present in the test-class, and no explicit `@Configuration` classes specified in the `@SpringBootTest` annotation.
 
 - Allows custom `Environment` properties to be defined using the properties attribute of the `@SpringBootTest` annotation.
 
