@@ -1,6 +1,8 @@
 
 ### What is Dependency Injection?
 
+It is a design pattern in which objects delegate creation of their dependencies to an external object or framework.
+
 Dependency injection (DI) is a process whereby objects define their dependencies (that is, the other objects with which they work) only through constructor arguments, arguments to a factory method, or properties that are set on the object instance after it is constructed or returned from a factory method. **The container then injects those dependencies when it creates the bean.** This process is fundamentally the inverse (hence the name, Inversion of Control) of the bean itself controlling the instantiation or location of its dependencies on its own by using direct construction of classes or the Service Locator pattern.
 
 Code is cleaner with the DI principle, and decoupling is more effective when objects are provided with their dependencies. The object does not look up its dependencies and does not know the location or class of the dependencies. As a result, your classes become easier to test, particularly when the dependencies are on interfaces or abstract base classes, which allow for stub or mock implementations to be used in unit tests.
@@ -16,7 +18,6 @@ It's a very useful technique for testing, since it allows dependencies to be moc
 that facilitate injection of dependencies. And the basic idea of the dependency injection
 pattern is to have a separate object that injects dependencies with the required behavior,
 based on an interface contract.
-
 
 #### Advantages of Dependency Injection
 
