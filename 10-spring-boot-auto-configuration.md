@@ -157,7 +157,11 @@ Another option is to disable one or more auto-configuration classes altogether. 
 ``` java
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class}) // Alias in @EnableAutoConfiguration
 
+@SpringBootApplication(excludeName="DataSourceAutoConfiguration"}) // Alias in @EnableAutoConfiguration
+
 @EnableAutoConfiguration(exclude=SecurityAutoConfiguration.class)
+
+@EnableAutoConfiguration(excludeName="SecurityAutoConfiguration")
 ```
 
 ----------
