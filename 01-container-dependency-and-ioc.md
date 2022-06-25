@@ -571,7 +571,7 @@ Annotation definitions can be annotated with the `@Qualifier` annotation in orde
 - Proxy Disadvantages:
   - May create code hard to debug.
   - Needs to use unchecked exception for exceptions not declared in original method.
-  - May cause performance issues if before/after section in proxy code is using IO (Network, Disk)
+  - May cause performance issues if before/after section in proxy code is using IO (Network, Disk).
   - May cause unexpected equals operator (`==`) results since Proxy Object and Proxied Object are two different objects.
 
 - Spring can create `CGLIB proxy` and `JDK Dynamic proxy`.
@@ -658,7 +658,7 @@ FunBean funBean(){}
 
 The Spring container will create a subclass of each class annotated with `@Configuration` when creating an applicaion context using CGLIB. Final classes cannot be subclassed, thus classes annotated with `@Configuration` cannot be declared as final. 
 
-The reason for the Spring container subclassing `@Configuration` classes is to control bean creation - for single beans, subsequent requests to the method creating the bean should return the same bean isntance as created at the first invocation of the `@Bean` annotated method.
+The reason for the Spring container subclassing `@Configuration` classes is to control bean creation - for singleton beans, subsequent requests to the method creating the bean should return the same bean instance as created at the first invocation of the `@Bean` annotated method.
 
 #### How do `@Configuration` annotated classes support singleton beans?
 
