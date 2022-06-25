@@ -496,6 +496,7 @@ If a bean name is not specified:
 `@Autowired` supports Arrays, Collections, and Maps.
 
 There should be only one and only one `@Autowired` constructor in a class
+  - If there are multiple `@Autowired` constructors in a class, all of them must be set `required = false`.
 
 `@Autowired` can be used on fields with any access modifiers. Spring uses Java Reflection API, to inject values for fields annotated with it, so the access modifier is irrelevant.
 
