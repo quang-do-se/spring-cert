@@ -629,6 +629,8 @@ FunBean funBean(){}
 
 The default bean name is the name of the method annotated with the `@Bean` annotation and it will be used if there are no other name specified for the bean.
 
+`@Bean` annotated methods can't be *private* and *final* (due to CGLIB proxy). They can be *static*.
+
 ----------
 
 ### What is the default bean id if you only use `@Bean`? How can you override this?
