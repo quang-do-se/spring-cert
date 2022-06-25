@@ -41,7 +41,7 @@
 
 ### What is a pointcut, a join point, an advice, an aspect, weaving?
 
-- `Aspect` : A class containing code specific to a cross-cutting concern. A class declaration is recognized in Spring as an aspect if it is annotated with the @Aspect annotation. A module that encapsulates pointcuts and advice.
+- `Aspect` : A class containing code specific to a cross-cutting concern. A class declaration is recognized in Spring as an aspect if it is annotated with the `@Aspect` annotation. A module that encapsulates pointcuts and advice.
 
 - `Weaving` : A synonym for this word is interlacing, but in software the synonym is linking and it refers to aspects being combined with other types of objects to create an advised object. This can be done at compile time (using the AspectJ compiler, for example), load time, or at runtime. 
   - **Spring AOP, like other pure Java AOP frameworks, performs weaving at RUNTIME.**
