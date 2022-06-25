@@ -489,7 +489,7 @@ If a bean name is not specified:
   - Class name with `@Component` annotation (or its derivatives) will be used as bean name.
     - Bean name will be changed to **lower camel case**.
 
-`@Autowired` cannot be used to autowire primitive type, such as `String`. `@Value` is used for these primitive types.
+`@Autowired` cannot be used to autowire primitive type (However, it works for any Object type like `String` or `Integer`. `@Value` is a better way to inject these primitive types.
 
 `@Autowired` supports Generic Types.
 
