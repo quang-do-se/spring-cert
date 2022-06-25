@@ -801,7 +801,7 @@ The Spring `ApplicationContext` interface extends the `EnvironmentCapable` inter
 | Servlet context parameters (ServletContext)      | StandardServletEnvironment |
 | JNDI properties                                  | StandardServletEnvironment |
 | Command line properties                          | N/A                        |
-| Application configuration (properties file       | N/A                        |
+| Application configuration (properties file)      | N/A                        |
 | Server ports                                     | N/A                        |
 | Management server                                | N/A                        |
 
