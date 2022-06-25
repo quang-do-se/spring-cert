@@ -501,6 +501,8 @@ There should be only one and only one `@Autowired` constructor in a class
 
 Spring use Java Reflection API to detect `@Autowired` annotated methods, contructors or fields.
 
+`@Autowired` can be used on parameters or method arguments.
+
 `@Autowired` attribute `required` can only be used with setters, NOT constructor. Constructor injection is always **mandatory**.
   - `@Required` is alternative for `required` attribute but deprecated.
 

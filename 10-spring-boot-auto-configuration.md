@@ -32,6 +32,8 @@ The following is a list of the condition annotations in Spring Boot and the fact
 - `@ConditionalOnRepositoryType` - Specified type of Spring Data repository has been enabled.
 - `@ConditionalOnSingleCandidate` - Spring bean of specified type (class) contained in bean factory and single candidate can be determined.
 
+All of them can be applied on Class or Method.
+
 ----------
 
 ### What does `@EnableAutoConfiguration` do?
