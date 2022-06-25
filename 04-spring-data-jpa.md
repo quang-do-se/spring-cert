@@ -92,6 +92,8 @@ The `@Query` annotation allows for specifying a query to be used with a Spring D
 - Queries annotated to the `@Query` method take precedence over queries defined using `@NamedQuery` or named queries declared in _orm.xml_.
 - `@NamedNativeQuery` is used to define the query in native SQL but losing the database platform independence.
 - Use attribute `nativeQuery = true` to write native SQL.
+- `@Query` supports **`SpEL`**.
+- It has a Target of type ANNOTATION_TYPE and METHOD, thus it can be used to create custom annotations as well, as on top of methods.
 - Spring Data JPA does not currently support dynamic sorting for native queries, because it would have to manipulate the actual query declared, which it cannot do reliably for native SQL. You can, however, use native queries for pagination by specifying the count query yourself, as shown in the following example:
 
 ``` java
