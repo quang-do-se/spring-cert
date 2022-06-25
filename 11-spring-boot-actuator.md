@@ -422,7 +422,8 @@ There are several reasons for using a third-party external monitoring system in 
 - Gather data from multiple applications in one place.
 - Retain monitoring data over time.
   - This gives several subsequent opportunities, some of which are listed below.
-- Allow for querying monitoring data.Allow for visualization of monitoring data.
+- Allow for querying monitoring data.
+- Allow for visualization of monitoring data.
 - Enable alerting based on monitoring data.
 - Allow for analysis of monitoring data to find trends and to discover anomalies.
 
