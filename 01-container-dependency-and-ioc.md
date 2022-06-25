@@ -814,7 +814,7 @@ Spring Boot uses a very particular PropertySource order that is designed to allo
 
 - `@TestPropertySource` annotations on your tests.
 
-- `properties` attribute on your tests. Available on `@SpringBoot`Test and the test annotations for testing a particular slice of your application.
+- `properties` attribute on your tests. Available on `@SpringBoot` Test and the test annotations for testing a particular slice of your application.
 
 - Command line arguments.
 
