@@ -395,7 +395,7 @@ Examples of `BeanFactoryPostProcessor` are:
   
 
 Registration
-- An `ApplicationContext` auto-detects `BeanFactoryPostProcessor` beans in its bean definitions and applies them before any other beans get created. A `BeanFactoryPostProcessor` may also be registered programmatically with a ConfigurableApplicationContext.
+- An `ApplicationContext` auto-detects `BeanFactoryPostProcessor` beans in its bean definitions and applies them before any other beans get created. A `BeanFactoryPostProcessor` may also be registered programmatically with a `ConfigurableApplicationContext`.
 
 
 Ordering
