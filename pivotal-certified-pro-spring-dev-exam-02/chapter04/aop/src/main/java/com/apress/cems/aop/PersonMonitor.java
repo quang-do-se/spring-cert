@@ -34,6 +34,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -69,8 +70,12 @@ public class PersonMonitor {
     //@Before("execution(* com.apress.cems.*.*PersonRepo+.findBy*(..)) || execution (* com.apress.cems.aop.service.*Service+.findBy*(..)))")
     @Before("com.apress.cems.aop.PointcutContainer.repoFind() || com.apress.cems.aop.PointcutContainer.serviceFind()")
     public void beforeFind(JoinPoint joinPoint) {
+        var methodSignature = (MethodSignature) joinPoint.getSignature();
+
         var className = joinPoint.getSignature().getDeclaringTypeName();
         var methodName = joinPoint.getSignature().getName();
+
+        logger.info("[beforeFind]: ---> Method return type {}", methodSignature.getReturnType());
         logger.info("[beforeFind]: ---> Method {}.{}  is about to be called", className, methodName);
     }
 
@@ -113,6 +118,7 @@ public class PersonMonitor {
     @Around("com.apress.cems.aop.PointcutContainer.repoFind() || com.apress.cems.aop.PointcutContainer.serviceFind()")
     public Object aroundFind(ProceedingJoinPoint joinPoint) throws Throwable {
         var methodName = joinPoint.getSignature().getName();
+
         logger.info("[aroundFind]: ---> Intercepting call of {}", methodName);
         long t1 = System.currentTimeMillis();
         try {
