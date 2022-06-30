@@ -1,0 +1,5 @@
+- Pivotal Certified Professional Core Spring 5 Developer Exams by Iuliana Cosmina
+- Core Spring 5 Certification in Detail by Ivan Krizsan
+- Ivan Mirchev's VMware Spring Professional Certification Ultimate Mock Exams on Udemy
+- Dominik Cebula's some free preview videos (I ran out of money to buy his courses. But I plan to buy them in the future. Good stuff!)
+- Official exam guide (I answered all the questions in the guide and cross-referenced between different sources)
