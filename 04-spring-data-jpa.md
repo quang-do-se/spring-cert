@@ -1,3 +1,15 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [What is a Spring Data Repository interface?](#what-is-a-spring-data-repository-interface)
+- [How do you define a Spring Data Repository interface? Why is it an interface not a class?](#how-do-you-define-a-spring-data-repository-interface-why-is-it-an-interface-not-a-class)
+- [What is the naming convention for finder methods in a Spring Data Repository interface?](#what-is-the-naming-convention-for-finder-methods-in-a-spring-data-repository-interface)
+- [How are Spring Data repositories implemented by Spring at runtime?](#how-are-spring-data-repositories-implemented-by-spring-at-runtime)
+- [What is `@Query` used for?](#what-is-query-used-for)
+
+<!-- markdown-toc end -->
+
+----------
 
 ### What is a Spring Data Repository interface?
 

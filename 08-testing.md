@@ -1,3 +1,19 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [What type of tests typically use Spring?](#what-type-of-tests-typically-use-spring)
+- [How can you create a shared application context in a JUnit integration test?](#how-can-you-create-a-shared-application-context-in-a-junit-integration-test)
+- [When and where do you use `@Transactional` in testing?](#when-and-where-do-you-use-transactional-in-testing)
+- [How are mock frameworks such as `Mockito` or `EasyMock` used?](#how-are-mock-frameworks-such-as-mockito-or-easymock-used)
+- [How is `@ContextConfiguration` used?](#how-is-contextconfiguration-used)
+- [How does Spring Boot simplify writing tests?](#how-does-spring-boot-simplify-writing-tests)
+- [What does `@SpringBootTest` do? How does it interact with `@SpringBootApplication` and `@SpringBootConfiguration`?](#what-does-springboottest-do-how-does-it-interact-with-springbootapplication-and-springbootconfiguration)
+- [EXTRA](#extra)
+    - [Which tests to use?](#which-tests-to-use)
+
+<!-- markdown-toc end -->
+
+----------
 
 ### What type of tests typically use Spring?
 
@@ -99,7 +115,7 @@ When annotating a test class that run Spring Boot based tests, the `@SpringBootT
   
 ----------
 
-# EXTRA
+## EXTRA
 
 ### Which tests to use?
 

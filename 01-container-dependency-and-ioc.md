@@ -1,3 +1,64 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [What is Dependency Injection?](#what-is-dependency-injection)
+    - [Advantages of Dependency Injection](#advantages-of-dependency-injection)
+    - [Disadvantage of Dependency Injection](#disadvantage-of-dependency-injection)
+- [What is an interface and what are the advantages of making use of them in Java?](#what-is-an-interface-and-what-are-the-advantages-of-making-use-of-them-in-java)
+    - [What is an interface?](#what-is-an-interface)
+    - [What are the advantages of making use of them in Java?](#what-are-the-advantages-of-making-use-of-them-in-java)
+- [What is an `ApplicationContext`?](#what-is-an-applicationcontext)
+- [How are you going to create a new instance of an `ApplicationContext`?](#how-are-you-going-to-create-a-new-instance-of-an-applicationcontext)
+    - [Non-Web Applications](#non-web-applications)
+    - [Web Application](#web-application)
+    - [`AnnotationConfigWebApplicationContext` with `WebApplicationInitializer`](#annotationconfigwebapplicationcontext-with-webapplicationinitializer)
+    - [`AbstractAnnotationConfigDispatcherServletInitializer`](#abstractannotationconfigdispatcherservletinitializer)
+- [Can you describe the lifecycle of a Spring Bean in an `ApplicationContext`?](#can-you-describe-the-lifecycle-of-a-spring-bean-in-an-applicationcontext)
+- [How are you going to create an `ApplicationContext` in an integration test?](#how-are-you-going-to-create-an-applicationcontext-in-an-integration-test)
+    - [`JUnit 4`](#junit-4)
+    - [`JUnit 5`](#junit-5)
+- [What is the preferred way to close an application context? Does Spring Boot do this for you?](#what-is-the-preferred-way-to-close-an-application-context-does-spring-boot-do-this-for-you)
+    - [Standalone Application](#standalone-application)
+    - [Web Application](#web-application-1)
+    - [Spring Boot Application](#spring-boot-application)
+- [Are beans lazily or eagerly instantiated by default? How do you alter this behavior?](#are-beans-lazily-or-eagerly-instantiated-by-default-how-do-you-alter-this-behavior)
+- [What is a property source? How would you use `@PropertySource`?](#what-is-a-property-source-how-would-you-use-propertysource)
+- [What is a `BeanFactoryPostProcessor` and what is it used for? When is it invoked?](#what-is-a-beanfactorypostprocessor-and-what-is-it-used-for-when-is-it-invoked)
+- [What is a `BeanPostProcessor` and how is it different to a `BeanFactoryPostProcessor`? What do they do? When are they called?](#what-is-a-beanpostprocessor-and-how-is-it-different-to-a-beanfactorypostprocessor-what-do-they-do-when-are-they-called)
+- [What does `component-scanning` do?](#what-does-component-scanning-do)
+- [What is the behavior of the annotation `@Autowired` with regards to field injection, constructor injection and method injection?](#what-is-the-behavior-of-the-annotation-autowired-with-regards-to-field-injection-constructor-injection-and-method-injection)
+- [How does the `@Qualifier` annotation complement the use of `@Autowired`?](#how-does-the-qualifier-annotation-complement-the-use-of-autowired)
+    - [`@Qualifier` at Injection Points](#qualifier-at-injection-points)
+    - [`@Qualifier` at Bean Definitions](#qualifier-at-bean-definitions)
+    - [`@Qualifier` at Stereotype Annotation](#qualifier-at-stereotype-annotation)
+    - [`@Qualifier` at Annotation Definitions](#qualifier-at-annotation-definitions)
+- [What is a `proxy` object and what are the two different types of proxies Spring can create?](#what-is-a-proxy-object-and-what-are-the-two-different-types-of-proxies-spring-can-create)
+- [What does the `@Bean` annotation do?](#what-does-the-bean-annotation-do)
+- [What is the default bean id if you only use `@Bean`? How can you override this?](#what-is-the-default-bean-id-if-you-only-use-bean-how-can-you-override-this)
+- [Why are you not allowed to annotate a final class with `@Configuration`?](#why-are-you-not-allowed-to-annotate-a-final-class-with-configuration)
+    - [How do `@Configuration` annotated classes support singleton beans?](#how-do-configuration-annotated-classes-support-singleton-beans)
+    - [Why can't `@Bean` methods be final either?](#why-cant-bean-methods-be-final-either)
+- [How do you configure `profiles`? What are possible use cases where they might be useful?](#how-do-you-configure-profiles-what-are-possible-use-cases-where-they-might-be-useful)
+- [Can you use `@Bean` together with `@Profile`?](#can-you-use-bean-together-with-profile)
+- [Can you use `@Component` together with `@Profile`?](#can-you-use-component-together-with-profile)
+- [How many `profiles` can you have?](#how-many-profiles-can-you-have)
+- [How do you inject scalar/literal values into Spring beans?](#how-do-you-inject-scalarliteral-values-into-spring-beans)
+- [What is Spring Expression Language (`SpEL` for short)?](#what-is-spring-expression-language-spel-for-short)
+- [What is the Environment abstraction in Spring?](#what-is-the-environment-abstraction-in-spring)
+- [Where can properties in the environment come from – there are many sources for properties – check the documentation if not sure. Spring Boot adds even more.](#where-can-properties-in-the-environment-come-from--there-are-many-sources-for-properties--check-the-documentation-if-not-sure-spring-boot-adds-even-more)
+- [What can you reference using `SpEL?`](#what-can-you-reference-using-spel)
+- [What is the difference between `$` and `#` in `@Value` expressions?](#what-is-the-difference-between--and--in-value-expressions)
+- [Extras](#extras)
+    - [Bean Scopes](#bean-scopes)
+    - [Why would you define a static `@Bean` method?](#why-would-you-define-a-static-bean-method)
+    - [Which type of Exception does Spring use?](#which-type-of-exception-does-spring-use)
+    - [What annotatiosn that can affect the order in which the IoC Container instantiates beans?](#what-annotatiosn-that-can-affect-the-order-in-which-the-ioc-container-instantiates-beans)
+    - [`@Bean` *Lite* Mode](#bean-lite-mode)
+        - [`@PostConstruct`, `initMethod` property of `@Bean` property, `@PreDestroy`, `destroyMethod` property of `@Bean` property](#postconstruct-initmethod-property-of-bean-property-predestroy-destroymethod-property-of-bean-property)
+
+<!-- markdown-toc end -->
+
+----------
 
 ### What is Dependency Injection?
 
@@ -890,9 +951,7 @@ Expression in `@Value` annotations are of two types:
 
 ----------
 
-
-# Extras
-
+## Extras
 
 ### Bean Scopes
 

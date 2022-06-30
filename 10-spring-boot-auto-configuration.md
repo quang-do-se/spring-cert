@@ -1,3 +1,18 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [How does Spring Boot know what to configure?](#how-does-spring-boot-know-what-to-configure)
+- [What does `@EnableAutoConfiguration` do?](#what-does-enableautoconfiguration-do)
+- [What does `@SpringBootApplication` do?](#what-does-springbootapplication-do)
+- [Does Spring Boot do component scanning? Where does it look by default?](#does-spring-boot-do-component-scanning-where-does-it-look-by-default)
+- [How are DataSource and JdbcTemplate auto-configured?](#how-are-datasource-and-jdbctemplate-auto-configured)
+- [What is `spring.factories` file for?](#what-is-springfactories-file-for)
+- [How do you customize Spring Boot auto configuration?](#how-do-you-customize-spring-boot-auto-configuration)
+- [What are the examples of `@Conditional` annotations? How are they used?](#what-are-the-examples-of-conditional-annotations-how-are-they-used)
+
+<!-- markdown-toc end -->
+
+----------
 
 ### How does Spring Boot know what to configure?
 

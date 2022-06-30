@@ -1,3 +1,27 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [What is the concept of AOP? Which problem does it solve? What is a cross cutting concern?](#what-is-the-concept-of-aop-which-problem-does-it-solve-what-is-a-cross-cutting-concern)
+    - [What is the concept of AOP?](#what-is-the-concept-of-aop)
+    - [Which problem does it solve?](#which-problem-does-it-solve)
+    - [What is a cross cutting concern?](#what-is-a-cross-cutting-concern)
+- [What is a pointcut, a join point, an advice, an aspect, weaving?](#what-is-a-pointcut-a-join-point-an-advice-an-aspect-weaving)
+- [How does Spring solve (implement) a cross cutting concern?](#how-does-spring-solve-implement-a-cross-cutting-concern)
+- [Which are the limitations of the two proxy-types?](#which-are-the-limitations-of-the-two-proxy-types)
+- [How many advice types does Spring support? Can you name each one?](#how-many-advice-types-does-spring-support-can-you-name-each-one)
+- [If shown pointcut expressions, would you understand them?](#if-shown-pointcut-expressions-would-you-understand-them)
+    - [The template that a pointcut expression follows can be defined as follows:](#the-template-that-a-pointcut-expression-follows-can-be-defined-as-follows)
+    - [Even pointcut declarations can be decoupled using `@Poincut`. Example:](#even-pointcut-declarations-can-be-decoupled-using-poincut-example)
+    - [Spring AOP supports the following AspectJ pointcut designators (PCD) for use in pointcut expressions:](#spring-aop-supports-the-following-aspectj-pointcut-designators-pcd-for-use-in-pointcut-expressions)
+- [What is the `JoinPoint` argument used for?](#what-is-the-joinpoint-argument-used-for)
+- [What is a `ProceedingJoinPoint`? Which advice type is it used with?](#what-is-a-proceedingjoinpoint-which-advice-type-is-it-used-with)
+- [Extras](#extras)
+    - [How do you enable Aspect support?](#how-do-you-enable-aspect-support)
+
+<!-- markdown-toc end -->
+
+----------
+
 ### What is the concept of AOP? Which problem does it solve? What is a cross cutting concern?
 
 #### What is the concept of AOP?
@@ -260,7 +284,7 @@ public class AroundExample {
 
 ----------
 
-# Extras
+## Extras
 
 ### How do you enable Aspect support?
 

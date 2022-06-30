@@ -1,3 +1,37 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [What are authentication and authorization? Which must come first?](#what-are-authentication-and-authorization-which-must-come-first)
+    - [Authentication](#authentication)
+    - [Authorization](#authorization)
+    - [Which must come first?](#which-must-come-first)
+- [Is security a cross cutting concern? How is it implemented internally?](#is-security-a-cross-cutting-concern-how-is-it-implemented-internally)
+    - [How is Security implemented internally in Spring Security?](#how-is-security-implemented-internally-in-spring-security)
+    - [Spring Security Web Infrastructure](#spring-security-web-infrastructure)
+- [What is the delegating filter proxy?](#what-is-the-delegating-filter-proxy)
+- [What is the security filter chain?](#what-is-the-security-filter-chain)
+    - [Request Matcher](#request-matcher)
+    - [Filters](#filters)
+- [What is a security context?](#what-is-a-security-context)
+    - [Spring Security Core Components](#spring-security-core-components)
+- [What does the `**` pattern in an `antMatcher` or `mvcMatcher` do?](#what-does-the--pattern-in-an-antmatcher-or-mvcmatcher-do)
+- [Why is the usage of `mvcMatcher` recommended over `antMatcher`?](#why-is-the-usage-of-mvcmatcher-recommended-over-antmatcher)
+- [Does Spring Security support password encoding?](#does-spring-security-support-password-encoding)
+    - [Password Hashing](#password-hashing)
+    - [Salting](#salting)
+- [Why do you need method security? What type of object is typically secured at the method level (think of its purpose not its Java type).](#why-do-you-need-method-security-what-type-of-object-is-typically-secured-at-the-method-level-think-of-its-purpose-not-its-java-type)
+- [What do `@PreAuthorized` and `@RolesAllowed` do? What is the difference between them?](#what-do-preauthorized-and-rolesallowed-do-what-is-the-difference-between-them)
+    - [`@PreAuthorize`](#preauthorize)
+    - [`@RolesAllowed`](#rolesallowed)
+    - [`@Secured`](#secured)
+- [How are these annotations implemented?](#how-are-these-annotations-implemented)
+- [In which security annotation, are you allowed to use SpEL?](#in-which-security-annotation-are-you-allowed-to-use-spel)
+- [Extra](#extra)
+    - [`@EnableWebSecurity`](#enablewebsecurity)
+
+<!-- markdown-toc end -->
+
+----------
 
 ### What are authentication and authorization? Which must come first?
 
@@ -281,7 +315,7 @@ Method-level security is accomplished using Spring AOP proxies.
 
 ----------
 
-# Extra
+## Extra
 
 ### `@EnableWebSecurity`
 

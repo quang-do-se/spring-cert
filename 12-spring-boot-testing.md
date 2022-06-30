@@ -1,3 +1,20 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [When do you want to use `@SpringBootTest` annotation?](#when-do-you-want-to-use-springboottest-annotation)
+- [What does `@SpringBootTest` auto-configure?](#what-does-springboottest-auto-configure)
+- [What dependencies does `spring-boot-starter-test` brings to the classpath?](#what-dependencies-does-spring-boot-starter-test-brings-to-the-classpath)
+- [How do you perform integration testing with `@SpringBootTest` for a web application?](#how-do-you-perform-integration-testing-with-springboottest-for-a-web-application)
+- [When do you want to use `@WebMvcTest`? What does it auto-configure?](#when-do-you-want-to-use-webmvctest-what-does-it-auto-configure)
+- [What are the differences between `@MockBean` and `@Mock`?](#what-are-the-differences-between-mockbean-and-mock)
+- [When do you want `@DataJpaTest` for? What does it auto-configure?](#when-do-you-want-datajpatest-for-what-does-it-auto-configure)
+- [Extra](#extra)
+    - [Which annotations can be used in integration tests to test if object serialization and deserialization works as expected?](#which-annotations-can-be-used-in-integration-tests-to-test-if-object-serialization-and-deserialization-works-as-expected)
+    - [Other Spring Boot tests](#other-spring-boot-tests)
+
+<!-- markdown-toc end -->
+
+----------
 
 ### When do you want to use `@SpringBootTest` annotation?
 
@@ -214,7 +231,7 @@ The `@DataJpaTest` also annotation auto-configures the following:
 
 ----------
 
-# Extra
+## Extra
 
 ### Which annotations can be used in integration tests to test if object serialization and deserialization works as expected?
 

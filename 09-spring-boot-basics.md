@@ -1,3 +1,32 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [What is Spring Boot?](#what-is-spring-boot)
+- [What are the advantages of using Spring Boot?](#what-are-the-advantages-of-using-spring-boot)
+- [What things affect what Spring Boot sets up?](#what-things-affect-what-spring-boot-sets-up)
+- [What is a Spring Boot starter? Why is it useful?](#what-is-a-spring-boot-starter-why-is-it-useful)
+- [Spring Boot supports both properties and YML files. Would you recognize and understand them if you saw them?](#spring-boot-supports-both-properties-and-yml-files-would-you-recognize-and-understand-them-if-you-saw-them)
+- [Can you control logging with Spring Boot? How?](#can-you-control-logging-with-spring-boot-how)
+    - [Controlling Log Levels](#controlling-log-levels)
+    - [Customizing the Log Pattern](#customizing-the-log-pattern)
+    - [Choosing a Logging System](#choosing-a-logging-system)
+    - [Logging System Specific Configuration](#logging-system-specific-configuration)
+- [Where does Spring Boot look for application.properties file by default?](#where-does-spring-boot-look-for-applicationproperties-file-by-default)
+- [How do you define profile specific property files?](#how-do-you-define-profile-specific-property-files)
+- [How do you access the properties defined in the property files?](#how-do-you-access-the-properties-defined-in-the-property-files)
+- [What properties do you have to define in order to configure external MySQL?](#what-properties-do-you-have-to-define-in-order-to-configure-external-mysql)
+- [How do you configure default schema and initial data?](#how-do-you-configure-default-schema-and-initial-data)
+    - [Configure Default Schema](#configure-default-schema)
+    - [Database Initialization](#database-initialization)
+    - [Supplying Initial Data](#supplying-initial-data)
+    - [Embedded databases](#embedded-databases)
+- [What is a fat jar? How is it different from the original jar?](#what-is-a-fat-jar-how-is-it-different-from-the-original-jar)
+- [What embedded containers does Spring Boot support?](#what-embedded-containers-does-spring-boot-support)
+
+<!-- markdown-toc end -->
+
+----------
+
 ### What is Spring Boot?
 
 It is a Spring framework, designed to simplify the bootstrapping and development of a new Spring application. 

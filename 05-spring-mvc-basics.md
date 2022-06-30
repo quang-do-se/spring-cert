@@ -1,3 +1,20 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [What is the `@Controller` annotation used for?](#what-is-the-controller-annotation-used-for)
+- [How is an incoming request mapped to a controller and mapped to a method?](#how-is-an-incoming-request-mapped-to-a-controller-and-mapped-to-a-method)
+- [What is the difference between `@RequestMapping` and `@GetMapping`?](#what-is-the-difference-between-requestmapping-and-getmapping)
+- [What is `@RequestParam` used for?](#what-is-requestparam-used-for)
+- [What are the differences between `@RequestParam` and `@PathVariable`?](#what-are-the-differences-between-requestparam-and-pathvariable)
+    - [Request Parameters](#request-parameters)
+    - [Path Variables](#path-variables)
+    - [Difference](#difference)
+- [What are the ready-to-use argument types you can use in a controller method?](#what-are-the-ready-to-use-argument-types-you-can-use-in-a-controller-method)
+- [What are some of the valid return types of a controller method?](#what-are-some-of-the-valid-return-types-of-a-controller-method)
+
+<!-- markdown-toc end -->
+
+----------
 
 ### What is the `@Controller` annotation used for?
 
