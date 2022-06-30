@@ -1,3 +1,45 @@
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [What is the difference between checked and unchecked exceptions?](#what-is-the-difference-between-checked-and-unchecked-exceptions)
+    - [Why does Spring prefer unchecked exceptions?](#why-does-spring-prefer-unchecked-exceptions)
+    - [What is the data access exception hierarchy?](#what-is-the-data-access-exception-hierarchy)
+- [How do you configure a DataSource in Spring?](#how-do-you-configure-a-datasource-in-spring)
+    - [How do you configure a DataSource in Spring?](#how-do-you-configure-a-datasource-in-spring-1)
+    - [`DataSource` in standalone application](#datasource-in-standalone-application)
+    - [DataSource in an application deployed to a server](#datasource-in-an-application-deployed-to-a-server)
+- [What is the Template design pattern and what is the JDBC template?](#what-is-the-template-design-pattern-and-what-is-the-jdbc-template)
+    - [What is the Template design pattern?](#what-is-the-template-design-pattern)
+    - [What is the JDBC template?](#what-is-the-jdbc-template)
+- [What is a callback? What are the JdbcTemplate callback interfaces that can be used with queries? What is each used for? (You would not have to remember the interface names in the exam, but you should know what they do if you see them in a code sample).](#what-is-a-callback-what-are-the-jdbctemplate-callback-interfaces-that-can-be-used-with-queries-what-is-each-used-for-you-would-not-have-to-remember-the-interface-names-in-the-exam-but-you-should-know-what-they-do-if-you-see-them-in-a-code-sample)
+- [Can you execute a plain SQL statement with the JDBC template?](#can-you-execute-a-plain-sql-statement-with-the-jdbc-template)
+- [When does the JDBC template acquire (and release) a connection, for every method called or once per template? Why?](#when-does-the-jdbc-template-acquire-and-release-a-connection-for-every-method-called-or-once-per-template-why)
+- [How does the JdbcTemplate support queries? How does it return objects and lists/maps of objects?](#how-does-the-jdbctemplate-support-queries-how-does-it-return-objects-and-listsmaps-of-objects)
+- [What is a transaction? What is the difference between a local and a global transaction?](#what-is-a-transaction-what-is-the-difference-between-a-local-and-a-global-transaction)
+    - [What is a transaction?](#what-is-a-transaction)
+    - [What is the difference between a local and a global transaction?](#what-is-the-difference-between-a-local-and-a-global-transaction)
+- [Is a transaction a cross cutting concern? How is it implemented by Spring?](#is-a-transaction-a-cross-cutting-concern-how-is-it-implemented-by-spring)
+- [How are you going to define a transaction in Spring?](#how-are-you-going-to-define-a-transaction-in-spring)
+    - [What is the `PlatformTransactionManager`?](#what-is-the-platformtransactionmanager)
+- [Is the JDBC template able to participate in an existing transaction?](#is-the-jdbc-template-able-to-participate-in-an-existing-transaction)
+- [What is `@EnableTransactionManagement` for?](#what-is-enabletransactionmanagement-for)
+- [How does transaction propagation work?](#how-does-transaction-propagation-work)
+    - [Transaction Propagation](#transaction-propagation)
+    - [Transaction Isolation](#transaction-isolation)
+- [What happens if one `@Transactional` annotated method is calling another `@Transactional` annotated method inside a same object instance?](#what-happens-if-one-transactional-annotated-method-is-calling-another-transactional-annotated-method-inside-a-same-object-instance)
+- [Where can the `@Transactional` annotation be used? What is a typical usage if you put it at class level?](#where-can-the-transactional-annotation-be-used-what-is-a-typical-usage-if-you-put-it-at-class-level)
+- [What does declarative transaction management mean?](#what-does-declarative-transaction-management-mean)
+- [What is the default rollback policy? How can you override it?](#what-is-the-default-rollback-policy-how-can-you-override-it)
+- [What is the default rollback policy in a JUnit test, when you use the `@RunWith(SpringJUnit4ClassRunner.class)` in JUnit 4 or `@ExtendWith(SpringExtension. class)` in JUnit 5, and annotate your `@Test` annotated method with `@Transactional`?](#what-is-the-default-rollback-policy-in-a-junit-test-when-you-use-the-runwithspringjunit4classrunnerclass-in-junit-4-or-extendwithspringextension-class-in-junit-5-and-annotate-your-test-annotated-method-with-transactional)
+- [Are you able to participate in a given transaction in Spring while working with JPA?](#are-you-able-to-participate-in-a-given-transaction-in-spring-while-working-with-jpa)
+- [Which `PlatformTransactionManager(s)` can you use with JPA?](#which-platformtransactionmanagers-can-you-use-with-jpa)
+- [What do you have to configure to use JPA with Spring? How does Spring Boot make this easier?](#what-do-you-have-to-configure-to-use-jpa-with-spring-how-does-spring-boot-make-this-easier)
+    - [What do you have to configure to use JPA with Spring?](#what-do-you-have-to-configure-to-use-jpa-with-spring)
+    - [How does Spring Boot make this easier?](#how-does-spring-boot-make-this-easier)
+
+<!-- markdown-toc end -->
+
+----------
 
 ### What is the difference between checked and unchecked exceptions?
 
