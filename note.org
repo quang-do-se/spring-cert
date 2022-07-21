@@ -674,8 +674,8 @@
 * Spring Boot JPA
 
 ** No need for configuration.
-** Have "spring-boot-starter-data-jpa" on classpath and add approriate properties in application.yml
-
+** Have `spring-boot-starter-data-jpa` on classpath and add approriate properties in `application.yml`
+** Ref: https://spring.io/guides/gs/managing-transactions/
 
 * JDBCTemplate
 
