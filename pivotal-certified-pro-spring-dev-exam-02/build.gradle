@@ -16,7 +16,7 @@ subprojects {
         maven { url "https://repo.spring.io/snapshot/" }
         maven { url "https://repo.spring.io/milestone" }
         maven { url "https://plugins.gradle.org/m2/" }
-        maven {url "https://projectlombok.org/edge-releases"}
+        maven { url "https://projectlombok.org/edge-releases" }
     }
 }
 
@@ -55,40 +55,40 @@ ext {
 
     //testing
     h2Version = '2.0.206'
-    junitVersion ='4.13'
+    junitVersion = '4.13'
     junit5Version = '5.6.0'
     junit5PlatformVersion = '1.6.0'
-    easymockVersion ='4.2'
-    jmockVersion ='2.12.0'
-    mockitoAllVersion ='2.0.2-beta'
+    easymockVersion = '4.2'
+    jmockVersion = '2.12.0'
+    mockitoAllVersion = '2.0.2-beta'
     mockitoVersion = '3.2.4'
     mongoVersion = '2.2.0'
     restAssuredVersion = '4.2.0'
     hamcrestVersion = '2.1'
 
     boot = [
-            springBootPlugin: "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion",
-            starterWeb      : "org.springframework.boot:spring-boot-starter-web:$springBootVersion",
+            springBootPlugin    : "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion",
+            starterWeb          : "org.springframework.boot:spring-boot-starter-web:$springBootVersion",
             starterWebflux      : "org.springframework.boot:spring-boot-starter-webflux:$springBootVersion",
-            starterJetty    : "org.springframework.boot:spring-boot-starter-jetty:$springBootVersion",
-            starterJpa      : "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion",
-            starterMongo    : "org.springframework.boot:spring-boot-starter-data-mongodb:$springBootVersion",
-            starterMongoReactive    : "org.springframework.boot:spring-boot-starter-data-mongodb-reactive:$springBootVersion",
-            starterTest     : "org.springframework.boot:spring-boot-starter-test:$springBootVersion",
-            actuator        : "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion",
-            devtools        : "org.springframework.boot:spring-boot-devtools:$springBootVersion",
-            starterThymeleaf: "org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion",
-            starterMustache : "org.springframework.boot:spring-boot-starter-mustache:$springBootVersion",
-            prometheus      : "io.micrometer:micrometer-registry-prometheus:$prometheusVersion",
-            starterSecurity : "org.springframework.boot:spring-boot-starter-security:$springBootVersion",
-            r2dbcBom        : "org.springframework.boot.experimental:spring-boot-bom-r2dbc:$springBootR2dbcVersion",
-            starterR2dbc    : "org.springframework.boot.experimental:spring-boot-starter-data-r2dbc:$springBootR2dbcVersion",
-            r2dbcTest       : "org.springframework.boot.experimental:spring-boot-test-autoconfigure-r2dbc:$springBootR2dbcVersion"
+            starterJetty        : "org.springframework.boot:spring-boot-starter-jetty:$springBootVersion",
+            starterJpa          : "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion",
+            starterMongo        : "org.springframework.boot:spring-boot-starter-data-mongodb:$springBootVersion",
+            starterMongoReactive: "org.springframework.boot:spring-boot-starter-data-mongodb-reactive:$springBootVersion",
+            starterTest         : "org.springframework.boot:spring-boot-starter-test:$springBootVersion",
+            actuator            : "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion",
+            devtools            : "org.springframework.boot:spring-boot-devtools:$springBootVersion",
+            starterThymeleaf    : "org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion",
+            starterMustache     : "org.springframework.boot:spring-boot-starter-mustache:$springBootVersion",
+            prometheus          : "io.micrometer:micrometer-registry-prometheus:$prometheusVersion",
+            starterSecurity     : "org.springframework.boot:spring-boot-starter-security:$springBootVersion",
+            r2dbcBom            : "org.springframework.boot.experimental:spring-boot-bom-r2dbc:$springBootR2dbcVersion",
+            starterR2dbc        : "org.springframework.boot.experimental:spring-boot-starter-data-r2dbc:$springBootR2dbcVersion",
+            r2dbcTest           : "org.springframework.boot.experimental:spring-boot-test-autoconfigure-r2dbc:$springBootR2dbcVersion"
     ]
 
     spring = [
             beans          : "org.springframework:spring-beans:$springVersion",
-            aop          : "org.springframework:spring-aop:$springVersion",
+            aop            : "org.springframework:spring-aop:$springVersion",
             contextSupport : "org.springframework:spring-context-support:$springVersion",
             orm            : "org.springframework:spring-orm:$springVersion",
             jdbc           : "org.springframework:spring-jdbc:$springVersion",
@@ -104,11 +104,11 @@ ext {
     ]
 
     cloud = [
-            dataCommons   : "org.springframework.data:spring-data-commons:$springJpaVersion",
-            cloudStarter  : "org.springframework.cloud:spring-cloud-starter-config:$springCloudVersion",
-            eurekaServer  : "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:$springCloudVersion",
-            eurekaClient  : "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:$springCloudVersion",
-            bom           : "org.springframework.cloud:spring-cloud-dependencies:$cloudReleaseTrainVersion"
+            dataCommons : "org.springframework.data:spring-data-commons:$springJpaVersion",
+            cloudStarter: "org.springframework.cloud:spring-cloud-starter-config:$springCloudVersion",
+            eurekaServer: "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:$springCloudVersion",
+            eurekaClient: "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:$springCloudVersion",
+            bom         : "org.springframework.cloud:spring-cloud-dependencies:$cloudReleaseTrainVersion"
     ]
 
     hibernate = [
@@ -119,7 +119,7 @@ ext {
             javaxELApi: "org.glassfish:javax.el:3.0.1-b11"
     ]
 
-    misc  = [
+    misc = [
             aspectjweaver    : "org.aspectj:aspectjweaver:$aspectjVersion",
             h2               : "com.h2database:h2:$h2Version",
             jsr250           : "javax.annotation:javax.annotation-api:1.3.2",
@@ -174,7 +174,7 @@ repositories {
     maven { url "https://repo.spring.io/snapshot/" }
     maven { url "https://repo.spring.io/milestone" }
     maven { url "https://plugins.gradle.org/m2/" }
-    maven {url "https://projectlombok.org/edge-releases"}
+    maven { url "https://projectlombok.org/edge-releases" }
 }
 
 task allDeps {
