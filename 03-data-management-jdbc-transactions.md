@@ -379,12 +379,12 @@ There are seven different options available when setting the propagation in a `@
 
 Transaction isolation in database systems determine how the changes within a transaction are visible to other users and systems accessing the database prior to the transaction being committed. A higher isolation level reduces, or even eliminates, the chance for the problems described below that may appear when the database is updated and accessed concurrently. The drawback of higher isolation levels is a reduction of the ability of multiple users and systems concurrently accessing the database as well as increased use of system resources on the database server.
 
-|                  | dirty reads | non-repeatable reads | phantom reads |
-|------------------|-------------|----------------------|---------------|
-| READ_UNCOMMITTED | Yes         | Yes                  | Yes           |
-| READ_COMMITTED   | No          | Yes                  | Yes           |
-| REPEATABLE_READ  | No          | No                   | Yes           |
-| SERIALIZABLE     | No          | No                   | No            |
+|                  | dirty reads | lost update | non-repeatable reads | phantom reads |
+|------------------|-------------|-------------|----------------------|---------------|
+| READ_UNCOMMITTED | Yes         | Yes         | Yes                  | Yes           |
+| READ_COMMITTED   | No          | Yes         | Yes                  | Yes           |
+| REPEATABLE_READ  | No          | No          | No                   | Yes           |
+| SERIALIZABLE     | No          | No          | No                   | No            |
 
 
 Level of Read phenomana (from worse to better):
@@ -394,6 +394,8 @@ Level of Read phenomana (from worse to better):
 - `Non-repeatable reads`: A non-repeatable read occurs when, during the course of a transaction, a row is retrieved twice and the values within the row differ between reads.
 
 - `Phantom reads`: A phantom read occurs when, in the course of a transaction, new rows are added or removed by another transaction to the records being read.
+
+*Note*: If you choose the lowest isolation level (i.e. Read Uncommitted), then it increases the number of concurrent transactions that can be executed at the same time, but the downside is that you may get all sorts of concurrency problems. On the other hand, if you choose the highest isolation level (i.e. Serializable or Snapshot), then you will not get any concurrency problems, but the downside is that it will reduce the number of concurrent transactions that can be executed at the same time if those transactions are working with the same data.
 
 ----------
 
