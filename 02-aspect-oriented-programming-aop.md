@@ -291,3 +291,9 @@ public class AroundExample {
 To enable aspect support, the `@Configuration` class must be annotated with `@EnableAspectJAutoProxy`.
 
 Add `@Aspect` and `@Component` on class that contains pointcuts and advice.
+
+### Invoke Spring `@Cacheable` from Another Method of Same Bean
+
+Spring provides an annotation-based approach to enable caching on a Spring-managed bean. Based on the AOP technology, it’s easy to make a method cacheable by adding the annotation `@Cacheable` on it. However, the cache will be ignored when called from within the same class.
+
+Reference: https://www.baeldung.com/spring-invoke-cacheable-other-method-same-bean
