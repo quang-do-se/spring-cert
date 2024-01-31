@@ -1,4 +1,3 @@
-
 #+STARTUP: showall
 
 * An application programming interface (API) describes what a class/method does; a Service Provider Interface (SPI) describes what you need to extend and implement.
