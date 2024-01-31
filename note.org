@@ -303,7 +303,8 @@
      }
    #+end_src
 
-** @ComponentScan needs to go with @Configuration
+** @ComponentScan needs to go together with @Configuration
+  - @Import can be used without @Configuration
 
 * @RestController: @Controller + @ResponseBody
 
